@@ -6,6 +6,8 @@
 #include <LiveWindow/LiveWindow.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
+#include <Drive.h>
+#include <Macros.h>
 
 class Robot: public frc::IterativeRobot {
 public:
