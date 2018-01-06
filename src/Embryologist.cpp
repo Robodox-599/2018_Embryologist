@@ -7,10 +7,10 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <Drive.h>
-#include <Intake.h>
 #include <Lift.h>
 #include <Climb.h>
 #include <Macros.h>
+#include <Manipulator.h>
 
 class Robot: public frc::IterativeRobot {
 public:
