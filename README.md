@@ -1,4 +1,6 @@
 ## Embryologist (Emma): Robodox 2018 FRC Robot 
+**The Cube is not a Cube**
+
 Programming Team:
 
 Sam @[SuperSam6i7](http://github.com/supersam6i7) **(Head Programmer)**
