@@ -21,7 +21,7 @@ Manipulator::~Manipulator()
 	delete rightMotor;
 }
 
-void Manipulator::intakeCube(bool button)
+void Manipulator::intake_outtake_Cube(bool button, bool Button)
 {
 	if (button)
 	{
@@ -29,26 +29,16 @@ void Manipulator::intakeCube(bool button)
 		rightMotor->Set(1); //These are dummy values//
 	}
 
-	else
-	{
-		leftMotor->Set(0);
-		rightMotor->Set(0);
-	}
-
-}
-
-void Manipulator::outtakeCube(bool Button)
-{
-	if (Button)
+	else if (Button)
 	{
 		leftMotor->Set(-1); //These are dummy values//
 		rightMotor->Set(-1); //These are dummy values//
-    }
+	}
 
 	else
 	{
 		leftMotor->Set(0);
 		rightMotor->Set(0);
 	}
-	}
+
 }

@@ -17,8 +17,7 @@ public:
 	Manipulator();
 	~Manipulator();
 
-	void intakeCube(bool button);
-	void outtakeCube(bool Button);
+	void intake_outtake_Cube(bool button, bool Button);
 
 private:
 
