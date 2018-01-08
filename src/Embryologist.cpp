@@ -11,6 +11,7 @@
 #include <Climb.h>
 #include <Macros.h>
 #include <Manipulator.h>
+#include <Auto.h>
 
 class Robot: public frc::IterativeRobot {
 public:
