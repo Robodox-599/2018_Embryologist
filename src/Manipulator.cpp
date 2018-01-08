@@ -9,8 +9,8 @@
 
 Manipulator::Manipulator()
 {
-    leftMotor = new CANTalon (1);
-    rightMotor = new CANTalon (2);
+    leftMotor = new CANTalon (1); //These are dummy values//
+    rightMotor = new CANTalon (2); //These are dummy values//
 }
 
 Manipulator::~Manipulator()
@@ -19,4 +19,36 @@ Manipulator::~Manipulator()
 	rightMotor = nullptr;
 	delete leftMotor;
 	delete rightMotor;
+}
+
+void Manipulator::intakeCube(bool button)
+{
+	if (button)
+	{
+		leftMotor->Set(1); //These are dummy values//
+		rightMotor->Set(1); //These are dummy values//
+	}
+
+	else
+	{
+		leftMotor->Set(0);
+		rightMotor->Set(0);
+	}
+
+}
+
+void Manipulator::outtakeCube(bool Button)
+{
+	if (Button)
+	{
+		leftMotor->Set(-1); //These are dummy values//
+		rightMotor->Set(-1); //These are dummy values//
+    }
+
+	else
+	{
+		leftMotor->Set(0);
+		rightMotor->Set(0);
+	}
+	}
 }
