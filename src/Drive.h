@@ -15,11 +15,12 @@ public:
 	Drive();
 	~Drive();
 
-	void updateLeftMotors();
-	void updateRightMotors();
-	void setFwdSpeed();
-	void setTurnSpeed();
-	void drive();
+	void updateLeftMotors(float speed);
+	void updateRightMotors(float speed);
+	void setFwdSpeed(float fwd);
+	void setTurnSpeed(float turn);
+	void drive(float xAxis, float yAxis);
+	void shift(bool button);
 
 	AHRS* navX;
 
@@ -28,6 +29,8 @@ private:
 	CANTalon* rearLeftMotor;
 	CANTalon* frontRightMotor;
 	CANTalon* rearRightMotor;
+
+	DoubleSolenoid* shifter;
 
 	float fwdSpeed;
 	float turnSpeed;

@@ -8,10 +8,15 @@
 
 Drive::Drive()
 {
+	navX = new AHRS(SPI::Port::kMXP);
+
 	frontLeftMotor = new CANTalon(Drive_Front_Left_Motor_Channel);
 	rearLeftMotor = new CANTalon(Drive_Rear_Left_Motor_Channel);
 	frontRightMotor = new CANTalon(Drive_Front_Right_Motor_Channel);
 	rearRightMotor = new CANTalon(Drive_Rear_Right_Motor_Channel);
+
+	shifter = new DoubleSolenoid(Left_Shifter_Solenoid_Channel, Right_Shifter_Solenoid_Channel);
+	//shifter->Set(DoubleSolenoid::kReverse);
 }
 
 Drive::~Drive()
@@ -20,26 +25,28 @@ Drive::~Drive()
 	delete rearLeftMotor;
 	delete frontRightMotor;
 	delete rearRightMotor;
+	delete shifter;
 
 	frontLeftMotor = nullptr;
 	rearLeftMotor = nullptr;
 	frontRightMotor = nullptr;
 	rearRightMotor = nullptr;
+	shifter = nullptr;
 }
 
-void updateLeftMotors(float speed);
+void Drive::updateLeftMotors(float speed);
 {
 	frontLeftMotor->Set(-speed);
 	rearLeftMotor->Set(-speed);
 }
 
-void updateRightMotors(float speed);
+void Drive::updateRightMotors(float speed);
 {
 	frontRightMotor->Set(speed);
 	rearRightMotor->Set(speed);
 }
 
-void setFwdSpeed(float fwd)
+void Drive::setFwdSpeed(float fwd)
 {
 	if(fwd >= abs(DEADZONE))
 	{
@@ -51,7 +58,7 @@ void setFwdSpeed(float fwd)
 	}
 }
 
-void setTurnSpeed(float turn)
+void Drive::setTurnSpeed(float turn)
 {
 	if(turn >= abs(DEADZONE))
 	{
@@ -63,11 +70,28 @@ void setTurnSpeed(float turn)
 	}
 }
 
-void drive(float xAxis, float yAxis)
+void Drive::drive(float xAxis, float yAxis)
 {
 	setFwdSpeed(yAxis);
 	setTurnSpeed(xAxis);
 
 	updateRightMotors(fwdSpeed - turnSpeed);
 	updateLeftMotors(fwdSpeed + turnSpeed);
+}
+
+void Drive::shift(bool toggle)
+{
+	if(Shifter_Button)
+	{
+		if(toggle == 1)
+		{
+			shifter->Set(DoubleSolenoid::kReverse);
+			toggle = 0;
+		}
+		else
+		{
+			shifter->Set(DoubleSolenoid::kForward);
+			toggle = 1;
+		}
+	}
 }
