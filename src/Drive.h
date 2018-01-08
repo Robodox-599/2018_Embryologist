@@ -20,7 +20,7 @@ public:
 	void setFwdSpeed(float fwd);
 	void setTurnSpeed(float turn);
 	void drive(float xAxis, float yAxis);
-	void shift(bool button);
+	void shift(bool toggle);
 
 	AHRS* navX;
 
