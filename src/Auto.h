@@ -11,6 +11,7 @@ public:
 	~Auto();
 
 	void preCheck();
+	void auto0();
 	void auto1();
 
 private:
