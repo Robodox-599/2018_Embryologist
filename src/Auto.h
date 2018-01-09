@@ -11,9 +11,10 @@ public:
 	~Auto();
 
 	void preCheck();
+	void auto1();
 
 private:
-
+	std::string gameData;
 };
 
 
