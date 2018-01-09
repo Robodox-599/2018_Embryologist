@@ -61,7 +61,7 @@ public:
 	}
 
 	void TestPeriodic() {
-		lw->Run();
+		//lw->Run();
 	}
 
 private:
