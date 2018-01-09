@@ -3,6 +3,7 @@
 
 #include <Macros.h>
 #include <Drive.h>
+#include <WPILib.h>
 
 class Auto
 {
