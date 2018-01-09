@@ -25,21 +25,27 @@ Drive::~Drive()
 	delete rearLeftMotor;
 	delete frontRightMotor;
 	delete rearRightMotor;
+
 	delete shifter;
+	delete navX;
 
 	frontLeftMotor = nullptr;
 	rearLeftMotor = nullptr;
 	frontRightMotor = nullptr;
 	rearRightMotor = nullptr;
+
 	shifter = nullptr;
+	navX = nullptr;
 }
 
+//group left motors
 void Drive::updateLeftMotors(float speed);
 {
 	frontLeftMotor->Set(-speed);
 	rearLeftMotor->Set(-speed);
 }
 
+//group right motors
 void Drive::updateRightMotors(float speed);
 {
 	frontRightMotor->Set(speed);
@@ -94,4 +100,15 @@ void Drive::shift(bool toggle)
 			toggle = 1;
 		}
 	}
+}
+
+//gives encoder values
+float Drive::getLeftEnc()
+{
+	return frontLeftMotor->GetEncPosition();
+}
+
+float Drive::getRightEnc()
+{
+	return frontRightMotor->GetEncPosition();
 }

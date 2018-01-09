@@ -22,6 +22,9 @@ public:
 	void drive(float xAxis, float yAxis);
 	void shift(bool toggle);
 
+	float getLeftEnc();
+	float getRightEnc();
+
 	AHRS* navX;
 
 private:
@@ -34,6 +37,8 @@ private:
 
 	float fwdSpeed;
 	float turnSpeed;
+
+
 };
 
 
