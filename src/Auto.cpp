@@ -1,5 +1,6 @@
 #include <Auto.h>
 
+
 Auto::Auto()
 {
 	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();

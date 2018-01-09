@@ -17,6 +17,8 @@ public:
 
 private:
 	std::string gameData;
+
+	Drive* drive;
 };
 
 
