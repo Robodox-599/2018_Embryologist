@@ -9,16 +9,26 @@
 
 Manipulator::Manipulator()
 {
-    leftMotor = new CANTalon (1); //These are dummy values//
-    rightMotor = new CANTalon (2); //These are dummy values//
+    leftMotor = new CANTalon(1); //These are dummy values//
+    rightMotor = new CANTalon(2); //These are dummy values//
+
+    CubeStopOne = new DigitalInput(3); //These are dummy values//
+    CubeStopTwo = new DigitalInput(4); //These are dummy values//
+
+    breakone = false;
+    breaktwo = false;
 }
 
 Manipulator::~Manipulator()
 {
 	leftMotor = nullptr;
 	rightMotor = nullptr;
+	CubeStopOne = nullptr;
+	CubeStopTwo = nullptr;
 	delete leftMotor;
 	delete rightMotor;
+	delete  CubeStopOne;
+	delete  CubeStopTwo;
 }
 
 void Manipulator::intake_outtake_Cube(bool button, bool Button)
@@ -42,3 +52,5 @@ void Manipulator::intake_outtake_Cube(bool button, bool Button)
 	}
 
 }
+
+

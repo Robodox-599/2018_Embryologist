@@ -19,6 +19,12 @@ public:
 
 	void intake_outtake_Cube(bool button, bool Button);
 
+	DigitalInput*CubeStopOne;
+	DigitalInput*CubeStopTwo;
+
+	bool breakone;
+	bool breaktwo;
+
 private:
 
 	CANTalon* leftMotor;

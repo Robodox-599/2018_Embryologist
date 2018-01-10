@@ -14,10 +14,9 @@
 
 class Robot: public frc::IterativeRobot {
 public:
-	void RobotInit() {
-		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
-		chooser.AddObject(autoNameCustom, autoNameCustom);
-		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
+	void RobotInit()
+	{
+		atk3 = new Joystick(1) //This value may change//
 	}
 
 	/*
