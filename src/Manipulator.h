@@ -6,6 +6,7 @@
  */
 
 #include "CANTalon.h"
+#include "WPILib.h"
 
 #ifndef SRC_MANIPULATOR_H_
 #define SRC_MANIPULATOR_H_
@@ -20,10 +21,9 @@ public:
 	void intake_outtake_Cube(bool button, bool Button);
 
 	DigitalInput*CubeStopOne;
-	DigitalInput*CubeStopTwo;
 
-	bool breakone;
-	bool breaktwo;
+	bool stoppingcubeone();
+
 
 private:
 
