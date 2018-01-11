@@ -14,7 +14,12 @@
 
 class Robot: public frc::IterativeRobot {
 public:
-	void RobotInit() {
+	Drive* drive;
+	Joystick* xbox;
+	void RobotInit()
+	{
+		xbox = new Joystick(0);
+		drive = new Drive();
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
@@ -43,7 +48,8 @@ public:
 		}*/
 	}
 
-	void AutonomousPeriodic() {
+	void AutonomousPeriodic()
+	{
 		/*if (autoSelected == autoNameCustom) {
 			// Custom Auto goes here
 		} else {
@@ -51,12 +57,14 @@ public:
 		}*/
 	}
 
-	void TeleopInit() {
+	void TeleopInit()
+	{
 
 	}
 
-	void TeleopPeriodic() {
-
+	void TeleopPeriodic()
+	{
+		drive->drive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
 	}
 
 	void TestPeriodic() {

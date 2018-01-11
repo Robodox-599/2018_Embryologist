@@ -8,15 +8,22 @@
 
 Drive::Drive()
 {
-	navX = new AHRS(SPI::Port::kMXP);
+	//navX = new AHRS(SPI::Port::kMXP);
 
 	frontLeftMotor = new CANTalon(Drive_Front_Left_Motor_Channel);
-	rearLeftMotor = new CANTalon(Drive_Rear_Left_Motor_Channel);
-	frontRightMotor = new CANTalon(Drive_Front_Right_Motor_Channel);
-	rearRightMotor = new CANTalon(Drive_Rear_Right_Motor_Channel);
+	rearLeftMotor = new Talon(Drive_Rear_Left_Motor_Channel);
+	frontRightMotor = new Talon(Drive_Front_Right_Motor_Channel);
+	rearRightMotor = new Talon(Drive_Rear_Right_Motor_Channel);
 
-	shifter = new DoubleSolenoid(Left_Shifter_Solenoid_Channel, Right_Shifter_Solenoid_Channel);
+	//shifter = new DoubleSolenoid(Left_Shifter_Solenoid_Channel, Right_Shifter_Solenoid_Channel);
 	//shifter->Set(DoubleSolenoid::kReverse);
+
+	//navX->ZeroYaw();
+
+	//gyroValue = navX->GetYaw();
+
+	fwdSpeed = 0;
+	turnSpeed = 0;
 }
 
 Drive::~Drive()
@@ -26,27 +33,27 @@ Drive::~Drive()
 	delete frontRightMotor;
 	delete rearRightMotor;
 
-	delete shifter;
-	delete navX;
+	//delete shifter;
+	//delete navX;
 
 	frontLeftMotor = nullptr;
 	rearLeftMotor = nullptr;
 	frontRightMotor = nullptr;
 	rearRightMotor = nullptr;
 
-	shifter = nullptr;
-	navX = nullptr;
+	//shifter = nullptr;
+	//navX = nullptr;
 }
 
 //group left motors
-void Drive::updateLeftMotors(float speed);
+void Drive::updateLeftMotors(float speed)
 {
 	frontLeftMotor->Set(-speed);
 	rearLeftMotor->Set(-speed);
 }
 
 //group right motors
-void Drive::updateRightMotors(float speed);
+void Drive::updateRightMotors(float speed)
 {
 	frontRightMotor->Set(speed);
 	rearRightMotor->Set(speed);
@@ -81,8 +88,30 @@ void Drive::drive(float xAxis, float yAxis)
 	setFwdSpeed(yAxis);
 	setTurnSpeed(xAxis);
 
+	//driveStraight(yAxis, xAxis);
+
 	updateRightMotors(fwdSpeed - turnSpeed);
 	updateLeftMotors(fwdSpeed + turnSpeed);
+}
+/*
+void Drive::driveStraight(float fwdVal, float turnVal)
+{
+	if(fwdVal > DEADZONE && turnVal <= DEADZONE)
+	{
+		gyroValue = navX->GetYaw();
+		if(gyroValue > 1.5)
+		{
+
+		}
+		if(gyroValue < -1.5)
+		{
+
+		}
+	}
+	else
+	{
+		gyroValue = navX->ZeroYaw;
+	}
 }
 
 void Drive::shift(bool toggle)
@@ -101,7 +130,7 @@ void Drive::shift(bool toggle)
 		}
 	}
 }
-
+*/
 //gives encoder values
 float Drive::getLeftEnc()
 {
