@@ -20,6 +20,6 @@
 #define Left_Shifter_Solenoid_Channel () //solenoid for shifter pistons on the motor
 #define Right_Shifter_Solenoid_Channel ()
 
-#define DEADZONE (.3) //deadzone for the controllers to avoid accidental movement
+#define DEADZONE (.2) //deadzone for the controllers to avoid accidental movement
 
 #endif /* SRC_MACROS_H_ */

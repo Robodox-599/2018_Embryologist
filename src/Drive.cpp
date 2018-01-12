@@ -66,7 +66,7 @@ void Drive::updateRightMotors(float speed)
 
 void Drive::setFwdSpeed(float fwd)
 {
-	if(abs(fwd) >= abs(DEADZONE))
+	if(fwd >= DEADZONE || fwd <= -DEADZONE)
 	{
 		fwdSpeed = fwd;
 	}
@@ -78,7 +78,7 @@ void Drive::setFwdSpeed(float fwd)
 
 void Drive::setTurnSpeed(float turn)
 {
-	if(abs(turn) >= abs(DEADZONE))
+	if(turn >= DEADZONE || turn <= -DEADZONE)
 	{
 		turnSpeed = turn;
 	}
