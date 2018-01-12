@@ -95,8 +95,8 @@ void Drive::drive(float xAxis, float yAxis)
 
 	//driveStraight(yAxis, xAxis);
 
-	updateRightMotors(fwdSpeed - turnSpeed);
-	updateLeftMotors(fwdSpeed + turnSpeed);
+	updateRightMotors(fwdSpeed + turnSpeed);
+	updateLeftMotors(fwdSpeed - turnSpeed);
 }
 /*
 void Drive::driveStraight(float fwdVal, float turnVal)
@@ -144,6 +144,11 @@ float Drive::getLeftEnc()
 
 float Drive::getRightEnc()
 {
-	return frontRightMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
+	return rearRightMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
 }
 
+void Drive::resetEncoder()
+{
+	frontLeftMotor->SetSelectedSensorPosition(0,0,0);
+	rearRightMotor->SetSelectedSensorPosition(0,0,0);
+}

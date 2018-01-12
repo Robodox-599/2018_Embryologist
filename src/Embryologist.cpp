@@ -20,6 +20,7 @@ public:
 	{
 		xbox = new Joystick(0);
 		drive = new Drive();
+		drive->resetEncoder();
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
@@ -65,9 +66,9 @@ public:
 	void TeleopPeriodic()
 	{
 		drive->drive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
-		SmartDashboard::GetNumber("Drive Left Encoder: ", drive->getLeftEnc());
-		SmartDashboard::GetNumber("Drive Right Encoder: ", drive->getRightEnc());
-		SmartDashboard::GetBoolean("test", drive->smartTest());
+		SmartDashboard::PutString("test", "test2");
+		SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
+		SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
 	}
 
 	void TestPeriodic() {

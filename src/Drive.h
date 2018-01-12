@@ -23,6 +23,8 @@ public:
 	void shift(bool toggle);
 	void driveStraight();
 
+	void resetEncoder();
+
 	float getLeftEnc();
 	float getRightEnc();
 
