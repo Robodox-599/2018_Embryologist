@@ -65,6 +65,9 @@ public:
 	void TeleopPeriodic()
 	{
 		drive->drive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
+		SmartDashboard::GetNumber("Drive Left Encoder: ", drive->getLeftEnc());
+		SmartDashboard::GetNumber("Drive Right Encoder: ", drive->getRightEnc());
+		SmartDashboard::GetBoolean("test", drive->smartTest());
 	}
 
 	void TestPeriodic() {

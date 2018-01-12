@@ -10,10 +10,10 @@ Drive::Drive()
 {
 	//navX = new AHRS(SPI::Port::kMXP);
 
-	frontLeftMotor = new CANTalon(Drive_Front_Left_Motor_Channel);
-	rearLeftMotor = new Talon(Drive_Rear_Left_Motor_Channel);
-	frontRightMotor = new Talon(Drive_Front_Right_Motor_Channel);
-	rearRightMotor = new Talon(Drive_Rear_Right_Motor_Channel);
+	frontLeftMotor = new TalonSRX(Drive_Front_Left_Motor_Channel);
+	rearLeftMotor = new TalonSRX(Drive_Rear_Left_Motor_Channel);
+	frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
+	rearRightMotor = new TalonSRX(Drive_Rear_Right_Motor_Channel);
 
 	//shifter = new DoubleSolenoid(Left_Shifter_Solenoid_Channel, Right_Shifter_Solenoid_Channel);
 	//shifter->Set(DoubleSolenoid::kReverse);
@@ -45,23 +45,28 @@ Drive::~Drive()
 	//navX = nullptr;
 }
 
+bool Drive::smartTest()
+{
+	return true;
+}
+
 //group left motors
 void Drive::updateLeftMotors(float speed)
 {
-	frontLeftMotor->Set(-speed);
-	rearLeftMotor->Set(-speed);
+	frontLeftMotor->Set(ControlMode::PercentOutput, -speed);
+	rearLeftMotor->Set(ControlMode::PercentOutput, -speed);
 }
 
 //group right motors
 void Drive::updateRightMotors(float speed)
 {
-	frontRightMotor->Set(speed);
-	rearRightMotor->Set(speed);
+	frontRightMotor->Set(ControlMode::PercentOutput, speed);
+	rearRightMotor->Set(ControlMode::PercentOutput, speed);
 }
 
 void Drive::setFwdSpeed(float fwd)
 {
-	if(fwd >= abs(DEADZONE))
+	if(abs(fwd) >= abs(DEADZONE))
 	{
 		fwdSpeed = fwd;
 	}
@@ -73,7 +78,7 @@ void Drive::setFwdSpeed(float fwd)
 
 void Drive::setTurnSpeed(float turn)
 {
-	if(turn >= abs(DEADZONE))
+	if(abs(turn) >= abs(DEADZONE))
 	{
 		turnSpeed = turn;
 	}
@@ -134,10 +139,11 @@ void Drive::shift(bool toggle)
 //gives encoder values
 float Drive::getLeftEnc()
 {
-	return frontLeftMotor->GetEncPosition();
+	return frontLeftMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
 }
 
 float Drive::getRightEnc()
 {
-	return frontRightMotor->GetEncPosition();
+	return frontRightMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
 }
+

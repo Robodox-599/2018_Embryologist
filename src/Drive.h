@@ -8,7 +8,7 @@
 #ifndef SRC_DRIVE_H_
 #define SRC_DRIVE_H_
 #include "Macros.h"
-#include <TalonSRX.h>
+#include "ctre/Phoenix.h"
 class Drive
 {
 public:
@@ -26,13 +26,14 @@ public:
 	float getLeftEnc();
 	float getRightEnc();
 
+	bool smartTest();
 	//AHRS* navX;
 
 private:
-	CANTalon *frontLeftMotor;
-	CANTalon* rearLeftMotor;
-	CANTalon* frontRightMotor;
-	CANTalon* rearRightMotor;
+	TalonSRX *frontLeftMotor;
+	TalonSRX* rearLeftMotor;
+	TalonSRX* frontRightMotor;
+	TalonSRX* rearRightMotor;
 
 	//DoubleSolenoid* shifter;
 
