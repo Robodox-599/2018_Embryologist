@@ -5,9 +5,8 @@
  *      Author: Admin
  */
 
-#include "CANTalon.h"
+#include "ctre/Phoenix.h"
 #include "WPILib.h"
-
 #ifndef SRC_MANIPULATOR_H_
 #define SRC_MANIPULATOR_H_
 
@@ -27,8 +26,8 @@ public:
 
 private:
 
-	CANTalon* leftMotor;
-	CANTalon* rightMotor;
+	TalonSRX* leftMotor;
+	TalonSRX* rightMotor;
 };
 
 
