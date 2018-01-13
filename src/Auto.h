@@ -4,6 +4,7 @@
 #include <Macros.h>
 #include <Drive.h>
 #include <WPILib.h>
+#include <ctre/Phoenix.h>
 
 class Auto
 {
