@@ -4,13 +4,14 @@
  *  Created on: Jan 6, 2018
  *      Author: Admin
  */
-#include "CANTalon.h"
 
 #ifndef SRC_LIFT_H_
 #define SRC_LIFT_H_
 
+#include "ctre/Phoenix.h"
+//#include "WPILib.h"
 
-using namespace std;
+//using namespace std;
 
 class Lift
 {
@@ -19,8 +20,10 @@ public:
 		~Lift();
 
 private:
-		CANTalon* motorOne;
-
+		TalonSRX *motorOne;
+		TalonSRX *motorTwo;
+		TalonSRX *motorThree;
+		TalonSRX *motorFour;
 
 
 };
