@@ -4,6 +4,7 @@
 Auto::Auto()
 {
 	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+	drive = new Drive;
 }
 
 Auto::~Auto()
