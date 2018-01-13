@@ -23,6 +23,7 @@ void Auto::auto0()//Drive straight to pass Auto Line.
 		drive->setFwdSpeed(1);
 	}
 	drive->setFwdSpeed(0);
+	drive->resetEncoder();
 }
 
 void Auto::auto1()//Left starting position, Objective: Switch
