@@ -20,7 +20,7 @@ public:
 	void setFwdSpeed(float fwd);
 	void setTurnSpeed(float turn);
 	void drive(float xAxis, float yAxis);
-	void shift(bool toggle);
+	void shift(int shifter_Button);
 	void driveStraight();
 
 	void resetEncoder();
@@ -37,10 +37,12 @@ private:
 	TalonSRX* frontRightMotor;
 	TalonSRX* rearRightMotor;
 
-	//DoubleSolenoid* shifter;
+	DoubleSolenoid* leftShifter;
+	DoubleSolenoid* rightShifter;
 
 	float fwdSpeed;
 	float turnSpeed;
+	bool toggle;
 
 	//float gyroValue;
 

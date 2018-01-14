@@ -15,10 +15,12 @@
 #define Drive_Front_Right_Motor_Channel (6)
 #define Drive_Rear_Right_Motor_Channel (8)
 
-#define Shifter_Button () //shifts the gears on the drive for either torque or speed
+//#define Shifter_Button (1) //shifts the gears on the drive for either torque or speed
 
-#define Left_Shifter_Solenoid_Channel () //solenoid for shifter pistons on the motor
-#define Right_Shifter_Solenoid_Channel ()
+#define Left_Shifter_Solenoid_Channel_A (0) //solenoid for shifter pistons on the motor
+#define Left_Shifter_Solenoid_Channel_B (1) //solenoid for shifter pistons on the motor
+#define Right_Shifter_Solenoid_Channel_A (2)
+#define Right_Shifter_Solenoid_Channel_B (3)
 
 #define DEADZONE (.2) //deadzone for the controllers to avoid accidental movement
 

@@ -15,15 +15,18 @@ Drive::Drive()
 	frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
 	rearRightMotor = new TalonSRX(Drive_Rear_Right_Motor_Channel);
 
-	//shifter = new DoubleSolenoid(Left_Shifter_Solenoid_Channel, Right_Shifter_Solenoid_Channel);
-	//shifter->Set(DoubleSolenoid::kReverse);
+	leftShifter = new DoubleSolenoid(Left_Shifter_Solenoid_Channel_A, Left_Shifter_Solenoid_Channel_B);
+	rightShifter = new DoubleSolenoid(Right_Shifter_Solenoid_Channel_A, Right_Shifter_Solenoid_Channel_B);
 
+	leftShifter->Set(DoubleSolenoid::kReverse);
+	rightShifter->Set(DoubleSolenoid::kReverse);
 	//navX->ZeroYaw();
 
 	//gyroValue = navX->GetYaw();
 
 	fwdSpeed = 0;
 	turnSpeed = 0;
+	toggle = 0;
 }
 
 Drive::~Drive()
@@ -118,24 +121,28 @@ void Drive::driveStraight(float fwdVal, float turnVal)
 		gyroValue = navX->ZeroYaw;
 	}
 }
-
-void Drive::shift(bool toggle)
+*/
+void Drive::shift(int shifter_Button)
 {
-	if(Shifter_Button)
+	if(shifter_Button)
 	{
 		if(toggle == 1)
 		{
-			shifter->Set(DoubleSolenoid::kReverse);
+			leftShifter->Set(DoubleSolenoid::kReverse);
+			rightShifter->Set(DoubleSolenoid::kReverse);
+			Wait(.2);
 			toggle = 0;
 		}
 		else
 		{
-			shifter->Set(DoubleSolenoid::kForward);
+			leftShifter->Set(DoubleSolenoid::kForward);
+			rightShifter->Set(DoubleSolenoid::kForward);
+			Wait(.2);
 			toggle = 1;
 		}
 	}
 }
-*/
+
 //gives encoder values
 float Drive::getLeftEnc()
 {

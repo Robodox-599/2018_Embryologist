@@ -16,11 +16,14 @@ class Robot: public frc::IterativeRobot {
 public:
 	Drive* drive;
 	Joystick* xbox;
+	//Compressor* comp599;
+	Compressor *comp599 = new Compressor(0);
 	void RobotInit()
 	{
 		xbox = new Joystick(0);
 		drive = new Drive();
 		drive->resetEncoder();
+		comp599->SetClosedLoopControl(true);
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
@@ -66,6 +69,7 @@ public:
 	void TeleopPeriodic()
 	{
 		drive->drive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
+		drive->shift(xbox->GetRawButton(2));//B Button
 		SmartDashboard::PutString("test", "test2");
 		SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
 		SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
