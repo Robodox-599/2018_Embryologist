@@ -19,7 +19,7 @@ void Auto::preCheck()//To be run BEFORE a match in the pit in order to test each
 
 void Auto::auto0()//Drive straight to pass Auto Line.
 {
-	while(drive->getLeftEnc < DUMMY_VAL && drive->getRightEnc < DUMMY_VAL)
+	while(drive->getLeftEnc() < DUMMY_VAL && drive->getRightEnc() < DUMMY_VAL)//Dummy values
 	{
 		drive->setFwdSpeed(1);
 	}
