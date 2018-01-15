@@ -15,6 +15,7 @@
 
 class Robot: public frc::IterativeRobot {
 public:
+	Drive* drive;
 	void RobotInit() {
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
@@ -57,6 +58,8 @@ public:
 	}
 
 	void TeleopPeriodic() {
+
+
 
 	}
 
