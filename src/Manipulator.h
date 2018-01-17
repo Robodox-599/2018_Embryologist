@@ -18,6 +18,7 @@ public:
 	~Manipulator();
 
 	void intakeOuttakeCube(bool outtake, bool intake);
+	void intakePosition(bool posButton);
 
 	DigitalInput* cubeStop;
 
@@ -28,6 +29,9 @@ private:
 
 	TalonSRX* leftIntakeMotor;
 	TalonSRX* rightIntakeMotor;
+	DoubleSolenoid* manipPiston;
+
+	bool toggle;
 };
 
 
