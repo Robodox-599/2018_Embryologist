@@ -9,44 +9,44 @@
 
 Manipulator::Manipulator()
 {
-    leftMotor = new TalonSRX(1); //These are dummy values//
-    rightMotor = new TalonSRX(2); //These are dummy values//
-    CubeStopOne = new DigitalInput(3); //These are dummy values//
+    leftIntakeMotor = new TalonSRX(1); //These are dummy values//
+    rightIntakeMotor = new TalonSRX(2); //These are dummy values//
+    cubeStop = new DigitalInput(3); //These are dummy values//
 }
 
 Manipulator::~Manipulator()
 {
-	leftMotor = nullptr;
-	rightMotor = nullptr;
-	CubeStopOne = nullptr;
-	delete leftMotor;
-	delete rightMotor;
-	delete CubeStopOne;
+	leftIntakeMotor = nullptr;
+	rightIntakeMotor = nullptr;
+	cubeStop = nullptr;
+	delete leftIntakeMotor;
+	delete rightIntakeMotor;
+	delete cubeStop;
 }
 
-void Manipulator::intake_outtake_Cube(bool button, bool Button)
+void Manipulator::intakeOuttakeCube(bool intake, bool outtake)
 {
-	if (button)
+	if (intake)
 	{
-		leftMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values//
-		rightMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values//
+		leftIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values//
+		rightIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values//
 	}
 
-	else if (Button)
+	else if (outtake)
 	{
-		leftMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values//
-		rightMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values//
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values//
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values//
 	}
 
 	else
 	{
-		leftMotor->Set(ControlMode::PercentOutput, 0);
-		rightMotor->Set(ControlMode::PercentOutput, 0);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	}
 
 }
 
-bool Manipulator::stoppingcubeone()
+bool Manipulator::stoppingCube()
 {
-	return CubeStopOne->Get();
+	return cubeStop->Get();
 }

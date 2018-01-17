@@ -17,17 +17,17 @@ public:
 	Manipulator();
 	~Manipulator();
 
-	void intake_outtake_Cube(bool button, bool Button);
+	void intakeOuttakeCube(bool outtake, bool intake);
 
-	DigitalInput*CubeStopOne;
+	DigitalInput* cubeStop;
 
-	bool stoppingcubeone();
+	bool stoppingCube();
 
 
 private:
 
-	TalonSRX* leftMotor;
-	TalonSRX* rightMotor;
+	TalonSRX* leftIntakeMotor;
+	TalonSRX* rightIntakeMotor;
 };
 
 
