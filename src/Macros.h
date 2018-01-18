@@ -8,6 +8,7 @@
 #ifndef SRC_MACROS_H_
 #define SRC_MACROS_H_
 
+#define LIFT_DEADZONE (0.2)
 
 
 

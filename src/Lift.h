@@ -9,9 +9,9 @@
 #define SRC_LIFT_H_
 
 #include "ctre/Phoenix.h"
-//#include "WPILib.h"
+#include "WPILib.h"
+#include "Macros.h"
 
-//using namespace std;
 
 class Lift
 {
@@ -19,11 +19,16 @@ public:
 		Lift();
 		~Lift();
 
+		void liftRobot(float liftInput);
+
+		DigitalInput *upperLimit;
+		DigitalInput *lowerLimit;
+
 private:
-		TalonSRX *motorOne;
-		TalonSRX *motorTwo;
-		TalonSRX *motorThree;
-		TalonSRX *motorFour;
+		TalonSRX *frontRightLift;
+		TalonSRX *frontLeftLift;
+		TalonSRX *backRightLift;
+		TalonSRX *backLeftLift;
 
 
 };

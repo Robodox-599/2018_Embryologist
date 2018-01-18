@@ -12,25 +12,56 @@
 
 Lift::Lift()
 {
-	motorOne = new TalonSRX(3);
-	motorTwo = new TalonSRX(2);
-	motorThree = new TalonSRX(5);
-	motorFour = new TalonSRX(1);
+	frontRightLift = new TalonSRX(3);
+	frontLeftLift = new TalonSRX(2);
+	backRightLift = new TalonSRX(5);
+	backLeftLift = new TalonSRX(1);
+
+	lowerLimit = new DigitalInput(1);
+	upperLimit = new DigitalInput(0);
 
 }
 
 Lift::~Lift()
 {
-	delete motorOne;
-	delete motorTwo;
-	delete motorThree;
-	delete motorFour;
+	delete frontRightLift;
+	delete frontLeftLift;
+	delete backRightLift;
+	delete backLeftLift;
+	delete lowerLimit;
+	delete upperLimit;
 
-	motorOne = nullptr;
-	motorTwo = nullptr;
-	motorThree = nullptr;
-	motorFour = nullptr;
+	frontRightLift = nullptr;
+	frontLeftLift = nullptr;
+	backRightLift = nullptr;
+	backLeftLift = nullptr;
+	lowerLimit = nullptr;
+	upperLimit = nullptr;
+}
 
+void Lift::liftRobot(float liftInput)
+{
+	if(liftInput > LIFT_DEADZONE && upperLimit == false)
+	{
+		frontRightLift->Set(ControlMode::PercentOutput, .5);
+		frontLeftLift->Set(ControlMode::PercentOutput, .5);
+		backRightLift->Set(ControlMode::PercentOutput, .5);
+		backLeftLift->Set(ControlMode::PercentOutput, .5);
+	}
+	else if(liftInput < LIFT_DEADZONE && lowerLimit == false)
+	{
+		frontRightLift->Set(ControlMode::PercentOutput, -.5);
+		frontLeftLift->Set(ControlMode::PercentOutput, -.5);
+		backRightLift->Set(ControlMode::PercentOutput, -.5);
+		backLeftLift->Set(ControlMode::PercentOutput, -.5);
+	}
+	else
+	{
+		frontRightLift->Set(ControlMode::PercentOutput, 0);
+		frontLeftLift->Set(ControlMode::PercentOutput, 0);
+		backRightLift->Set(ControlMode::PercentOutput, 0);
+		backLeftLift->Set(ControlMode::PercentOutput, 0);
+	}
 }
 
 

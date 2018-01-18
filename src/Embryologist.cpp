@@ -14,7 +14,12 @@
 
 class Robot: public frc::IterativeRobot {
 public:
-	void RobotInit() {
+	Lift *lift;
+	Joystick *atk3;
+	void RobotInit()
+	{
+		lift = new Lift;
+		atk3 = new Joystick(0);
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
@@ -55,8 +60,9 @@ public:
 
 	}
 
-	void TeleopPeriodic() {
-
+	void TeleopPeriodic()
+	{
+		lift->liftRobot(atk3->GetRawAxis(0));
 	}
 
 	void TestPeriodic() {
