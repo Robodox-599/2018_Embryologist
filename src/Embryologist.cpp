@@ -72,8 +72,9 @@ public:
 		SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
 	}
 
-	void TestPeriodic() {
-		lw->Run();
+	void TestPeriodic()
+	{
+
 	}
 
 private:

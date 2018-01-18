@@ -49,6 +49,4 @@ private:
 	float const kp = 0.01;
 };
 
-
-
 #endif /* SRC_DRIVE_H_ */
