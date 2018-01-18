@@ -26,7 +26,7 @@ void Auto::auto0()//Drive straight to pass Auto Line.
 	drive->setFwdSpeed(0);
 	drive->resetEncoder();
 }
-
+//
 void Auto::auto1()//Left starting position, Objective: Switch
 {
 	if(gameData[0] == 'L')
