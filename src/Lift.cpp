@@ -64,5 +64,14 @@ void Lift::liftRobot(float liftInput)
 	}
 }
 
+float Lift::getLeftLiftEnc()
+{
+	return frontLeftLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);//motor not final
+}
+
+float Lift::getRightLiftEnc()
+{
+	return frontRightLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
+}
 
 

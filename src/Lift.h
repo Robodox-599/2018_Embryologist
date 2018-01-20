@@ -20,6 +20,8 @@ public:
 		~Lift();
 
 		void liftRobot(float liftInput);
+		float getLeftLiftEnc();
+		float getRightLiftEnc();
 
 		DigitalInput *upperLimit;
 		DigitalInput *lowerLimit;
