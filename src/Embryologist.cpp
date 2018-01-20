@@ -6,18 +6,24 @@
 #include <LiveWindow/LiveWindow.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <Drive.h>
-#include <Lift.h>
-#include <Climb.h>
 #include <Macros.h>
-#include <Manipulator.h>
-
+#include <LogFile.cpp>
+#include <ctime>
 class Robot: public frc::IterativeRobot {
 public:
-	void RobotInit() {
+	//LogFile* logfile;
+	int var;
+	time_t t = time(0);
+	struct tm* now = localtime(&t);
+	char timestamp[16];
+
+	void RobotInit()
+	{
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
+		//var = 2;
+
 	}
 
 	/*
@@ -51,16 +57,26 @@ public:
 		}*/
 	}
 
-	void TeleopInit() {
-
+	void TeleopInit()
+	{
+		strftime(timestamp, 16, "%y%m%d_%H%M%S", now);
+		using namespace std;
+		ofstream LogFile;
+		LogFile.open("//U//RoboLogs//LogFile.txt");
+		LogFile << "Variable: ";
+		LogFile << var << "\r\n";
+		LogFile << (now->tm_year + 1900) <<'-' << (now->tm_mon+1) << '-' << now->tm_mday;
+		LogFile.close();
+		std::cin.get();
 	}
 
-	void TeleopPeriodic() {
+	void TeleopPeriodic()
+	{
 
 	}
 
 	void TestPeriodic() {
-		lw->Run();
+
 	}
 
 private:
