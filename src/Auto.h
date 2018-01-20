@@ -2,7 +2,7 @@
 #define SRC_AUTO_H_
 
 #include <Macros.h>
-#include <Drive.h>
+//#include <Drive.h>
 #include <WPILib.h>
 #include <ctre/Phoenix.h>
 
@@ -15,11 +15,13 @@ public:
 	void preCheck();
 	void auto0();
 	void auto1();
+	int dataVal();
 
 private:
 	std::string gameData;
 
-	Drive* drive;
+	//Drive* drive;
+	int dataTest;
 };
 
 

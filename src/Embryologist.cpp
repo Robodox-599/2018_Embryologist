@@ -8,14 +8,15 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <Drive.h>
 #include <Lift.h>
-#include <Climb.h>
+//#include <Climb.h>
 #include <Macros.h>
 #include <Manipulator.h>
 #include <Auto.h>
 
 class Robot: public frc::IterativeRobot {
 public:
-	Drive* drive;
+	//Drive* drive;
+	Auto* auton = new Auto;
 	void RobotInit() {
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
@@ -57,8 +58,9 @@ public:
 
 	}
 
-	void TeleopPeriodic() {
-
+	void TeleopPeriodic()
+	{
+		SmartDashboard::PutNumber("Auto Position: ",auton->dataVal());
 
 
 	}
