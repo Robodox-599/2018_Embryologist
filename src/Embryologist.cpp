@@ -15,9 +15,24 @@
 
 class Robot: public frc::IterativeRobot {
 public:
+		Drive* drive;
+		Auto *auton;
+		Joystick* xbox;
+		//Compressor* comp599;
+
+		//Compressor *comp599 = new Compressor();
 	//Drive* drive;
-	Auto* auton = new Auto;
+	//Auto* auton = new Auto;
 	void RobotInit() {
+
+		xbox = new Joystick(0);
+		auton = new Auto();
+		drive = new Drive();
+		drive->resetEncoder();
+	//	comp599->SetClosedLoopControl(true);
+		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
+		chooser.AddObject(autoNameCustom, autoNameCustom);
+		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
@@ -47,6 +62,7 @@ public:
 	}
 
 	void AutonomousPeriodic() {
+		auton->auto0();
 		/*if (autoSelected == autoNameCustom) {
 			// Custom Auto goes here
 		} else {
@@ -61,6 +77,11 @@ public:
 	void TeleopPeriodic()
 	{
 		SmartDashboard::PutNumber("Auto Position: ",auton->dataVal());
+		drive->drive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
+		//drive->shift(xbox->GetRawButton(2));//B Button
+		SmartDashboard::PutString("test", "test2");
+		SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
+		SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
 
 
 	}

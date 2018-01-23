@@ -2,7 +2,7 @@
 #define SRC_AUTO_H_
 
 #include <Macros.h>
-//#include <Drive.h>
+#include <Drive.h>
 #include <WPILib.h>
 #include <ctre/Phoenix.h>
 
@@ -20,7 +20,7 @@ public:
 private:
 	std::string gameData;
 
-	//Drive* drive;
+	Drive* drive;
 	int dataTest;
 };
 
