@@ -62,7 +62,7 @@ public:
 	}
 
 	void AutonomousPeriodic() {
-		auton->auto0();
+		auton->auto1();
 		/*if (autoSelected == autoNameCustom) {
 			// Custom Auto goes here
 		} else {

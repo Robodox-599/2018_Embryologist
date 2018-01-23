@@ -17,6 +17,8 @@ public:
 	void auto1();
 	int dataVal();
 
+	void driveStraight(float speed, int enc);
+
 private:
 	std::string gameData;
 
