@@ -54,16 +54,7 @@ public:
 	void TeleopInit()
 	{
 		theLog = new DoxLog();
-		theLog->LogIt("blah");
-		theLog->LogIt("blah");
-		theLog->LogIt("blah");
-		theLog->LogIt("blah");
-		theLog->LogIt("blah");
-		theLog->LogIt("blah");
-		theLog->LogIt("blah");
-		theLog->LogIt("blah");
-		theLog->LogIt("blah");
-		theLog->LogIt("blah");
+		theLog->LogIt("WhatDoYouWantToLog?");
 	}
 
 	void DisabledInit()

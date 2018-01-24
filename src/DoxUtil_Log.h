@@ -11,6 +11,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <WPILib.h>
+#include <ctre/Phoenix.h>
 
 class DoxLog {
 public:
