@@ -7,16 +7,10 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <Macros.h>
-#include <LogFile.cpp>
 #include <ctime>
+#include <DoxUtil_Log.h>
 class Robot: public frc::IterativeRobot {
 public:
-	//LogFile* logfile;
-	int var;
-	time_t t = time(0);
-	struct tm* now = localtime(&t);
-	char timestamp[16];
-
 	void RobotInit()
 	{
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
@@ -59,15 +53,25 @@ public:
 
 	void TeleopInit()
 	{
-		strftime(timestamp, 16, "%y%m%d_%H%M%S", now);
-		using namespace std;
-		ofstream LogFile;
-		LogFile.open("//U//RoboLogs//LogFile.txt");
-		LogFile << "Variable: ";
-		LogFile << var << "\r\n";
-		LogFile << (now->tm_year + 1900) <<'-' << (now->tm_mon+1) << '-' << now->tm_mday;
-		LogFile.close();
-		std::cin.get();
+		theLog = new DoxLog();
+		theLog->LogIt("blah");
+		theLog->LogIt("blah");
+		theLog->LogIt("blah");
+		theLog->LogIt("blah");
+		theLog->LogIt("blah");
+		theLog->LogIt("blah");
+		theLog->LogIt("blah");
+		theLog->LogIt("blah");
+		theLog->LogIt("blah");
+		theLog->LogIt("blah");
+	}
+
+	void DisabledInit()
+	{
+		if(theLog != nullptr)
+		{
+			theLog->close();
+		}
 	}
 
 	void TeleopPeriodic()
@@ -80,6 +84,7 @@ public:
 	}
 
 private:
+	DoxLog* theLog;
 	frc::LiveWindow* lw = LiveWindow::GetInstance();
 	/*frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
