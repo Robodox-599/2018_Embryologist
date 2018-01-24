@@ -29,9 +29,10 @@ Manipulator::~Manipulator()
 	delete cubeStop;
 }
 
+
 void Manipulator::intakeOuttakeCube(bool intake, bool outtake)
 {
-	if (intake)
+	if (intake && cubeStop->Get() == false)
 	{
 		leftIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values//
 		rightIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values//
@@ -73,5 +74,4 @@ void Manipulator::intakePosition(bool posButton)
 			toggle = 1;
 		}
 	}
-}
 }
