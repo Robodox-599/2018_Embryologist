@@ -23,6 +23,8 @@ Lift::Lift()
 	leftLiftPiston = new Solenoid(1);
 	rightLiftPiston = new Solenoid(2);
 
+//liftUp - liftDown - liftReset
+
 }
 
 Lift::~Lift()
@@ -88,4 +90,47 @@ void Lift::PistonLift(bool pistonButton)
 		leftLiftPiston->Set(true);
 		rightLiftPiston->Set(true);
 	}
+}
+
+void Lift::liftAuto(float autoLiftInput, float speed)
+{
+	if(speed > 0)
+	{
+		while(getLeftLiftEnc() < autoLiftInput && getRightLiftEnc() < autoLiftInput)
+			{
+				frontRightLift->Set(ControlMode::PercentOutput, .5);
+				frontLeftLift->Set(ControlMode::PercentOutput, .5);
+				backRightLift->Set(ControlMode::PercentOutput, .5);
+				backLeftLift->Set(ControlMode::PercentOutput, .5);
+			}
+			frontRightLift->Set(ControlMode::PercentOutput, 0);
+			frontLeftLift->Set(ControlMode::PercentOutput, 0);
+			backRightLift->Set(ControlMode::PercentOutput, 0);
+			backLeftLift->Set(ControlMode::PercentOutput, 0);
+
+	}
+
+	if(speed < 0)
+	{
+		while(getLeftLiftEnc() > autoLiftInput && getRightLiftEnc() > autoLiftInput)
+					{
+						frontRightLift->Set(ControlMode::PercentOutput, -.5);
+						frontLeftLift->Set(ControlMode::PercentOutput, -.5);
+						backRightLift->Set(ControlMode::PercentOutput, -.5);
+						backLeftLift->Set(ControlMode::PercentOutput, -.5);
+					}
+					frontRightLift->Set(ControlMode::PercentOutput, 0);
+					frontLeftLift->Set(ControlMode::PercentOutput, 0);
+					backRightLift->Set(ControlMode::PercentOutput, 0);
+					backLeftLift->Set(ControlMode::PercentOutput, 0);
+	}
+
+}
+
+void Lift::resetLiftEncoder()
+{
+	frontRightLift->SetSelectedSensorPosition(0,0,0);
+	frontLeftLift->SetSelectedSensorPosition(0,0,0);
+	backRightLift->SetSelectedSensorPosition(0,0,0);
+	backRightLift->SetSelectedSensorPosition(0,0,0);
 }

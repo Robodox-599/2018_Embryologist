@@ -23,6 +23,8 @@ public:
 		void PistonLift(bool pistonButton);
 		float getLeftLiftEnc();
 		float getRightLiftEnc();
+		void liftAuto(float autoLiftInput, float speed);
+		void resetLiftEncoder();
 
 		DigitalInput *upperLimit;
 		DigitalInput *lowerLimit;
