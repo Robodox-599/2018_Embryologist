@@ -19,6 +19,8 @@ public:
 
 	void intakeOuttakeCube(bool outtake, bool intake);
 	void intakePosition(bool posButton);
+	void AutoIntake();
+	void AutoOuttake();
 
 	DigitalInput* cubeStop;
 

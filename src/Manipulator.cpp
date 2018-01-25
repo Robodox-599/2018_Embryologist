@@ -29,7 +29,6 @@ Manipulator::~Manipulator()
 	delete cubeStop;
 }
 
-
 void Manipulator::intakeOuttakeCube(bool intake, bool outtake)
 {
 	if (intake && cubeStop->Get() == false)
@@ -75,3 +74,25 @@ void Manipulator::intakePosition(bool posButton)
 		}
 	}
 }
+
+void Manipulator::AutoIntake()
+{
+	while (cubeStop->Get() == false)
+	{
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values//
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values//
+
+	}
+	leftIntakeMotor->Set(ControlMode::PercentOutput, 0); //These are dummy values//
+	rightIntakeMotor->Set(ControlMode::PercentOutput, 0); //These are dummy values//
+}
+
+void Manipulator:: AutoOuttake()
+{
+	leftIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values//
+	rightIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values//
+	Wait(1);
+	leftIntakeMotor->Set(ControlMode::PercentOutput, 0); //These are dummy values//
+	rightIntakeMotor->Set(ControlMode::PercentOutput, 0); //These are dummy values//
+}
+
