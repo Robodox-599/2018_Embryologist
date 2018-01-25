@@ -20,6 +20,9 @@ Lift::Lift()
 	lowerLimit = new DigitalInput(1);
 	upperLimit = new DigitalInput(0);
 
+	leftLiftPiston = new Solenoid(1);
+	rightLiftPiston = new Solenoid(2);
+
 }
 
 Lift::~Lift()
@@ -30,6 +33,8 @@ Lift::~Lift()
 	delete backLeftLift;
 	delete lowerLimit;
 	delete upperLimit;
+	delete leftLiftPiston;
+	delete rightLiftPiston;
 
 	frontRightLift = nullptr;
 	frontLeftLift = nullptr;
@@ -37,6 +42,8 @@ Lift::~Lift()
 	backLeftLift = nullptr;
 	lowerLimit = nullptr;
 	upperLimit = nullptr;
+	leftLiftPiston = nullptr;
+	rightLiftPiston = nullptr;
 }
 
 void Lift::liftRobot(float liftInput)
@@ -74,4 +81,11 @@ float Lift::getRightLiftEnc()
 	return frontRightLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
 }
 
-
+void Lift::PistonLift(bool pistonButton)
+{
+	if(pistonButton == true)
+	{
+		leftLiftPiston->Set(true);
+		rightLiftPiston->Set(true);
+	}
+}

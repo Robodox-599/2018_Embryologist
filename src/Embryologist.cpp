@@ -16,6 +16,7 @@ class Robot: public frc::IterativeRobot {
 public:
 	Lift *lift;
 	Joystick *atk3;
+	Button *pistonButton;
 	void RobotInit()
 	{
 		lift = new Lift;
@@ -63,6 +64,7 @@ public:
 	void TeleopPeriodic()
 	{
 		lift->liftRobot(atk3->GetRawAxis(0));
+		lift->PistonLift(atk3->GetRawButton(1));
 	}
 
 	void TestPeriodic() {

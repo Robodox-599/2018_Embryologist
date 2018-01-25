@@ -20,11 +20,15 @@ public:
 		~Lift();
 
 		void liftRobot(float liftInput);
+		void PistonLift(bool pistonButton);
 		float getLeftLiftEnc();
 		float getRightLiftEnc();
 
 		DigitalInput *upperLimit;
 		DigitalInput *lowerLimit;
+
+		Solenoid *leftLiftPiston;
+		Solenoid *rightLiftPiston;
 
 private:
 		TalonSRX *frontRightLift;
