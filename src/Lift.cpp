@@ -92,37 +92,37 @@ void Lift::PistonLift(bool pistonButton)
 	}
 }
 
-void Lift::liftAuto(float autoLiftInput, float speed)
+void Lift::liftAuto(float speed, float autoLiftInput)
 {
 	if(speed > 0)
 	{
 		while(getLeftLiftEnc() < autoLiftInput && getRightLiftEnc() < autoLiftInput)
-			{
-				frontRightLift->Set(ControlMode::PercentOutput, .5);
-				frontLeftLift->Set(ControlMode::PercentOutput, .5);
-				backRightLift->Set(ControlMode::PercentOutput, .5);
-				backLeftLift->Set(ControlMode::PercentOutput, .5);
-			}
-			frontRightLift->Set(ControlMode::PercentOutput, 0);
-			frontLeftLift->Set(ControlMode::PercentOutput, 0);
-			backRightLift->Set(ControlMode::PercentOutput, 0);
-			backLeftLift->Set(ControlMode::PercentOutput, 0);
+		{
+			frontRightLift->Set(ControlMode::PercentOutput, .5);
+			frontLeftLift->Set(ControlMode::PercentOutput, .5);
+			backRightLift->Set(ControlMode::PercentOutput, .5);
+			backLeftLift->Set(ControlMode::PercentOutput, .5);
+		}
+		frontRightLift->Set(ControlMode::PercentOutput, 0);
+		frontLeftLift->Set(ControlMode::PercentOutput, 0);
+		backRightLift->Set(ControlMode::PercentOutput, 0);
+		backLeftLift->Set(ControlMode::PercentOutput, 0);
 
 	}
 
 	if(speed < 0)
 	{
 		while(getLeftLiftEnc() > autoLiftInput && getRightLiftEnc() > autoLiftInput)
-					{
-						frontRightLift->Set(ControlMode::PercentOutput, -.5);
-						frontLeftLift->Set(ControlMode::PercentOutput, -.5);
-						backRightLift->Set(ControlMode::PercentOutput, -.5);
-						backLeftLift->Set(ControlMode::PercentOutput, -.5);
-					}
-					frontRightLift->Set(ControlMode::PercentOutput, 0);
-					frontLeftLift->Set(ControlMode::PercentOutput, 0);
-					backRightLift->Set(ControlMode::PercentOutput, 0);
-					backLeftLift->Set(ControlMode::PercentOutput, 0);
+		{
+			frontRightLift->Set(ControlMode::PercentOutput, -.5);
+			frontLeftLift->Set(ControlMode::PercentOutput, -.5);
+			backRightLift->Set(ControlMode::PercentOutput, -.5);
+			backLeftLift->Set(ControlMode::PercentOutput, -.5);
+		}
+		frontRightLift->Set(ControlMode::PercentOutput, 0);
+		frontLeftLift->Set(ControlMode::PercentOutput, 0);
+		backRightLift->Set(ControlMode::PercentOutput, 0);
+		backLeftLift->Set(ControlMode::PercentOutput, 0);
 	}
 
 }
