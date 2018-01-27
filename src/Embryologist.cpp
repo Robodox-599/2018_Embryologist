@@ -61,8 +61,25 @@ public:
 		}*/
 	}
 
-	void AutonomousPeriodic() {
-		auton->auto1();
+	void AutonomousPeriodic()
+	{
+		//auton->auto1();
+		if(auton->autoSelector() == 0)
+		{
+			auton->auto0();
+		}
+		else if(auton->autoSelector() == 1)
+		{
+			auton->auto1();
+		}
+		else if(auton->autoSelector() == 2)
+		{
+			auton->auto2();
+		}
+		else if(auton->autoSelector() == 3)
+		{
+			auton->auto3();
+		}
 		/*if (autoSelected == autoNameCustom) {
 			// Custom Auto goes here
 		} else {
@@ -82,6 +99,7 @@ public:
 		SmartDashboard::PutString("test", "test2");
 		SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
 		SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
+		SmartDashboard::PutNumber("Auto Selected: ", auton->autoSelector());
 
 
 	}
