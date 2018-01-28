@@ -15,6 +15,11 @@ public:
 	Drive();
 	~Drive();
 
+	void velocityDrive(float xAxis, float yAxis);
+	void PIDset();
+	void joystickFwdSet(float joystickY);
+	void joystickTurnSet(float joystickX);
+
 	void updateLeftMotors(float speed);
 	void updateRightMotors(float speed);
 	void setFwdSpeed(float fwd);
@@ -37,12 +42,15 @@ private:
 	TalonSRX* frontRightMotor;
 	TalonSRX* rearRightMotor;
 
-	DoubleSolenoid* leftShifter;
-	DoubleSolenoid* rightShifter;
+	DoubleSolenoid* shifter;
+	//DoubleSolenoid* rightShifter;
 
 	float fwdSpeed;
 	float turnSpeed;
 	bool toggle;
+
+	float velocityFwd;
+	float velocityTurn;
 
 	//float gyroValue;
 

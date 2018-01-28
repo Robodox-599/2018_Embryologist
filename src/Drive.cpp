@@ -15,11 +15,11 @@ Drive::Drive()
 	frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
 	rearRightMotor = new TalonSRX(Drive_Rear_Right_Motor_Channel);
 
-	leftShifter = new DoubleSolenoid(Left_Shifter_Solenoid_Channel_A, Left_Shifter_Solenoid_Channel_B);
-	rightShifter = new DoubleSolenoid(Right_Shifter_Solenoid_Channel_A, Right_Shifter_Solenoid_Channel_B);
+	shifter = new DoubleSolenoid(Shifter_Solenoid_Channel_A, Shifter_Solenoid_Channel_B);
+	//rightShifter = new DoubleSolenoid(Right_Shifter_Solenoid_Channel_A, Right_Shifter_Solenoid_Channel_B);
 
-	leftShifter->Set(DoubleSolenoid::kReverse);
-	rightShifter->Set(DoubleSolenoid::kReverse);
+	shifter->Set(DoubleSolenoid::kReverse);
+	//rightShifter->Set(DoubleSolenoid::kReverse);
 	//navX->ZeroYaw();
 
 	//gyroValue = navX->GetYaw();
@@ -27,6 +27,8 @@ Drive::Drive()
 	fwdSpeed = 0;
 	turnSpeed = 0;
 	toggle = 0;
+	velocityFwd = 0;
+	velocityTurn = 0;
 }
 
 Drive::~Drive()
@@ -51,6 +53,88 @@ Drive::~Drive()
 bool Drive::smartTest()
 {
 	return true;
+}
+
+void Drive::PIDset()
+{
+	frontLeftMotor->Config_kF(0, 1.7, 10);
+	frontLeftMotor->Config_kP(0, 2.25, 10);
+	frontLeftMotor->Config_kI(0, 0.01, 10);
+	frontLeftMotor->Config_kD(0, 0, 10);
+
+	rearRightMotor->Config_kF(0, 1.7, 10);
+	rearRightMotor->Config_kP(0, 2.25, 10);
+	rearRightMotor->Config_kI(0, 0.01, 10);
+	rearRightMotor->Config_kD(0, 0, 10);
+
+	frontLeftMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
+	frontLeftMotor->SetSensorPhase(true);
+	frontLeftMotor->SetInverted(false);
+	rearLeftMotor->SetInverted(false);
+
+	rearRightMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
+	rearRightMotor->SetSensorPhase(false);
+	rearRightMotor->SetInverted(true);
+	frontRightMotor->SetInverted(true);
+}
+
+void Drive::velocityDrive(float xAxis, float yAxis)
+{
+	joystickFwdSet(yAxis);
+	joystickTurnSet(xAxis);
+
+	frontLeftMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn);
+	rearLeftMotor->Set(ControlMode::Follower, Drive_Front_Left_Motor_Channel);
+
+	rearRightMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn);
+	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
+
+	SmartDashboard::PutNumber("Encoder Right", frontLeftMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder));
+	SmartDashboard::PutNumber("Encoder Velocity Right", frontLeftMotor->GetSelectedSensorVelocity(FeedbackDevice::QuadEncoder));
+	SmartDashboard::PutNumber("PID Error Left", frontLeftMotor->GetClosedLoopError(0));
+	SmartDashboard::PutNumber("Motor Output Percent Front Left", frontLeftMotor->GetMotorOutputPercent());
+	SmartDashboard::PutNumber("Motor Output Percent Rear Left", rearLeftMotor->GetMotorOutputPercent());
+
+	SmartDashboard::PutNumber("Velocity Forward", velocityFwd);
+	SmartDashboard::PutNumber("Velocity Turn", velocityTurn);
+
+	SmartDashboard::PutNumber("Motor Output Percent Front Right", frontRightMotor->GetMotorOutputPercent());
+	SmartDashboard::PutNumber("Motor Output Percent Rear Right", rearRightMotor->GetMotorOutputPercent());
+	SmartDashboard::PutNumber("PID Error Right", rearRightMotor->GetClosedLoopError(0));
+	SmartDashboard::PutNumber("Encoder Velocity Left", rearRightMotor->GetSelectedSensorVelocity(FeedbackDevice::QuadEncoder));
+	SmartDashboard::PutNumber("Encoder Left", rearRightMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder));
+}
+
+void Drive::joystickFwdSet(float joystickY)
+{
+	if(joystickY > 0.1)
+	{
+		velocityFwd = (-joystickY+0.1)*(1/.9)*450;
+	}
+	else if(joystickY < -0.1)
+	{
+		velocityFwd = (-joystickY-0.1)*(1/.9)*450;
+	}
+	else
+	{
+		velocityFwd = 0;
+	}
+}
+
+void Drive::joystickTurnSet(float joystickX)
+{
+	if(joystickX > 0.1)
+	{
+		velocityTurn = (joystickX+0.1)*(1/.9)*450;
+	}
+	else if(joystickX < -0.1)
+	{
+		velocityTurn = (joystickX-0.1)*(1/.9)*450;
+	}
+	else
+	{
+		velocityTurn = 0;
+	}
 }
 
 //group left motors
@@ -128,15 +212,15 @@ void Drive::shift(int shifter_Button)
 	{
 		if(toggle == 1)
 		{
-			leftShifter->Set(DoubleSolenoid::kReverse);
-			rightShifter->Set(DoubleSolenoid::kReverse);
+			shifter->Set(DoubleSolenoid::kReverse);
+			//rightShifter->Set(DoubleSolenoid::kReverse);
 			Wait(.2);
 			toggle = 0;
 		}
 		else
 		{
-			leftShifter->Set(DoubleSolenoid::kForward);
-			rightShifter->Set(DoubleSolenoid::kForward);
+			shifter->Set(DoubleSolenoid::kForward);
+			//rightShifter->Set(DoubleSolenoid::kForward);
 			Wait(.2);
 			toggle = 1;
 		}
