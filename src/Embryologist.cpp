@@ -63,6 +63,7 @@ public:
 
 	void TeleopPeriodic()
 	{
+		//drive->velocityDrive(0, 0.4);
 		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
 		//drive->drive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
 		drive->shift(xbox->GetRawButton(2));//B Button

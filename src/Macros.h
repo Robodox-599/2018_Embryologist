@@ -11,10 +11,10 @@
 //#include "AHRS.h"
 
 //talon number for the motors
-#define Drive_Front_Left_Motor_Channel (7) //4
-#define Drive_Rear_Left_Motor_Channel (10) //3
-#define Drive_Front_Right_Motor_Channel (6) //2
-#define Drive_Rear_Right_Motor_Channel (8) //1
+#define Drive_Front_Left_Motor_Channel (4) //4 , 7(MOD)
+#define Drive_Rear_Left_Motor_Channel (3) //3  , 10(MOD)
+#define Drive_Front_Right_Motor_Channel (2) //2  , 6(MOD)
+#define Drive_Rear_Right_Motor_Channel (1) //1  , 8(MOD)
 
 //#define Shifter_Button (1) //shifts the gears on the drive for either torque or speed
 
