@@ -11,7 +11,8 @@ Manipulator::Manipulator()
 {
     leftIntakeMotor = new TalonSRX(1); //These are dummy values//
     rightIntakeMotor = new TalonSRX(2); //These are dummy values//
-    manipPiston = new DoubleSolenoid (0,1); //These are dummy values//
+    leftmanipPiston = new DoubleSolenoid (0,1); //These are dummy values//
+    rightmanipPiston = new DoubleSolenoid (0,2) //These are dummy values//
    // manipPiston->Set(DoubleSolenoid::kReverse);
     cubeStop = new DigitalInput(3); //These are dummy values//
     toggle = 0;
@@ -21,7 +22,8 @@ Manipulator::~Manipulator()
 {
 	leftIntakeMotor = nullptr;
 	rightIntakeMotor = nullptr;
-	manipPiston = nullptr;
+	leftmanipPiston = nullptr;
+	rightmanipPiston = nullptr;
 	cubeStop = nullptr;
 	delete leftIntakeMotor;
 	delete rightIntakeMotor;
@@ -62,13 +64,15 @@ void Manipulator::intakePosition(bool posButton)
 	{
 		if(toggle == 1)
 		{
-			manipPiston->Set(DoubleSolenoid::kForward);
+			leftmanipPiston->Set(DoubleSolenoid::kForward);
+			rightmanipPiston->Set(DoubleSolednoid::kForward);
 			Wait(.2);
 			toggle = 0;
 		}
 		else
 		{
-			manipPiston->Set(DoubleSolenoid::kReverse);
+			leftmanipPiston->Set(DoubleSolenoid::kReverse);
+			rightmanipPiston->Set(DoubleSolenoid::kReverse);
 			Wait(.2);
 			toggle = 1;
 		}
