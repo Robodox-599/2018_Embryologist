@@ -50,6 +50,7 @@ public:
 	 * SendableChooser make sure to add them to the chooser code above as well.
 	 */
 	void AutonomousInit() override {
+		drive->resetEncoder();
 		/*autoSelected = chooser.GetSelected();
 		// std::string autoSelected = SmartDashboard::GetString("Auto Selector", autoNameDefault);
 		std::cout << "Auto selected: " << autoSelected << std::endl;
@@ -91,7 +92,7 @@ public:
 
 	void TeleopInit()
 	{
-
+		drive->resetEncoder();
 	}
 
 	void TeleopPeriodic()
