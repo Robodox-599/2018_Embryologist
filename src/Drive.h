@@ -20,6 +20,8 @@ public:
 	void joystickFwdSet(float joystickY);
 	void joystickTurnSet(float joystickX);
 
+	void autoTurn(int angle);
+
 	void updateLeftMotors(float speed);
 	void updateRightMotors(float speed);
 	void setFwdSpeed(float fwd);
@@ -37,10 +39,12 @@ public:
 	//AHRS* navX;
 
 private:
-	TalonSRX *frontLeftMotor;
+	TalonSRX* frontLeftMotor;
 	TalonSRX* rearLeftMotor;
 	TalonSRX* frontRightMotor;
 	TalonSRX* rearRightMotor;
+
+	PigeonIMU * pGyro;
 
 	DoubleSolenoid* shifter;
 	//DoubleSolenoid* rightShifter;

@@ -15,6 +15,8 @@ Drive::Drive()
 	frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
 	rearRightMotor = new TalonSRX(Drive_Rear_Right_Motor_Channel);
 
+	pGyro = new PigeonIMU(0);
+
 	shifter = new DoubleSolenoid(Shifter_Solenoid_Channel_A, Shifter_Solenoid_Channel_B);
 	//rightShifter = new DoubleSolenoid(Right_Shifter_Solenoid_Channel_A, Right_Shifter_Solenoid_Channel_B);
 
@@ -24,6 +26,7 @@ Drive::Drive()
 
 	//gyroValue = navX->GetYaw();
 
+	pGyro->SetYaw(0, 0);
 	fwdSpeed = 0;
 	turnSpeed = 0;
 	toggle = 0;
@@ -38,6 +41,8 @@ Drive::~Drive()
 	delete frontRightMotor;
 	delete rearRightMotor;
 
+	delete pGyro;
+
 	//delete shifter;
 	//delete navX;
 
@@ -45,6 +50,8 @@ Drive::~Drive()
 	rearLeftMotor = nullptr;
 	frontRightMotor = nullptr;
 	rearRightMotor = nullptr;
+
+	pGyro = nullptr;
 
 	//shifter = nullptr;
 	//navX = nullptr;
@@ -146,6 +153,24 @@ void Drive::joystickTurnSet(float joystickX)
 	else
 	{
 		velocityTurn = 0;
+	}
+
+}
+
+void Drive::autoTurn(int angle)
+{
+	switch(angle)
+	{
+		case 270 :
+			break;
+		case 180 :
+			break;
+		case 90 :
+			break;
+		case 0 :
+			break;
+		default :
+			break;
 	}
 }
 
