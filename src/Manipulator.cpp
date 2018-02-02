@@ -9,11 +9,11 @@
 
 Manipulator::Manipulator()
 {
-    leftIntakeMotor = new TalonSRX(1); //These are dummy values//
-    rightIntakeMotor = new TalonSRX(2); //These are dummy values//
-    leftmanipPiston = new DoubleSolenoid (0,1); //These are dummy values//
-    rightmanipPiston = new DoubleSolenoid (0,2); //These are dummy values//
-    cubeStop = new DigitalInput(3); //These are dummy values//
+    leftIntakeMotor = new TalonSRX(1); //These are dummy values.//
+    rightIntakeMotor = new TalonSRX(2); //These are dummy values.//
+    leftmanipPiston = new DoubleSolenoid (0,1); //These are dummy values.//
+    rightmanipPiston = new DoubleSolenoid (0,2); //These are dummy values.//
+    cubeStop = new DigitalInput(3); //These are dummy values.//
     toggle = 0;
 }
 
@@ -26,7 +26,8 @@ Manipulator::~Manipulator()
 	cubeStop = nullptr;
 	delete leftIntakeMotor;
 	delete rightIntakeMotor;
-	delete manipPiston;
+	delete leftmanipPiston;
+	delete rightmanipPiston;
 	delete cubeStop;
 }
 
@@ -34,8 +35,8 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake)
 {
 	if (intake && cubeStop->Get() == false)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values//
-		rightIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values//
+		leftIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values.//
+		rightIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values.//
 	}
 
 	else if (outtake)
