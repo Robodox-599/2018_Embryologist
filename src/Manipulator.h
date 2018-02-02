@@ -31,7 +31,8 @@ private:
 
 	TalonSRX* leftIntakeMotor;
 	TalonSRX* rightIntakeMotor;
-	DoubleSolenoid* manipPiston;
+	DoubleSolenoid* leftmanipPiston;
+	DoubleSolenoid* rightmanipPiston;
 
 	bool toggle;
 };

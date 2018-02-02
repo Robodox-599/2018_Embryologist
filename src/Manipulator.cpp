@@ -12,8 +12,7 @@ Manipulator::Manipulator()
     leftIntakeMotor = new TalonSRX(1); //These are dummy values//
     rightIntakeMotor = new TalonSRX(2); //These are dummy values//
     leftmanipPiston = new DoubleSolenoid (0,1); //These are dummy values//
-    rightmanipPiston = new DoubleSolenoid (0,2) //These are dummy values//
-   // manipPiston->Set(DoubleSolenoid::kReverse);
+    rightmanipPiston = new DoubleSolenoid (0,2); //These are dummy values//
     cubeStop = new DigitalInput(3); //These are dummy values//
     toggle = 0;
 }
