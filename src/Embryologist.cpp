@@ -64,9 +64,10 @@ public:
 
 	void AutonomousPeriodic()
 	{
-		SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
-		SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
+		//SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
+		//SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
 		auton->auto0();
+
 		/*if(auton->autoSelector() == 0)
 		{
 			auton->auto0();
