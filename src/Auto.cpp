@@ -5,6 +5,8 @@ Auto::Auto()
 {
 	gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 	drive = new Drive;
+	manip = new Manipulator;
+	lift = new Lift;
 	dataTest = 0;
 	selector = new DigitalInput(1);
 	counter = 0;
@@ -70,25 +72,131 @@ void Auto::auto1()//Left starting position, Objective: Switch
 	if(gameData[0] == 'L')
 	{
 		//Put left auto code here
-		dataTest = 1;
-		driveStraight(1, 1000);
+		//dataTest = 1;
+		//driveStraight(1, 1000);
+
+		manip->setPos(1);//releases intake
+		driveStraight(1,50000);
+		//drive->autoTurn(270); //function not final
+		drive->updateLeftMotors(1);
+		drive->updateRightMotors(1);
+		manip->AutoIntake();
+		drive->updateLeftMotors(0);
+		drive->updateRightMotors(0);
+		driveStraight(-1,5000);
+		//drive->autoTurn(90); //function not final
+		driveStraight(1,1000);
+		//drive->autoTurn(270); //function not final
+		driveStraight(1,1000);
+		lift->liftAuto(1,5000);
+		manip->AutoOuttake();
+
+
 	}
 	else
 	{
 		//Put right auto code here
-		dataTest = 2;
-		driveStraight(-1, 1000);
+		//dataTest = 2;
+		//driveStraight(-1, 1000);
+
+		manip->setPos(1);//releases intake
+		driveStraight(1,50000);
+		//drive->autoTurn(270); //function not final
+		drive->updateLeftMotors(1);
+		drive->updateRightMotors(1);
+		manip->AutoIntake();
+		drive->updateLeftMotors(0);
+		drive->updateRightMotors(0);
+		//drive->autoTurn(90); //function not final
+		driveStraight(1,2000);
+		driveStraight(1,50000);
+		//drive->autoTurn(90); //function not final
+		driveStraight(1,5000);
+		//drive->autoTurn(90); //function not final
+		driveStraight(1,2000);
+		lift->liftAuto(1,5000);
+		manip->AutoOuttake();
 	}
 }
 
 void Auto::auto2()
 {
-
+	if(gameData[0] == 1)
+	{
+		manip->setPos(1);
+		driveStraight(1,30000);
+		drive->updateLeftMotors(1);
+		drive->updateRightMotors(1);
+		manip->AutoIntake();
+		drive->updateLeftMotors(0);
+		drive->updateRightMotors(0);
+		driveStraight(-1,2000);
+		//drive->autoTurn(90); //function not final
+		driveStraight(1,5000);
+		//drive->autoTurn(270); //function not final
+		driveStraight(1,10000);
+		lift->liftAuto(1,5000);
+		manip->AutoOuttake();
+	}
+	else
+	{
+		manip->setPos(1);
+		driveStraight(1,30000);
+		drive->updateLeftMotors(1);
+		drive->updateRightMotors(1);
+		manip->AutoIntake();
+		drive->updateLeftMotors(0);
+		drive->updateRightMotors(0);
+		driveStraight(-1,2000);
+		//drive->autoTurn(270); //function not final
+		driveStraight(1,5000);
+		//drive->autoTurn(90); //function not final
+		driveStraight(1,10000);
+		lift->liftAuto(1,5000);
+		manip->AutoOuttake();
+	}
 }
 
 void Auto::auto3()
 {
-
+	if(gameData[0] == 1)
+	{
+		manip->setPos(1);//releases intake
+		driveStraight(1,50000);
+		//drive->autoTurn(90); //function not final
+		drive->updateLeftMotors(1);
+		drive->updateRightMotors(1);
+		manip->AutoIntake();
+		drive->updateLeftMotors(0);
+		drive->updateRightMotors(0);
+		driveStraight(-1,5000);
+		//drive->autoTurn(270); //function not final
+		driveStraight(1,1000);
+		//drive->autoTurn(90); //function not final
+		driveStraight(1,1000);
+		lift->liftAuto(1,5000);
+		manip->AutoOuttake();
+	}
+	else
+	{
+		manip->setPos(1);//releases intake
+		driveStraight(1,50000);
+		//drive->autoTurn(90); //function not final
+		drive->updateLeftMotors(1);
+		drive->updateRightMotors(1);
+		manip->AutoIntake();
+		drive->updateLeftMotors(0);
+		drive->updateRightMotors(0);
+		//drive->autoTurn(270); //function not final
+		driveStraight(1,2000);
+		driveStraight(1,50000);
+		//drive->autoTurn(270); //function not final
+		driveStraight(1,5000);
+		//drive->autoTurn(270); //function not final
+		driveStraight(1,2000);
+		lift->liftAuto(1,5000);
+		manip->AutoOuttake();
+	}
 }
 
 int Auto::dataVal()

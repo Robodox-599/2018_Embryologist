@@ -3,6 +3,8 @@
 
 #include <Macros.h>
 #include <Drive.h>
+#include <Manipulator.h>
+#include <Lift.h>
 #include <WPILib.h>
 #include <ctre/Phoenix.h>
 
@@ -29,6 +31,8 @@ private:
 	std::string gameData;
 
 	Drive* drive;
+	Manipulator* manip;
+	Lift* lift;
 
 	int dataTest;
 	int counter;

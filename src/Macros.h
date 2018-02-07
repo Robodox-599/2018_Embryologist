@@ -24,5 +24,6 @@
 //#define Right_Shifter_Solenoid_Channel_B (3)
 
 #define DEADZONE (.2) //deadzone for the controllers to avoid accidental movement
+#define LIFT_DEADZONE (0.2)
 
 #endif /* SRC_MACROS_H_ */
