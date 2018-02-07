@@ -21,6 +21,7 @@ public:
 	void intakePosition(bool posButton);
 	void AutoIntake();
 	void AutoOuttake();
+	void setPos(bool pos);
 
 	DigitalInput* cubeStop;
 
@@ -31,7 +32,8 @@ private:
 
 	TalonSRX* leftIntakeMotor;
 	TalonSRX* rightIntakeMotor;
-	DoubleSolenoid* manipPiston;
+	DoubleSolenoid* leftmanipPiston;
+	DoubleSolenoid* rightmanipPiston;
 
 	bool toggle;
 };

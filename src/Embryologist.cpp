@@ -17,7 +17,7 @@ public:
 	Joystick* atk3;
 	void RobotInit()
 	{
-		atk3 = new Joystick(1); //This value may change//
+		atk3 = new Joystick(1); //This value may change because it is a DUMMY VALUE.//
 	}
 
 	/*
