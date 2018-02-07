@@ -26,7 +26,6 @@ Manipulator::~Manipulator() //deletes all booleans, digital inputs, and CANTalon
 	cubeStop = nullptr;
 	delete leftIntakeMotor;
 	delete rightIntakeMotor;
-	delete leftmanipPiston;
 	delete cubeStop;
 }
 
