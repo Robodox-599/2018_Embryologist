@@ -5,6 +5,7 @@
  *      Author: Admin
  */
 #include "Manipulator.h"
+#include "ctre/Phoenix.h"
 
 Manipulator::Manipulator()
 {
