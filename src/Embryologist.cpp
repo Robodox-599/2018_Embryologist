@@ -15,8 +15,8 @@ public:
 	//Compressor *comp599 = new Compressor(0);
 	void RobotInit()
 	{
-		pigeonTalon = new TalonSRX(9);
-		pGyon = new PigeonIMU(pigeonTalon);
+		/*pigeonTalon = new TalonSRX(9);
+		pGyon = new PigeonIMU(pigeonTalon);*/
 		xbox = new Joystick(0);
 		drive = new Drive();
 		drive->resetEncoder();
@@ -65,21 +65,21 @@ public:
 
 	void TeleopPeriodic()
 	{
-		double ypr[3];
+		/*double ypr[3];
 		PigeonIMU::GeneralStatus genStatus;
 		pGyon->GetGeneralStatus(genStatus);
 		pGyon->GetYawPitchRoll(ypr);
 		SmartDashboard::PutNumber("Yaw", ypr[0]);
-		SmartDashboard::PutNumber("Temperature", genStatus.tempC);
-
-		/*
+		SmartDashboard::PutNumber("Temperature", genStatus.tempC);*/
 		//drive->velocityDrive(0, 0.4);
+		drive->getYPR();
 		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
 		//drive->drive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
 		drive->shift(xbox->GetRawButton(2));//B Button
-*/
+		drive->autoTurn(xbox->GetPOV(0));
 		SmartDashboard::PutNumber("Joystick Y", xbox->GetRawAxis(1));
 		SmartDashboard::PutNumber("Joystick X", xbox->GetRawAxis(0));
+		SmartDashboard::PutNumber("Auto Turn Case Value", xbox->GetPOV(0));
 	}
 
 	void TestPeriodic()
@@ -88,8 +88,8 @@ public:
 	}
 
 private:
-	TalonSRX* pigeonTalon;
-	PigeonIMU* pGyon;
+	//TalonSRX* pigeonTalon;
+	//PigeonIMU* pGyon;
 	Drive* drive;
 	Joystick* xbox;
 	frc::LiveWindow* lw = LiveWindow::GetInstance();
