@@ -9,11 +9,11 @@
 
 Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons in this case//
 {
-    leftIntakeMotor = new TalonSRX(1); //These are dummy values.//
-    rightIntakeMotor = new TalonSRX(2); //These are dummy values.//
+    leftIntakeMotor = new TalonSRX(5); //These are dummy values.//
+    rightIntakeMotor = new TalonSRX(8); //These are dummy values.//
     leftmanipPiston = new DoubleSolenoid (0,1); //These are dummy values.//
     rightmanipPiston = new DoubleSolenoid (0,2); //These are dummy values.//
-    cubeStop = new DigitalInput(3); //These are dummy values.//
+    cubeStop = new DigitalInput(2); //These are dummy values.//
     toggle = 0;
 }
 
