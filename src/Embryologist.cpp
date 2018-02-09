@@ -15,9 +15,11 @@
 class Robot: public frc::IterativeRobot {
 public:
 	Joystick* atk3;
+	Manipulator* manip;
 	void RobotInit()
 	{
 		atk3 = new Joystick(1); //This value may change because it is a DUMMY VALUE.//
+		manip = new Manipulator;
 	}
 
 	/*
@@ -55,8 +57,9 @@ public:
 
 	}
 
-	void TeleopPeriodic() {
-
+	void TeleopPeriodic()
+	{
+		manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(5));
 	}
 
 	void TestPeriodic() {

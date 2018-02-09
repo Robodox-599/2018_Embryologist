@@ -33,13 +33,13 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake) //intakes the act
 {
 	if (intake && cubeStop->Get() == false)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values.//
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values.//
 		rightIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values.//
 	}
 
 	else if (outtake)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values.//
+		leftIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values.//
 		rightIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values.//
 	}
 
