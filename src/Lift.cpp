@@ -8,22 +8,24 @@
 
 
 #include "Lift.h"
+//#include "WPILib.h"
 
 
 Lift::Lift()
 {
-	frontRightLift = new TalonSRX(3);
-	frontLeftLift = new TalonSRX(2);
-	backRightLift = new TalonSRX(5);
-	backLeftLift = new TalonSRX(1);
+	frontRightLift = new TalonSRX(9);
+	frontLeftLift = new TalonSRX(7);
+	backRightLift = new TalonSRX(10);
+	backLeftLift = new TalonSRX(6);
 
 	lowerLimit = new DigitalInput(1);
-	upperLimit = new DigitalInput(0);
+	upperLimit  = new DigitalInput(0);
 
 	leftLiftPiston = new Solenoid(1);
 	rightLiftPiston = new Solenoid(2);
 
-//liftUp - liftDown - liftReset
+	leftClimbPiston = new Solenoid(3);
+	rightClimbPiston = new Solenoid(1);
 
 }
 
@@ -48,16 +50,25 @@ Lift::~Lift()
 	rightLiftPiston = nullptr;
 }
 
+bool Lift::lowerLimitTester()
+{
+	return lowerLimit->Get();
+}
+
+bool Lift::upperLimitTester()
+{
+	return upperLimit->Get();
+}
 void Lift::liftRobot(float liftInput)
 {
-	if(liftInput > LIFT_DEADZONE && upperLimit == false)
+	if(liftInput > LIFT_DEADZONE && !upperLimit->Get())
 	{
 		frontRightLift->Set(ControlMode::PercentOutput, .5);
 		frontLeftLift->Set(ControlMode::PercentOutput, .5);
 		backRightLift->Set(ControlMode::PercentOutput, .5);
 		backLeftLift->Set(ControlMode::PercentOutput, .5);
 	}
-	else if(liftInput < LIFT_DEADZONE && lowerLimit == false)
+	else if(liftInput < -LIFT_DEADZONE && !lowerLimit->Get())
 	{
 		frontRightLift->Set(ControlMode::PercentOutput, -.5);
 		frontLeftLift->Set(ControlMode::PercentOutput, -.5);
@@ -75,12 +86,12 @@ void Lift::liftRobot(float liftInput)
 
 float Lift::getLeftLiftEnc()
 {
-	return frontLeftLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);//motor not final
+	return frontLeftLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
 }
 
 float Lift::getRightLiftEnc()
 {
-	return frontRightLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
+	return backRightLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
 }
 
 void Lift::PistonLift(bool pistonButton)
@@ -92,6 +103,14 @@ void Lift::PistonLift(bool pistonButton)
 	}
 }
 
+void Lift::PistonClimb(bool climbButton)
+{
+	if(climbButton == true)
+	{
+		leftClimbPiston->Set(true);
+		rightClimbPiston->Set(true);
+	}
+}
 void Lift::liftAuto(float speed, float autoLiftInput)
 {
 	if(speed > 0)
@@ -108,7 +127,7 @@ void Lift::liftAuto(float speed, float autoLiftInput)
 		backRightLift->Set(ControlMode::PercentOutput, 0);
 		backLeftLift->Set(ControlMode::PercentOutput, 0);
 
-	}
+}
 
 	if(speed < 0)
 	{
