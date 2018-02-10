@@ -189,6 +189,7 @@ void Auto::auto3()
 		drive->updateRightMotors(0);
 		//drive->autoTurn(270); //function not final
 		driveStraight(1,2000);
+		//drive->autoTurn(90);
 		driveStraight(1,50000);
 		//drive->autoTurn(270); //function not final
 		driveStraight(1,5000);

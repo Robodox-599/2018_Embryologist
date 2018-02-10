@@ -24,13 +24,17 @@ public:
 		float getLeftLiftEnc();
 		float getRightLiftEnc();
 		void liftAuto(float speed, float autoLiftInput);
+		void PistonClimb(bool climbButton);
 		void resetLiftEncoder();
+		bool lowerLimitTester();
+		bool upperLimitTester();
 
-		DigitalInput *upperLimit;
-		DigitalInput *lowerLimit;
 
 		Solenoid *leftLiftPiston;
 		Solenoid *rightLiftPiston;
+
+		Solenoid *leftClimbPiston;
+		Solenoid *rightClimbPiston;
 
 private:
 		TalonSRX *frontRightLift;
@@ -38,6 +42,8 @@ private:
 		TalonSRX *backRightLift;
 		TalonSRX *backLeftLift;
 
+		DigitalInput *upperLimit;
+		DigitalInput *lowerLimit;
 
 };
 
