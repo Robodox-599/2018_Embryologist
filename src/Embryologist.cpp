@@ -18,6 +18,12 @@ public:
 		Drive* drive;
 		Auto *auton;
 		Joystick* xbox;
+		std::string autoNum = SmartDashboard::GetString("Auto Number:", 0);
+		std::string auto0;
+		std::string auto1;
+		std::string auto2;
+		std::string auto3;
+		//int autoNum;
 		//Compressor* comp599;
 
 		//Compressor *comp599 = new Compressor();
@@ -36,6 +42,7 @@ public:
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
+
 	}
 
 	/*
@@ -60,13 +67,24 @@ public:
 		} else {
 			// Default Auto goes here
 		}*/
+
+
 	}
 
 	void AutonomousPeriodic()
 	{
 		//SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
 		//SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
-		auton->auto0();
+		//auton->auto0();
+
+		//SmartDashboard::GetNumber("Auto Number:", autoNum);
+
+		if(autoNum == auto0) auton->auto0();
+		else if(autoNum == auto1) auton->auto1();
+		else if(autoNum == auto2) auton->auto2();
+		else if(autoNum == auto3) auton->auto3();
+
+		//std::string autoSelected = SmartDashboard::GetString("Auto Selector", );
 
 		/*if(auton->autoSelector() == 0)
 		{

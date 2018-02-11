@@ -26,4 +26,5 @@
 #define DEADZONE (.2) //deadzone for the controllers to avoid accidental movement
 #define LIFT_DEADZONE (0.2)
 
+#define Max_Motor_Velocity (768) //3256.28
 #endif /* SRC_MACROS_H_ */

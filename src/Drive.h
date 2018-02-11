@@ -19,6 +19,16 @@ public:
 	void PIDset();
 	void joystickFwdSet(float joystickY);
 	void joystickTurnSet(float joystickX);
+	void joystickGyroSet(float joystickX);
+
+	void getYPR();
+	void autoTurn(int angle);
+	void turnRight(int error);
+	void turnLeft(int error);
+	void turnLeftandRight(int error);
+
+	void setTargetHeading(int joystick);
+	void getTargetHeading();
 
 	void updateLeftMotors(float speed);
 	void updateRightMotors(float speed);
@@ -33,21 +43,32 @@ public:
 	float getLeftEnc();
 	float getRightEnc();
 
-	bool smartTest();
+	void getGyroVal();
+
 	//AHRS* navX;
 
 private:
-	TalonSRX *frontLeftMotor;
+	TalonSRX* frontLeftMotor;
 	TalonSRX* rearLeftMotor;
 	TalonSRX* frontRightMotor;
 	TalonSRX* rearRightMotor;
 
+	PigeonIMU * pGyon;
+
 	DoubleSolenoid* shifter;
 	//DoubleSolenoid* rightShifter;
+
+	double targetHeading;
+
+	double ypr[3];
+	PigeonIMU::GeneralStatus genStatus;
 
 	float fwdSpeed;
 	float turnSpeed;
 	bool toggle;
+
+	int gyroError;
+	int refAngle;
 
 	float velocityFwd;
 	float velocityTurn;
@@ -56,5 +77,6 @@ private:
 
 	float const kp = 0.01;
 };
+
 
 #endif /* SRC_DRIVE_H_ */

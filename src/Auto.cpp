@@ -77,16 +77,16 @@ void Auto::auto1()//Left starting position, Objective: Switch
 
 		manip->setPos(1);//releases intake
 		driveStraight(1,50000);
-		//drive->autoTurn(270); //function not final
+		drive->autoTurn(270); //function not final
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
 		manip->AutoIntake();
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
 		driveStraight(-1,5000);
-		//drive->autoTurn(90); //function not final
+		drive->autoTurn(90); //function not final
 		driveStraight(1,1000);
-		//drive->autoTurn(270); //function not final
+		drive->autoTurn(270); //function not final
 		driveStraight(1,1000);
 		lift->liftAuto(1,5000);
 		manip->AutoOuttake();
@@ -101,18 +101,18 @@ void Auto::auto1()//Left starting position, Objective: Switch
 
 		manip->setPos(1);//releases intake
 		driveStraight(1,50000);
-		//drive->autoTurn(270); //function not final
+		drive->autoTurn(270); //function not final
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
 		manip->AutoIntake();
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
-		//drive->autoTurn(90); //function not final
+		drive->autoTurn(90); //function not final
 		driveStraight(1,2000);
 		driveStraight(1,50000);
-		//drive->autoTurn(90); //function not final
+		drive->autoTurn(90); //function not final
 		driveStraight(1,5000);
-		//drive->autoTurn(90); //function not final
+		drive->autoTurn(90); //function not final
 		driveStraight(1,2000);
 		lift->liftAuto(1,5000);
 		manip->AutoOuttake();
@@ -131,7 +131,7 @@ void Auto::auto2()
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
 		driveStraight(-1,2000);
-		//drive->autoTurn(90); //function not final
+		drive->autoTurn(90); //function not final
 		driveStraight(1,5000);
 		//drive->autoTurn(270); //function not final
 		driveStraight(1,10000);
@@ -148,9 +148,9 @@ void Auto::auto2()
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
 		driveStraight(-1,2000);
-		//drive->autoTurn(270); //function not final
+		drive->autoTurn(270); //function not final
 		driveStraight(1,5000);
-		//drive->autoTurn(90); //function not final
+		drive->autoTurn(90); //function not final
 		driveStraight(1,10000);
 		lift->liftAuto(1,5000);
 		manip->AutoOuttake();
@@ -163,16 +163,16 @@ void Auto::auto3()
 	{
 		manip->setPos(1);//releases intake
 		driveStraight(1,50000);
-		//drive->autoTurn(90); //function not final
+		drive->autoTurn(90); //function not final
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
 		manip->AutoIntake();
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
 		driveStraight(-1,5000);
-		//drive->autoTurn(270); //function not final
+		drive->autoTurn(270); //function not final
 		driveStraight(1,1000);
-		//drive->autoTurn(90); //function not final
+		drive->autoTurn(90); //function not final
 		driveStraight(1,1000);
 		lift->liftAuto(1,5000);
 		manip->AutoOuttake();
@@ -181,19 +181,19 @@ void Auto::auto3()
 	{
 		manip->setPos(1);//releases intake
 		driveStraight(1,50000);
-		//drive->autoTurn(90); //function not final
+		drive->autoTurn(90); //function not final
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
 		manip->AutoIntake();
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
-		//drive->autoTurn(270); //function not final
+		drive->autoTurn(270); //function not final
 		driveStraight(1,2000);
-		//drive->autoTurn(90);
+		drive->autoTurn(90);
 		driveStraight(1,50000);
-		//drive->autoTurn(270); //function not final
+		drive->autoTurn(270); //function not final
 		driveStraight(1,5000);
-		//drive->autoTurn(270); //function not final
+		drive->autoTurn(270); //function not final
 		driveStraight(1,2000);
 		lift->liftAuto(1,5000);
 		manip->AutoOuttake();
