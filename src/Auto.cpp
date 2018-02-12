@@ -53,7 +53,7 @@ void Auto::preCheck()//To be run BEFORE a match in the pit in order to test each
 
 }
 
-void Auto::auto0()//Drive straight to pass Auto Line.
+void Auto::preLoad_auto0()//Drive straight to pass Auto Line.
 {
 	/*while(drive->getLeftEnc() > -10000 && drive->getRightEnc() > -10000)//Dummy values
 	{
@@ -67,7 +67,7 @@ void Auto::auto0()//Drive straight to pass Auto Line.
 	//Wait(400);
 }
 //
-void Auto::auto1()//Left starting position, Objective: Switch
+void Auto::preLoad_auto1()//Left starting position, Objective: Switch
 {
 	if(gameData[0] == 'L')
 	{
@@ -119,7 +119,7 @@ void Auto::auto1()//Left starting position, Objective: Switch
 	}
 }
 
-void Auto::auto2()
+void Auto::preLoad_auto2()
 {
 	if(gameData[0] == 1)
 	{
@@ -157,7 +157,7 @@ void Auto::auto2()
 	}
 }
 
-void Auto::auto3()
+void Auto::preLoad_auto3()
 {
 	if(gameData[0] == 1)
 	{

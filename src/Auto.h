@@ -15,10 +15,10 @@ public:
 	~Auto();
 
 	void preCheck();
-	void auto0();
-	void auto1();
-	void auto2();
-	void auto3();
+	void preLoad_auto0();
+	void preLoad_auto1();
+	void preLoad_auto2();
+	void preLoad_auto3();
 	int dataVal();
 	DigitalInput* selector;
 
