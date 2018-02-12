@@ -61,19 +61,19 @@ bool Lift::upperLimitTester()
 }
 void Lift::liftRobot(float liftInput)
 {
-	if(liftInput > LIFT_DEADZONE && !upperLimit->Get())
+	if(liftInput > LIFT_DEADZONE )//&& !upperLimit->Get())
 	{
-		frontRightLift->Set(ControlMode::PercentOutput, .5);
-		frontLeftLift->Set(ControlMode::PercentOutput, .5);
-		backRightLift->Set(ControlMode::PercentOutput, .5);
-		backLeftLift->Set(ControlMode::PercentOutput, .5);
+		frontRightLift->Set(ControlMode::PercentOutput, liftInput*(.5));
+		frontLeftLift->Set(ControlMode::PercentOutput,  liftInput*(.5));
+		backRightLift->Set(ControlMode::PercentOutput,  liftInput*(.5));
+		backLeftLift->Set(ControlMode::PercentOutput,  liftInput*(.5));
 	}
-	else if(liftInput < -LIFT_DEADZONE && !lowerLimit->Get())
+	else if(liftInput < -LIFT_DEADZONE )//&& !lowerLimit->Get())
 	{
-		frontRightLift->Set(ControlMode::PercentOutput, -.5);
-		frontLeftLift->Set(ControlMode::PercentOutput, -.5);
-		backRightLift->Set(ControlMode::PercentOutput, -.5);
-		backLeftLift->Set(ControlMode::PercentOutput, -.5);
+		frontRightLift->Set(ControlMode::PercentOutput,  -liftInput*(-.5));
+		frontLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-.5));
+		backRightLift->Set(ControlMode::PercentOutput, -liftInput*(-.5));
+		backLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-.5));
 	}
 	else
 	{
