@@ -17,7 +17,7 @@ public:
 	Lift *lift;
 	Joystick *atk3;
 	Button *pistonButton;
-	Compressor* comp599;
+	Compressor* comp599 = new Compressor(0);
 	void RobotInit()
 	{
 		lift = new Lift;

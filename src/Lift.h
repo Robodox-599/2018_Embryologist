@@ -20,7 +20,7 @@ public:
 		~Lift();
 
 		void liftRobot(float liftInput);
-		void PistonLift(bool pistonButton);
+		void PistonLift(bool pistonButton, bool disengage);
 		float getLeftLiftEnc();
 		float getRightLiftEnc();
 		void liftAuto(float speed, float autoLiftInput);
@@ -30,7 +30,7 @@ public:
 		bool upperLimitTester();
 
 
-		DoubleSolenoid *leftLiftPiston;
+		DoubleSolenoid *liftPiston;
 		//DoubleSolenoid *rightLiftPiston;
 
 		//Solenoid *leftClimbPiston;
@@ -44,7 +44,6 @@ private:
 
 		DigitalInput *upperLimit;
 		DigitalInput *lowerLimit;
-		bool liftToggle;
 
 };
 

@@ -9,6 +9,7 @@
 
 #include "Lift.h"
 //#include "WPILib.h"
+#include "ctre/Phoenix.h"
 
 
 Lift::Lift()
@@ -21,13 +22,11 @@ Lift::Lift()
 	lowerLimit = new DigitalInput(1);
 	upperLimit  = new DigitalInput(0);
 
-	leftLiftPiston = new DoubleSolenoid(1,2);
-	//rightLiftPiston = new DoubleSolenoid(3,4);
+	liftPiston = new DoubleSolenoid(0,1);
 
 	//leftClimbPiston = new Solenoid(3);
 	//rightClimbPiston = new Solenoid(1);
 
-	liftToggle = 0;
 
 }
 
@@ -39,8 +38,7 @@ Lift::~Lift()
 	delete backLeftLift;
 	delete lowerLimit;
 	delete upperLimit;
-	delete leftLiftPiston;
-	//delete rightLiftPiston;
+	delete liftPiston;
 
 	frontRightLift = nullptr;
 	frontLeftLift = nullptr;
@@ -48,8 +46,7 @@ Lift::~Lift()
 	backLeftLift = nullptr;
 	lowerLimit = nullptr;
 	upperLimit = nullptr;
-	leftLiftPiston = nullptr;
-	//rightLiftPiston = nullptr;
+	liftPiston = nullptr;
 }
 
 bool Lift::lowerLimitTester()
@@ -96,24 +93,16 @@ float Lift::getRightLiftEnc()
 	return backRightLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
 }
 
-void Lift::PistonLift(bool pistonButton)
+void Lift::PistonLift(bool pistonButton, bool disengage)
 {
 	if(pistonButton == true)
 	{
-		if(liftToggle == 0)
-		{
-			leftLiftPiston->Set(DoubleSolenoid::kForward);
-			//rightLiftPiston->Set(DoubleSolenoid::kForward);
-			Wait(0.2);
-			liftToggle = 1;
-		}
-		else
-		{
-			leftLiftPiston->Set(DoubleSolenoid::kReverse);
-			//rightLiftPiston->Set(DoubleSolenoid::kReverse);
-			Wait(0.2);
-			liftToggle = 0;
-		}
+		liftPiston->Set(DoubleSolenoid::kForward);
+	}
+	else
+	{
+		liftPiston->Set(DoubleSolenoid::kReverse);
+
 	}
 }
 
