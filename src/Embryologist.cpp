@@ -17,10 +17,12 @@ public:
 	Lift *lift;
 	Joystick *atk3;
 	Button *pistonButton;
+	Compressor* comp599;
 	void RobotInit()
 	{
 		lift = new Lift;
 		atk3 = new Joystick(0);
+		comp599->SetClosedLoopControl(true);
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/

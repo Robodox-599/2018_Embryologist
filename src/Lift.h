@@ -30,11 +30,11 @@ public:
 		bool upperLimitTester();
 
 
-		Solenoid *leftLiftPiston;
-		Solenoid *rightLiftPiston;
+		DoubleSolenoid *leftLiftPiston;
+		//DoubleSolenoid *rightLiftPiston;
 
-		Solenoid *leftClimbPiston;
-		Solenoid *rightClimbPiston;
+		//Solenoid *leftClimbPiston;
+		//Solenoid *rightClimbPiston;
 
 private:
 		TalonSRX *frontRightLift;
@@ -44,6 +44,7 @@ private:
 
 		DigitalInput *upperLimit;
 		DigitalInput *lowerLimit;
+		bool liftToggle;
 
 };
 

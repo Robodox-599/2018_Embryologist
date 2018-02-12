@@ -21,11 +21,13 @@ Lift::Lift()
 	lowerLimit = new DigitalInput(1);
 	upperLimit  = new DigitalInput(0);
 
-	leftLiftPiston = new Solenoid(1);
-	rightLiftPiston = new Solenoid(2);
+	leftLiftPiston = new DoubleSolenoid(1,2);
+	//rightLiftPiston = new DoubleSolenoid(3,4);
 
-	leftClimbPiston = new Solenoid(3);
-	rightClimbPiston = new Solenoid(1);
+	//leftClimbPiston = new Solenoid(3);
+	//rightClimbPiston = new Solenoid(1);
+
+	liftToggle = 0;
 
 }
 
@@ -38,7 +40,7 @@ Lift::~Lift()
 	delete lowerLimit;
 	delete upperLimit;
 	delete leftLiftPiston;
-	delete rightLiftPiston;
+	//delete rightLiftPiston;
 
 	frontRightLift = nullptr;
 	frontLeftLift = nullptr;
@@ -47,7 +49,7 @@ Lift::~Lift()
 	lowerLimit = nullptr;
 	upperLimit = nullptr;
 	leftLiftPiston = nullptr;
-	rightLiftPiston = nullptr;
+	//rightLiftPiston = nullptr;
 }
 
 bool Lift::lowerLimitTester()
@@ -98,11 +100,24 @@ void Lift::PistonLift(bool pistonButton)
 {
 	if(pistonButton == true)
 	{
-		leftLiftPiston->Set(true);
-		rightLiftPiston->Set(true);
+		if(liftToggle == 0)
+		{
+			leftLiftPiston->Set(DoubleSolenoid::kForward);
+			//rightLiftPiston->Set(DoubleSolenoid::kForward);
+			Wait(0.2);
+			liftToggle = 1;
+		}
+		else
+		{
+			leftLiftPiston->Set(DoubleSolenoid::kReverse);
+			//rightLiftPiston->Set(DoubleSolenoid::kReverse);
+			Wait(0.2);
+			liftToggle = 0;
+		}
 	}
 }
 
+/*
 void Lift::PistonClimb(bool climbButton)
 {
 	if(climbButton == true)
@@ -111,6 +126,7 @@ void Lift::PistonClimb(bool climbButton)
 		rightClimbPiston->Set(true);
 	}
 }
+*/
 void Lift::liftAuto(float speed, float autoLiftInput)
 {
 	if(speed > 0)
