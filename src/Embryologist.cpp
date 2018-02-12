@@ -66,7 +66,7 @@ public:
 	void TeleopPeriodic()
 	{
 		lift->liftRobot(atk3->GetRawAxis(1));
-		lift->PistonLift(atk3->GetRawButton(1));
+		lift->PistonLift(atk3->GetRawButton(4),atk3->GetRawButton(5));
 		SmartDashboard::PutNumber("leftValue: ", lift->getLeftLiftEnc());
 		SmartDashboard::PutNumber("rightValue: ", lift->getRightLiftEnc());
 		SmartDashboard::PutBoolean("upperLimit ", lift->upperLimitTester());
