@@ -99,7 +99,7 @@ void Lift::PistonLift(bool pistonButton, bool disengage)
 	{
 		liftPiston->Set(DoubleSolenoid::kForward);
 	}
-	else
+	if(disengage == true)
 	{
 		liftPiston->Set(DoubleSolenoid::kReverse);
 
