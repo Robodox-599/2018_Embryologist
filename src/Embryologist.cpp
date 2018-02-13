@@ -72,6 +72,8 @@ public:
 		SmartDashboard::PutNumber("Yaw", ypr[0]);
 		SmartDashboard::PutNumber("Temperature", genStatus.tempC);*/
 		//drive->velocityDrive(0, 0.4);
+		if(false)
+		{
 		drive->getYPR();
 		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
 		//drive->drive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
@@ -80,6 +82,12 @@ public:
 		SmartDashboard::PutNumber("Joystick Y", xbox->GetRawAxis(1));
 		SmartDashboard::PutNumber("Joystick X", xbox->GetRawAxis(0));
 		SmartDashboard::PutNumber("Auto Turn Case Value", xbox->GetPOV(0));
+		}
+		else{
+			drive->autoTurn(xbox->GetPOV(0));
+			drive->updateDrive(xbox->GetRawAxis(0));
+			drive->PIDset();
+		}
 	}
 
 	void TestPeriodic()
@@ -88,7 +96,6 @@ public:
 	}
 
 private:
-	//TalonSRX* pigeonTalon;
 	//PigeonIMU* pGyon;
 	Drive* drive;
 	Joystick* xbox;

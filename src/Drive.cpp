@@ -26,8 +26,8 @@ Drive::Drive()
 	//navX->ZeroYaw();
 
 	//gyroValue = navX->GetYaw();
-
 	pGyon->SetYaw(0, 0);
+	pGyon->GetYawPitchRoll(ypr);
 	refAngle = 0;
 	fwdSpeed = 0;
 	turnSpeed = 0;
@@ -36,6 +36,12 @@ Drive::Drive()
 	velocityTurn = 0;
 	gyroError = 0;
 	targetHeading = 0;
+	currentHeading = ypr[0];
+	SmartDashboard::PutNumber("kF", 0);
+	SmartDashboard::PutNumber("kP", 0);
+	SmartDashboard::PutNumber("kI", 0);
+	SmartDashboard::PutNumber("kD", 0);
+	SmartDashboard::PutNumber("Velocity", 0);
 }
 
 Drive::~Drive()
@@ -64,7 +70,7 @@ Drive::~Drive()
 void Drive::PIDset()
 {
 	//EMMA LOW GEAR
-	rearLeftMotor->Config_kF(0, 0.314, 10);
+	/*rearLeftMotor->Config_kF(0, 0.314, 10);
 	rearLeftMotor->Config_kP(0, 0, 10);
 	rearLeftMotor->Config_kI(0, 0, 10);
 	rearLeftMotor->Config_kD(0, 0, 10);
@@ -73,16 +79,16 @@ void Drive::PIDset()
 	rearRightMotor->Config_kP(0, 0, 10);
 	rearRightMotor->Config_kI(0, 0, 10);
 	rearRightMotor->Config_kD(0, 0, 10);
-
+*/
 	//MOD
-	/*frontLeftMotor->Config_kF(0, 1.7, 10);
-	frontLeftMotor->Config_kP(0, 2.25, 10);
-	frontLeftMotor->Config_kI(0, 0.01, 10);
-	frontLeftMotor->Config_kD(0, 0, 10);
-	rearRightMotor->Config_kF(0, 1.7, 10);
-	rearRightMotor->Config_kP(0, 2.25, 10);
-	rearRightMotor->Config_kI(0, 0.01, 10);
-	rearRightMotor->Config_kD(0, 0, 10);*/
+	rearLeftMotor->Config_kF(0, SmartDashboard::GetNumber("kF", 0), 10);
+	rearLeftMotor->Config_kP(0, SmartDashboard::GetNumber("kP", 0), 10);
+	rearLeftMotor->Config_kI(0, SmartDashboard::GetNumber("kI", 0), 10);
+	rearLeftMotor->Config_kD(0, SmartDashboard::GetNumber("kD", 0), 10);
+	rearRightMotor->Config_kF(0, SmartDashboard::GetNumber("kF", 0), 10);
+	rearRightMotor->Config_kP(0, SmartDashboard::GetNumber("kP", 0), 10);
+	rearRightMotor->Config_kI(0, SmartDashboard::GetNumber("kI", 0), 10);
+	rearRightMotor->Config_kD(0, SmartDashboard::GetNumber("kD", 0), 10);
 
 	rearLeftMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
 	rearLeftMotor->SetSensorPhase(false);
@@ -95,10 +101,23 @@ void Drive::PIDset()
 	frontRightMotor->SetInverted(false);
 }
 
+void Drive::testDrive()
+{
+	rearLeftMotor->Set(ControlMode::Velocity, SmartDashboard::GetNumber("Velocity", 0));
+	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
+
+	rearRightMotor->Set(ControlMode::Velocity, SmartDashboard::GetNumber("Velocity", 0));
+	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
+
+	SmartDashboard::PutNumber("Encoder Velocity Left", rearRightMotor->GetSelectedSensorVelocity(FeedbackDevice::QuadEncoder));
+	SmartDashboard::PutNumber("Encoder Velocity Right", rearLeftMotor->GetSelectedSensorVelocity(FeedbackDevice::QuadEncoder));
+}
+
 void Drive::velocityDrive(float xAxis, float yAxis)
 {
 	joystickFwdSet(yAxis);
-	joystickTurnSet(xAxis);
+	updateDrive(xAxis);
+	//joystickTurnSet(xAxis);
 
 	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn);
 	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
@@ -159,14 +178,25 @@ void Drive::joystickTurnSet(float joystickX)
 
 }
 
-void Drive::setTargetHeading(int joystick)
+void Drive::setTargetHeading(float joystick)
 {
-
+	targetHeading += joystick*7.2;
 }
 
 void Drive::getTargetHeading()
 {
 
+}
+
+void Drive::updateDrive(float joystick)
+{
+	pGyon->GetYawPitchRoll(ypr);
+	currentHeading = ypr[0];
+	setTargetHeading(-joystick);
+	gyroError = currentHeading - targetHeading;
+	turnLeftandRight(gyroError);
+	SmartDashboard::PutNumber("Target Heading", targetHeading);
+	SmartDashboard::PutNumber("Gyro Value", ypr[0]);
 }
 
 /*void Drive::turnRight(int error)
@@ -204,13 +234,15 @@ void Drive::getTargetHeading()
 
 void Drive::turnLeftandRight(int error)
 {
-	float motorFactor = (error/20.0);
+	float motorFactor = (error/40.0);
 
 	if (motorFactor > 1) motorFactor = 1;
 	if (motorFactor < -1) motorFactor = -1;
 
-	rearRightMotor->Set(ControlMode::Velocity, -Max_Motor_Velocity * motorFactor);
-	rearLeftMotor->Set(ControlMode::Velocity, Max_Motor_Velocity * motorFactor);
+	rearRightMotor->Set(ControlMode::Velocity, Max_Motor_Velocity * motorFactor);
+	rearLeftMotor->Set(ControlMode::Velocity, -Max_Motor_Velocity * motorFactor);
+	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
+	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
 }
 
 void Drive::getYPR()
@@ -223,29 +255,35 @@ void Drive::autoTurn(int angle)
 	switch(angle)
 	{
 		case 270 :
-			pGyon->SetYaw(0, 0);
-			refAngle = 90;
+			targetHeading = targetHeading + 90;
+			Wait(.2);
+			/*pGyon->SetYaw(0, 0);
+			refAngle = 90;*/
 			break;
 		case 180 :
-			pGyon->SetYaw(0, 0);
-			refAngle = 180;
+			targetHeading = targetHeading + 180;
+			Wait(.2);
+			/*pGyon->SetYaw(0, 0);
+			refAngle = 180;*/
 			break;
 		case 90 :
-			pGyon->SetYaw(0, 0);
-			refAngle = -90;
+			targetHeading = targetHeading - 90;
+			Wait(.2);
+			/*pGyon->SetYaw(0, 0);
+			refAngle = -90;*/
 			break;
 		case 0 :
-			pGyon->SetYaw(0, 0);
-			refAngle = 0;
+			/*pGyon->SetYaw(0, 0);
+			refAngle = 0;*/
 			break;
 		default :
 			break;
 	}
-	do
+	/*do
 	{
 		pGyon->GetYawPitchRoll(ypr);
 		gyroError = refAngle - ypr[0];
-		/*if(refAngle < 0)
+		if(refAngle < 0)
 		{
 		turnRight(gyroError);
 		}
@@ -253,14 +291,14 @@ void Drive::autoTurn(int angle)
 		{
 		turnLeft(gyroError);
 		}
-		*/
+
 
 		turnLeftandRight(gyroError);
 
 		SmartDashboard::PutNumber("Reference Angle", refAngle);
 		SmartDashboard::PutNumber("Gyro Value", ypr[0]);
 		SmartDashboard::PutNumber("Gyro Error", gyroError);
-	}while(abs(gyroError) > 5);
+	}while(abs(gyroError) > 5);*/
 }
 
 //group left motors
