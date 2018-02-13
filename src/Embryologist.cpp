@@ -23,6 +23,13 @@ public:
 		std::string auto1;
 		std::string auto2;
 		std::string auto3;
+		std::string auto4;
+		std::string auto5;
+		std::string Delay_auto5;
+		std::string auto6;
+		std::string nonPreLoad_auto1;
+		std::string nonPreLoad_auto2;
+		std::string nonPreLoad_auto3;
 		//int autoNum;
 		//Compressor* comp599;
 
@@ -83,6 +90,13 @@ public:
 		else if(autoNum == auto1) auton->auto1();
 		else if(autoNum == auto2) auton->auto2();
 		else if(autoNum == auto3) auton->auto3();
+		else if(autoNum == auto4) auton->auto4();
+		else if(autoNum == auto5) auton->auto5();
+		else if(autoNum == Delay_auto5) auton->auto5_5();
+		else if(autoNum == auto6) auton->auto6();
+		else if(autoNum == nonPreLoad_auto1) auton->nonPreLoad_auto1();
+		else if(autoNum == nonPreLoad_auto2) auton->nonPreLoad_auto2();
+		else if(autoNum == nonPreLoad_auto3) auton->nonPreLoad_auto3();
 
 		//std::string autoSelected = SmartDashboard::GetString("Auto Selector", );
 
