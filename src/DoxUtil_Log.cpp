@@ -57,7 +57,6 @@ void DoxLog::LogIt(std::string message, int level)
 
 	if(level <= m_level || level == -1)
 	{
-		std::string logMessage = message;
 		std::string timeStamp = "*** ";
 
 		std::time_t t = std::time(nullptr);
