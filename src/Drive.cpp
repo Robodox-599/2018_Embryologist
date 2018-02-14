@@ -180,7 +180,7 @@ void Drive::joystickTurnSet(float joystickX)
 
 void Drive::setTargetHeading(float joystick)
 {
-	targetHeading += joystick*7.2;
+	targetHeading += joystick*3.6;
 }
 
 void Drive::getTargetHeading()
