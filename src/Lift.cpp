@@ -27,7 +27,11 @@ Lift::Lift()
 	//leftClimbPiston = new Solenoid(3);
 	//rightClimbPiston = new Solenoid(1);
 
-
+	targetEnc = 0;
+	currentLeftEnc = 0;
+	currentRightEnc = 0;
+	encErrorLeft = 0;
+	encErrorRight = 0;
 }
 
 Lift::~Lift()
@@ -177,4 +181,41 @@ void Lift::resetLiftEncoder()
 	frontLeftLift->SetSelectedSensorPosition(0,0,0);
 	backRightLift->SetSelectedSensorPosition(0,0,0);
 	backRightLift->SetSelectedSensorPosition(0,0,0);
+}
+
+void Lift::setHeightEnc(float joystick)
+{
+	targetEnc += joystick;
+}
+
+void Lift::doLift()
+{
+	currentLeftEnc = getLeftLiftEnc();
+	currentRightEnc = getRightLiftEnc();
+	encErrorRight = targetEnc - currentRightEnc;
+	encErrorLeft = targetEnc - currentLeftEnc;
+	fixErrorLeft(encErrorLeft);
+	fixErrorLeft(encErrorRight);
+}
+
+void Lift::fixErrorLeft(float error)
+{
+	float liftFactor = (error/20.0);
+
+	if(liftFactor > 1) liftFactor = 1;
+	if(liftFactor < -1) liftFactor = -1;
+
+	frontLeftLift->Set(ControlMode::PercentOutput, liftFactor);
+	backLeftLift->Set(ControlMode::PercentOutput, liftFactor);
+}
+
+void Lift::fixErrorRight(float error)
+{
+	float liftFactor = (error/20.0);
+
+	if(liftFactor > 1) liftFactor = 1;
+	if(liftFactor < -1) liftFactor = -1;
+
+	frontRightLift->Set(ControlMode::PercentOutput, liftFactor);
+	backRightLift->Set(ControlMode::PercentOutput, liftFactor);
 }

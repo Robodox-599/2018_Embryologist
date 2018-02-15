@@ -31,6 +31,10 @@ public:
 		bool lowerLimitTester();
 		bool upperLimitTester();
 
+		void setHeightEnc(float joystick);
+		void doLift();
+		void fixErrorLeft(float error);
+		void fixErrorRight(float error);
 
 		DoubleSolenoid *liftPiston;
 		//DoubleSolenoid *rightLiftPiston;
@@ -46,6 +50,12 @@ private:
 
 		DigitalInput *upperLimit;
 		DigitalInput *lowerLimit;
+
+		float targetEnc;
+		float encErrorRight;
+		float encErrorLeft;
+		float currentLeftEnc;
+		float currentRightEnc;
 
 };
 
