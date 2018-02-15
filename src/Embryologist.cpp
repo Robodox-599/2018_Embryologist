@@ -71,6 +71,7 @@ public:
 		SmartDashboard::PutNumber("rightValue: ", lift->getRightLiftEnc());
 		SmartDashboard::PutBoolean("upperLimit ", lift->upperLimitTester());
 		SmartDashboard::PutBoolean("lowerLimit: ", lift->lowerLimitTester());
+		SmartDashboard::PutNumber("Avg value:", lift->getAvgLiftEnc());
 
 	}
 

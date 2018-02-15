@@ -93,6 +93,26 @@ float Lift::getRightLiftEnc()
 	return backRightLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
 }
 
+float Lift::getAvgLiftEnc()
+{
+	return ((( frontLeftLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder))+( backRightLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder)))/2);
+}
+
+
+void Lift::CalibrateLift(bool calibrateButton)
+{
+	if (calibrateButton==true)
+	{
+		while (!lowerLimit->Get())
+		{
+			frontRightLift->Set(ControlMode::PercentOutput,  (-.2));
+			frontLeftLift->Set(ControlMode::PercentOutput, (-.2));
+			backRightLift->Set(ControlMode::PercentOutput, (-.2));
+			backLeftLift->Set(ControlMode::PercentOutput, (-.2));
+		}
+	}
+}
+
 void Lift::PistonLift(bool pistonButton, bool disengage)
 {
 	if(pistonButton == true)

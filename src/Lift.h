@@ -23,8 +23,10 @@ public:
 		void PistonLift(bool pistonButton, bool disengage);
 		float getLeftLiftEnc();
 		float getRightLiftEnc();
+		float getAvgLiftEnc();
 		void liftAuto(float speed, float autoLiftInput);
 		void PistonClimb(bool climbButton);
+		void CalibrateLift(bool calibrateButton);
 		void resetLiftEncoder();
 		bool lowerLimitTester();
 		bool upperLimitTester();
