@@ -31,16 +31,16 @@ Manipulator::~Manipulator() //deletes all booleans, digital inputs, and CANTalon
 
 void Manipulator::intakeOuttakeCube(bool intake, bool outtake) //intakes the actual cube with/without limit switch + outtake//
 {
-	if (intake && cubeStop->Get() == false)
+	if (intake )//&& cubeStop->Get() == false)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values.//
-		rightIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values.//
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.5); //These are dummy values.//
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .5); //These are dummy values.//
 	}
 
 	else if (outtake)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values.//
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values.//
+		leftIntakeMotor->Set(ControlMode::PercentOutput, .2); //These are dummy values.//
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -.2); //These are dummy values.//
 	}
 
 	else
@@ -51,11 +51,12 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake) //intakes the act
 
 }
 
+/*
 bool Manipulator::stoppingCube() //limit switch stops intake//
 {
 	return cubeStop->Get();
 }
-
+*/
 void Manipulator::intakePosition(bool posButton) //piston folds in/folds out intake/outtake arms//
 {
 	if(posButton)
