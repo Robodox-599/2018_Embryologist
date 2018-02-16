@@ -55,7 +55,7 @@ void Auto::preCheck()//To be run BEFORE a match in the pit in order to test each
 
 
 //
-void Auto::nonauto1()//Left starting position, Objective: Switch
+void Auto::nonPreLoad_auto1()//Left starting position, Objective: Switch
 {
 	if(gameData[0] == 'L')
 	{
@@ -107,7 +107,7 @@ void Auto::nonauto1()//Left starting position, Objective: Switch
 	}
 }
 
-void Auto::nonauto2()
+void Auto::nonPreLoad_auto2()
 {
 	if(gameData[0] == 'L')
 	{
@@ -145,7 +145,7 @@ void Auto::nonauto2()
 	}
 }
 
-void Auto::nonauto3()
+void Auto::nonPreLoad_auto3()
 {
 	if(gameData[0] == 'L')
 	{
