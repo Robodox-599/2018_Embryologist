@@ -14,10 +14,12 @@
 
 class Robot: public frc::IterativeRobot {
 public:
-	void RobotInit() {
-		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
-		chooser.AddObject(autoNameCustom, autoNameCustom);
-		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
+	Joystick* atk3;
+	Manipulator* manip;
+	void RobotInit()
+	{
+		atk3 = new Joystick(1); //This value may change because it is a DUMMY VALUE.//
+		manip = new Manipulator;
 	}
 
 	/*
@@ -55,16 +57,17 @@ public:
 
 	}
 
-	void TeleopPeriodic() {
-
+	void TeleopPeriodic()
+	{
+		manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(5));
 	}
 
 	void TestPeriodic() {
-		lw->Run();
+		//lw->Run();
 	}
 
 private:
-	frc::LiveWindow* lw = LiveWindow::GetInstance();
+	//frc::LiveWindow* lw = LiveWindow::GetInstance();
 	/*frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
