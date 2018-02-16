@@ -70,7 +70,7 @@ Drive::~Drive()
 void Drive::PIDset()
 {
 	//EMMA LOW GEAR
-	/*rearLeftMotor->Config_kF(0, 0.314, 10);
+	rearLeftMotor->Config_kF(0, 0.314, 10);
 	rearLeftMotor->Config_kP(0, 0, 10);
 	rearLeftMotor->Config_kI(0, 0, 10);
 	rearLeftMotor->Config_kD(0, 0, 10);
@@ -79,8 +79,9 @@ void Drive::PIDset()
 	rearRightMotor->Config_kP(0, 0, 10);
 	rearRightMotor->Config_kI(0, 0, 10);
 	rearRightMotor->Config_kD(0, 0, 10);
-*/
+
 	//MOD
+	/*
 	rearLeftMotor->Config_kF(0, SmartDashboard::GetNumber("kF", 0), 10);
 	rearLeftMotor->Config_kP(0, SmartDashboard::GetNumber("kP", 0), 10);
 	rearLeftMotor->Config_kI(0, SmartDashboard::GetNumber("kI", 0), 10);
@@ -89,7 +90,7 @@ void Drive::PIDset()
 	rearRightMotor->Config_kP(0, SmartDashboard::GetNumber("kP", 0), 10);
 	rearRightMotor->Config_kI(0, SmartDashboard::GetNumber("kI", 0), 10);
 	rearRightMotor->Config_kD(0, SmartDashboard::GetNumber("kD", 0), 10);
-
+*/
 	rearLeftMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
 	rearLeftMotor->SetSensorPhase(false);
 	rearLeftMotor->SetInverted(true);
@@ -104,10 +105,12 @@ void Drive::PIDset()
 void Drive::testDrive()
 {
 	rearLeftMotor->Set(ControlMode::Velocity, SmartDashboard::GetNumber("Velocity", 0));
-	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
+	//frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
 
 	rearRightMotor->Set(ControlMode::Velocity, SmartDashboard::GetNumber("Velocity", 0));
-	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
+	//frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
+	SmartDashboard::PutNumber("Encoder Right", rearLeftMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder));
+	SmartDashboard::PutNumber("Encoder Left", rearRightMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder));
 
 	SmartDashboard::PutNumber("Encoder Velocity Left", rearRightMotor->GetSelectedSensorVelocity(FeedbackDevice::QuadEncoder));
 	SmartDashboard::PutNumber("Encoder Velocity Right", rearLeftMotor->GetSelectedSensorVelocity(FeedbackDevice::QuadEncoder));
@@ -116,13 +119,13 @@ void Drive::testDrive()
 void Drive::velocityDrive(float xAxis, float yAxis)
 {
 	joystickFwdSet(yAxis);
-	updateDrive(xAxis);
-	//joystickTurnSet(xAxis);
+	//updateDrive(xAxis);
+	joystickTurnSet(xAxis);
 
-	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn);
+	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn);
 	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
 
-	rearRightMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn);
+	rearRightMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn);
 	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
 
 	SmartDashboard::PutNumber("Encoder Right", rearLeftMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder));
