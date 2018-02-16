@@ -24,7 +24,7 @@ public:
 	void AutoOuttake();
 	void setPos(bool pos);
 
-	//DigitalInput* cubeStop;
+	DigitalInput* cubeStop;
 
 	bool stoppingCube();
 

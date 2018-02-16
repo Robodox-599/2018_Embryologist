@@ -15,7 +15,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     rightIntakeMotor = new TalonSRX(8); //These are dummy values.//
     leftmanipPiston = new DoubleSolenoid (0,1); //These are dummy values.//
     rightmanipPiston = new DoubleSolenoid (0,2); //These are dummy values.//
-    //cubeStop = new DigitalInput(2); //These are dummy values.//
+    cubeStop = new DigitalInput(2); //These are dummy values.//
     toggle = 0;
 }
 
@@ -25,15 +25,15 @@ Manipulator::~Manipulator() //deletes all booleans, digital inputs, and CANTalon
 	rightIntakeMotor = nullptr;
 	leftmanipPiston = nullptr;
 	rightmanipPiston = nullptr;
-	//cubeStop = nullptr;
+	cubeStop = nullptr;
 	delete leftIntakeMotor;
 	delete rightIntakeMotor;
-	//delete cubeStop;
+	delete cubeStop;
 }
 
 void Manipulator::intakeOuttakeCube(bool intake, bool outtake) //intakes the actual cube with/without limit switch + outtake//
 {
-	if (intake )//&& cubeStop->Get() == false)
+	if (intake)// && cubeStop->Get() == false)
 	{
 		leftIntakeMotor->Set(ControlMode::PercentOutput, -.8); //These are dummy values.//
 		rightIntakeMotor->Set(ControlMode::PercentOutput, .5); //These are dummy values.//
@@ -53,12 +53,12 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake) //intakes the act
 
 }
 
-/*
+
 bool Manipulator::stoppingCube() //limit switch stops intake//
 {
 	return cubeStop->Get();
 }
-*/
+
 void Manipulator::intakePosition(bool posButton) //piston folds in/folds out intake/outtake arms//
 {
 	if(posButton)
@@ -110,8 +110,8 @@ void Manipulator::AutoIntake() //Intake until limit switch//
 
 void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 {
-	leftIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values.//
-	rightIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values.//
+	leftIntakeMotor->Set(ControlMode::PercentOutput, -.8); //These are dummy values.//
+	rightIntakeMotor->Set(ControlMode::PercentOutput, .5); //These are dummy values.//
 	Wait(1);
 	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);

@@ -60,6 +60,7 @@ public:
 	void TeleopPeriodic()
 	{
 		manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(5));
+		SmartDashboard::GetBoolean("stopper: ", manip->stoppingCube());
 	}
 
 	void TestPeriodic() {
