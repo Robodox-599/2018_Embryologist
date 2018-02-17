@@ -99,21 +99,23 @@ float Lift::getRightLiftEnc()
 
 float Lift::getAvgLiftEnc()
 {
-	return ((( frontLeftLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder))+( backRightLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder)))/2);
+	return ((-( frontLeftLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder))+( backRightLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder)))/2);
 }
 
 
-void Lift::CalibrateLift(bool calibrateButton)
+void Lift::CalibrateLift(bool calibrateButton, bool safeCalibrate)
 {
-	if (calibrateButton==true)
+	if (calibrateButton==true && safeCalibrate == true)
 	{
 		while (!lowerLimit->Get())
 		{
-			frontRightLift->Set(ControlMode::PercentOutput,  (-.2));
-			frontLeftLift->Set(ControlMode::PercentOutput, (-.2));
-			backRightLift->Set(ControlMode::PercentOutput, (-.2));
-			backLeftLift->Set(ControlMode::PercentOutput, (-.2));
+			frontRightLift->Set(ControlMode::PercentOutput,  (-.1));
+			frontLeftLift->Set(ControlMode::PercentOutput, (-.1));
+			backRightLift->Set(ControlMode::PercentOutput, (-.1));
+			backLeftLift->Set(ControlMode::PercentOutput, (-.1));
 		}
+		frontLeftLift->SetSelectedSensorPosition(0,0,0);
+		backRightLift->SetSelectedSensorPosition(0,0,0);
 	}
 }
 
@@ -177,45 +179,53 @@ void Lift::liftAuto(float speed, float autoLiftInput)
 
 void Lift::resetLiftEncoder()
 {
-	frontRightLift->SetSelectedSensorPosition(0,0,0);
 	frontLeftLift->SetSelectedSensorPosition(0,0,0);
-	backRightLift->SetSelectedSensorPosition(0,0,0);
 	backRightLift->SetSelectedSensorPosition(0,0,0);
 }
 
+//Max rightEnc val: approx. 27247
 void Lift::setHeightEnc(float joystick)
 {
-	targetEnc += joystick;
+	//if(getRightLiftEnc() < MAX_LIFT_VAL && getRightLiftEnc() >= 0)
+	//{
+		targetEnc += joystick*(MAX_LIFT_VAL/250);
+	//}
 }
 
 void Lift::doLift()
 {
-	currentLeftEnc = getLeftLiftEnc();
-	currentRightEnc = getRightLiftEnc();
+	currentLeftEnc = -getLeftLiftEnc();
+	currentRightEnc = currentLeftEnc;//getRightLiftEnc();
 	encErrorRight = targetEnc - currentRightEnc;
 	encErrorLeft = targetEnc - currentLeftEnc;
 	fixErrorLeft(encErrorLeft);
-	fixErrorLeft(encErrorRight);
+	fixErrorRight(encErrorRight);
+	SmartDashboard::PutNumber("Current Left Enc: ",currentLeftEnc);
+	SmartDashboard::PutNumber("Current Right Enc: ",currentRightEnc);
+	SmartDashboard::PutNumber("Error Right: ",encErrorRight);
+	SmartDashboard::PutNumber("Error Left: ",encErrorLeft);
 }
 
 void Lift::fixErrorLeft(float error)
 {
-	float liftFactor = (error/20.0);
+	float liftFactor = (error/1000.0);
 
-	if(liftFactor > 1) liftFactor = 1;
-	if(liftFactor < -1) liftFactor = -1;
+	if(liftFactor > .5) liftFactor = .5;
+	if(liftFactor < -.5) liftFactor = -.5;
 
 	frontLeftLift->Set(ControlMode::PercentOutput, liftFactor);
 	backLeftLift->Set(ControlMode::PercentOutput, liftFactor);
+	SmartDashboard::PutNumber("Left Lift Factor: ",liftFactor);
 }
 
 void Lift::fixErrorRight(float error)
 {
-	float liftFactor = (error/20.0);
+	float liftFactor = (error/1000.0);
 
-	if(liftFactor > 1) liftFactor = 1;
-	if(liftFactor < -1) liftFactor = -1;
+	if(liftFactor > .5) liftFactor = .5;
+	if(liftFactor < -.5) liftFactor = -.5;
 
 	frontRightLift->Set(ControlMode::PercentOutput, liftFactor);
 	backRightLift->Set(ControlMode::PercentOutput, liftFactor);
+	SmartDashboard::PutNumber("Right Lift Factor: ",liftFactor);
 }

@@ -23,6 +23,7 @@ public:
 		lift = new Lift;
 		atk3 = new Joystick(0);
 		comp599->SetClosedLoopControl(true);
+		lift->resetLiftEncoder();
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
@@ -66,12 +67,13 @@ public:
 	void TeleopPeriodic()
 	{
 		//lift->liftRobot(atk3->GetRawAxis(1));
-		lift->PistonLift(atk3->GetRawButton(4),atk3->GetRawButton(5));
-		//lift->setHeightEnc(atk3->GetRawAxis(1));
-		//lift->doLift();
-		lift->getLeftLiftEnc();
-		lift->getRightLiftEnc();
-		lift->getAvgLiftEnc();
+		//lift->PistonLift(atk3->GetRawButton(4),atk3->GetRawButton(5));
+		lift->setHeightEnc(atk3->GetRawAxis(1));
+		lift->doLift();
+		//lift->getLeftLiftEnc();
+		//lift->getRightLiftEnc();
+		//lift->getAvgLiftEnc();
+		//lift->CalibrateLift(atk3->GetRawButton(7), atk3->GetRawButton(10));
 		SmartDashboard::PutNumber("leftValue: ", lift->getLeftLiftEnc());
 		SmartDashboard::PutNumber("rightValue: ", lift->getRightLiftEnc());
 		SmartDashboard::PutBoolean("upperLimit ", lift->upperLimitTester());

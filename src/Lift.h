@@ -26,7 +26,7 @@ public:
 		float getAvgLiftEnc();
 		void liftAuto(float speed, float autoLiftInput);
 		void PistonClimb(bool climbButton);
-		void CalibrateLift(bool calibrateButton);
+		void CalibrateLift(bool calibrateButton, bool safeCalibrate);
 		void resetLiftEncoder();
 		bool lowerLimitTester();
 		bool upperLimitTester();
