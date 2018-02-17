@@ -66,10 +66,11 @@ public:
 
 	void TeleopPeriodic()
 	{
-		//lift->liftRobot(atk3->GetRawAxis(1));
-		//lift->PistonLift(atk3->GetRawButton(4),atk3->GetRawButton(5));
-		lift->setHeightEnc(atk3->GetRawAxis(1));
-		lift->doLift();
+		lift->liftRobot(atk3->GetRawAxis(1));
+		lift->PistonLift(atk3->GetRawButton(4),atk3->GetRawButton(5));
+		lift->rungDeploy(atk3->GetRawButton(10));
+		//lift->setHeightEnc(atk3->GetRawAxis(1));
+		//lift->doLift();
 		//lift->getLeftLiftEnc();
 		//lift->getRightLiftEnc();
 		//lift->getAvgLiftEnc();

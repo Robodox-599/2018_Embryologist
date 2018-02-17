@@ -25,11 +25,12 @@ public:
 		float getRightLiftEnc();
 		float getAvgLiftEnc();
 		void liftAuto(float speed, float autoLiftInput);
-		void PistonClimb(bool climbButton);
+		//void PistonClimb(bool climbButton);
 		void CalibrateLift(bool calibrateButton, bool safeCalibrate);
 		void resetLiftEncoder();
 		bool lowerLimitTester();
 		bool upperLimitTester();
+		void rungDeploy(bool deployButton);
 
 		void setHeightEnc(float joystick);
 		void doLift();
@@ -39,8 +40,7 @@ public:
 		DoubleSolenoid *liftPiston;
 		//DoubleSolenoid *rightLiftPiston;
 
-		//Solenoid *leftClimbPiston;
-		//Solenoid *rightClimbPiston;
+		DoubleSolenoid *rungPiston;
 
 private:
 		TalonSRX *frontRightLift;
