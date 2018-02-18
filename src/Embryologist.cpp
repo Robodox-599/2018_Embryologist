@@ -74,6 +74,7 @@ public:
 		//drive->velocityDrive(0, 0.4);
 		drive->getYPR();
 		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
+		drive->shift(xbox->GetRawButton(2));
 	}
 
 	void TestPeriodic()
