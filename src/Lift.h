@@ -36,6 +36,7 @@ public:
 		void doLift();
 		void fixErrorLeft(float error);
 		void fixErrorRight(float error);
+		bool canLift;
 
 		DoubleSolenoid *liftPiston;
 		//DoubleSolenoid *rightLiftPiston;

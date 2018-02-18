@@ -68,13 +68,13 @@ public:
 		//manipulator
 		manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(1));
 		//manip->diffIntake(atk3->GetRawButton(6),atk3->GetRawButton(7));
-		manip->intakePosition(atk3->GetRawButton(6));
+		manip->intakePosition(atk3->GetRawButton(3));
 		SmartDashboard::GetBoolean("stopper: ", manip->stoppingCube());
 
 		//lift
-		lift->liftRobot(atk3->GetRawAxis(1));
-		lift->PistonLift(atk3->GetRawButton(4),atk3->GetRawButton(5));
-		lift->rungDeploy(atk3->GetRawButton(7));
+		lift->liftRobot(-atk3->GetRawAxis(1));
+		lift->PistonLift(atk3->GetRawButton(6),atk3->GetRawButton(7));
+		lift->rungDeploy(atk3->GetRawButton(8));
 		//lift->setHeightEnc(atk3->GetRawAxis(1));
 		//lift->doLift();
 		//lift->getLeftLiftEnc();

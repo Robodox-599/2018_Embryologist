@@ -28,6 +28,7 @@ Lift::Lift()
 	currentRightEnc = 0;
 	encErrorLeft = 0;
 	encErrorRight = 0;
+	canLift = false;
 }
 
 Lift::~Lift()
@@ -136,17 +137,19 @@ void Lift::PistonLift(bool pistonButton, bool disengage)
 	if(pistonButton == true)
 	{
 		liftPiston->Set(DoubleSolenoid::kForward);
+		canLift = true;
 	}
 	if(disengage == true)
 	{
 		liftPiston->Set(DoubleSolenoid::kReverse);
+		canLift = false;
 
 	}
 }
 
 void Lift::rungDeploy(bool deployButton)
 {
-	if(deployButton)
+	if(deployButton && canLift)
 	{
 		rungPiston->Set(DoubleSolenoid::kForward);
 	}
