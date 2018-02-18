@@ -8,7 +8,6 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <Drive.h>
 #include <Lift.h>
-#include <Climb.h>
 #include <Macros.h>
 #include <Manipulator.h>
 #include "WPILib.h"
@@ -16,8 +15,10 @@
 class Robot: public frc::IterativeRobot {
 public:
 	Joystick* atk3;
+	Joystick* xbox;
 	Manipulator* manip;
 	Lift *lift;
+	Drive *drive;
 	Compressor* comp599 = new Compressor(0);
 	void RobotInit()
 	{
@@ -26,6 +27,9 @@ public:
 		manip = new Manipulator;
 		lift = new Lift;
 		lift->resetLiftEncoder();
+		xbox = new Joystick(0);
+		drive = new Drive();
+		drive->resetEncoder();
 	}
 
 	/*
@@ -59,8 +63,9 @@ public:
 		}*/
 	}
 
-	void TeleopInit() {
-
+	void TeleopInit()
+	{
+		drive->PIDset();
 	}
 
 	void TeleopPeriodic()
@@ -89,6 +94,17 @@ public:
 		SmartDashboard::PutBoolean("Button 7: ", atk3->GetRawButton(7));
 		SmartDashboard::PutBoolean("Current lock state: ", lift->canLift);
 		SmartDashboard::PutBoolean("Current rung state: ", lift->rungState);
+
+		//drive
+		/*double ypr[3];
+		PigeonIMU::GeneralStatus genStatus;
+		pGyon->GetGeneralStatus(genStatus);
+		pGyon->GetYawPitchRoll(ypr);
+		SmartDashboard::PutNumber("Yaw", ypr[0]);
+		SmartDashboard::PutNumber("Temperature", genStatus.tempC);*/
+		//drive->velocityDrive(0, 0.4);
+		drive->getYPR();
+		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
 	}
 
 	void TestPeriodic() {
