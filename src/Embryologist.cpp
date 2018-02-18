@@ -74,7 +74,7 @@ public:
 		//lift
 		lift->liftRobot(-atk3->GetRawAxis(1));
 		lift->PistonLift(atk3->GetRawButton(6),atk3->GetRawButton(7));
-		lift->rungDeploy(atk3->GetRawButton(8));
+		lift->rungDeploy(atk3->GetRawButton(8), atk3->GetRawButton(9));
 		//lift->setHeightEnc(atk3->GetRawAxis(1));
 		//lift->doLift();
 		//lift->getLeftLiftEnc();
@@ -87,6 +87,8 @@ public:
 		SmartDashboard::PutBoolean("lowerLimit: ", lift->lowerLimitTester());
 		SmartDashboard::PutNumber("Avg value:", lift->getAvgLiftEnc());
 		SmartDashboard::PutBoolean("Button 7: ", atk3->GetRawButton(7));
+		SmartDashboard::PutBoolean("Current lock state: ", lift->canLift);
+		SmartDashboard::PutBoolean("Current rung state: ", lift->rungState);
 	}
 
 	void TestPeriodic() {

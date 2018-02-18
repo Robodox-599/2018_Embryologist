@@ -30,13 +30,14 @@ public:
 		void resetLiftEncoder();
 		bool lowerLimitTester();
 		bool upperLimitTester();
-		void rungDeploy(bool deployButton);
+		void rungDeploy(bool deployButton, bool otherButton);
 
 		void setHeightEnc(float joystick);
 		void doLift();
 		void fixErrorLeft(float error);
 		void fixErrorRight(float error);
 		bool canLift;
+		bool rungState;
 
 		DoubleSolenoid *liftPiston;
 		//DoubleSolenoid *rightLiftPiston;
