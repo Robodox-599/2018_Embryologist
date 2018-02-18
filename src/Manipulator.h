@@ -19,6 +19,7 @@ public:
 	~Manipulator();
 
 	void intakeOuttakeCube(bool outtake, bool intake);
+	void diffIntake(bool left, bool right);
 	void intakePosition(bool posButton);
 	void AutoIntake();
 	void AutoOuttake();

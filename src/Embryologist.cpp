@@ -11,15 +11,21 @@
 #include <Climb.h>
 #include <Macros.h>
 #include <Manipulator.h>
+#include "WPILib.h"
 
 class Robot: public frc::IterativeRobot {
 public:
 	Joystick* atk3;
 	Manipulator* manip;
+	Lift *lift;
+	Compressor* comp599 = new Compressor(0);
 	void RobotInit()
 	{
+		comp599->SetClosedLoopControl(true);
 		atk3 = new Joystick(1); //This value may change because it is a DUMMY VALUE.//
 		manip = new Manipulator;
+		lift = new Lift;
+		lift->resetLiftEncoder();
 	}
 
 	/*
@@ -59,8 +65,28 @@ public:
 
 	void TeleopPeriodic()
 	{
-		manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(5));
+		//manipulator
+		manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(1));
+		//manip->diffIntake(atk3->GetRawButton(6),atk3->GetRawButton(7));
+		manip->intakePosition(atk3->GetRawButton(6));
 		SmartDashboard::GetBoolean("stopper: ", manip->stoppingCube());
+
+		//lift
+		lift->liftRobot(atk3->GetRawAxis(1));
+		lift->PistonLift(atk3->GetRawButton(4),atk3->GetRawButton(5));
+		lift->rungDeploy(atk3->GetRawButton(7));
+		//lift->setHeightEnc(atk3->GetRawAxis(1));
+		//lift->doLift();
+		//lift->getLeftLiftEnc();
+		//lift->getRightLiftEnc();
+		//lift->getAvgLiftEnc();
+		//lift->CalibrateLift(atk3->GetRawButton(7), atk3->GetRawButton(10));
+		SmartDashboard::PutNumber("leftValue: ", lift->getLeftLiftEnc());
+		SmartDashboard::PutNumber("rightValue: ", lift->getRightLiftEnc());
+		SmartDashboard::PutBoolean("upperLimit ", lift->upperLimitTester());
+		SmartDashboard::PutBoolean("lowerLimit: ", lift->lowerLimitTester());
+		SmartDashboard::PutNumber("Avg value:", lift->getAvgLiftEnc());
+		SmartDashboard::PutBoolean("Button 7: ", atk3->GetRawButton(7));
 	}
 
 	void TestPeriodic() {

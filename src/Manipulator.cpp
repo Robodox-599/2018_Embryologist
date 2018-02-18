@@ -13,7 +13,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
 {
     leftIntakeMotor = new TalonSRX(5); //These are dummy values.//
     rightIntakeMotor = new TalonSRX(8); //These are dummy values.//
-    leftmanipPiston = new DoubleSolenoid (0,1); //These are dummy values.//
+    leftmanipPiston = new DoubleSolenoid (2,3); //These are dummy values.//
     rightmanipPiston = new DoubleSolenoid (0,2); //These are dummy values.//
     cubeStop = new DigitalInput(2); //These are dummy values.//
     toggle = 0;
@@ -36,13 +36,13 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake) //intakes the act
 	if (intake)// && cubeStop->Get() == false)
 	{
 		leftIntakeMotor->Set(ControlMode::PercentOutput, -.8); //These are dummy values.//
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .5); //These are dummy values.//
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .6); //These are dummy values.//
 	}
 
 	else if (outtake)
 	{
 		leftIntakeMotor->Set(ControlMode::PercentOutput, .8); //These are dummy values.//
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -.5); //These are dummy values.//
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -.8); //These are dummy values.//
 	}
 
 	else
@@ -51,6 +51,12 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake) //intakes the act
 		rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	}
 
+}
+
+void Manipulator::diffIntake(bool left, bool right)
+{
+	if(left) leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+	if(right) rightIntakeMotor->Set(ControlMode::PercentOutput, .8);
 }
 
 
@@ -67,7 +73,7 @@ void Manipulator::intakePosition(bool posButton) //piston folds in/folds out int
 		{
 			leftmanipPiston->Set(DoubleSolenoid::kForward);
 			rightmanipPiston -> Set(DoubleSolenoid::kForward);
-			Wait(.2);
+			Wait(.5);
 			toggle = 0;
 		}
 		else
