@@ -29,5 +29,7 @@
 
 #define DEADZONE (.2) //deadzone for the controllers to avoid accidental movement
 #define Max_Motor_Velocity (3256.28) //3256.28
+#define B_Xbox (2)
+
 
 #endif /* SRC_MACROS_H_ */
