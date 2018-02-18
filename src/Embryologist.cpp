@@ -68,7 +68,7 @@ public:
 	{
 		lift->liftRobot(atk3->GetRawAxis(1));
 		lift->PistonLift(atk3->GetRawButton(4),atk3->GetRawButton(5));
-		lift->rungDeploy(atk3->GetRawButton(10));
+		lift->rungDeploy(atk3->GetRawButton(7));
 		//lift->setHeightEnc(atk3->GetRawAxis(1));
 		//lift->doLift();
 		//lift->getLeftLiftEnc();
@@ -80,6 +80,7 @@ public:
 		SmartDashboard::PutBoolean("upperLimit ", lift->upperLimitTester());
 		SmartDashboard::PutBoolean("lowerLimit: ", lift->lowerLimitTester());
 		SmartDashboard::PutNumber("Avg value:", lift->getAvgLiftEnc());
+		SmartDashboard::PutBoolean("Button 7: ", atk3->GetRawButton(7));
 
 	}
 

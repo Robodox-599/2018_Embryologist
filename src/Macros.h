@@ -9,7 +9,7 @@
 #define SRC_MACROS_H_
 
 #define LIFT_DEADZONE (0.2)
-#define MAX_LIFT_VAL (27250)
+#define MAX_LIFT_VAL (30250)//27250
 
 
 
