@@ -77,9 +77,10 @@ public:
 		SmartDashboard::GetBoolean("stopper: ", manip->stoppingCube());
 
 		//lift
-		lift->liftRobot(-atk3->GetRawAxis(1));
+		lift->liftRobot(atk3->GetRawAxis(1));
 		lift->PistonLift(atk3->GetRawButton(6),atk3->GetRawButton(7));
 		lift->rungDeploy(atk3->GetRawButton(8), atk3->GetRawButton(9));
+		lift->doClimb(atk3->GetRawButton(10));
 		//lift->setHeightEnc(atk3->GetRawAxis(1));
 		//lift->doLift();
 		//lift->getLeftLiftEnc();
@@ -104,7 +105,7 @@ public:
 		SmartDashboard::PutNumber("Temperature", genStatus.tempC);*/
 		//drive->velocityDrive(0, 0.4);
 		drive->getYPR();
-		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
+		drive->velocityDrive(xbox->GetRawAxis(4), xbox->GetRawAxis(1));
 		drive->shift(xbox->GetRawButton(B_Xbox));
 	}
 

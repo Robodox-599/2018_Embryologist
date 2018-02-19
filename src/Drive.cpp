@@ -150,13 +150,13 @@ void Drive::velocityDrive(float xAxis, float yAxis)
 
 void Drive::joystickFwdSet(float joystickY)
 {
-	if(joystickY > 0.1)
+	if(joystickY > 0.2)
 	{
-		velocityFwd = (joystickY+0.1)*(1/.9)*254*12.82;
+		velocityFwd = (joystickY+0.2)*(1/.8)*254*12.82;
 	}
-	else if(joystickY < -0.1)
+	else if(joystickY < -0.2)
 	{
-		velocityFwd = (joystickY-0.1)*(1/.9)*254*12.82;
+		velocityFwd = (joystickY-0.2)*(1/.8)*254*12.82;
 	}
 	else
 	{
@@ -166,13 +166,13 @@ void Drive::joystickFwdSet(float joystickY)
 
 void Drive::joystickTurnSet(float joystickX)
 {
-	if(joystickX > 0.1)
+	if(joystickX > 0.2)
 	{
-		velocityTurn = (joystickX+0.1)*(1/.9)*254*12.82/4;
+		velocityTurn = (joystickX+0.2)*(1/.8)*254*12.82/3;//was 12.82/4
 	}
-	else if(joystickX < -0.1)
+	else if(joystickX < -0.2)
 	{
-		velocityTurn = (joystickX-0.1)*(1/.9)*254*12.82/4;
+		velocityTurn = (joystickX-0.2)*(1/.8)*254*12.82/3;//was 12.82/4
 	}
 	else
 	{

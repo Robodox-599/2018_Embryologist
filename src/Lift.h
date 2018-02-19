@@ -36,8 +36,15 @@ public:
 		void doLift();
 		void fixErrorLeft(float error);
 		void fixErrorRight(float error);
+
+		void autoClimb(bool autoClimbA, bool autoClimbB);
+		void heightPosition(bool positionA, bool positionB);
+
+		void doClimb(bool climbButton);
+
 		bool canLift;
 		bool rungState;
+		bool climbState;
 
 		DoubleSolenoid *liftPiston;
 		//DoubleSolenoid *rightLiftPiston;

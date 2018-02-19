@@ -4,8 +4,8 @@
  *  Created on: Jan 6, 2018
  *      Author: Admin
  */
-#include "Lift.h"
-//#include "WPILib.h"
+#include <Lift.h>
+#include "WPILib.h"
 #include "ctre/Phoenix.h"
 
 
@@ -32,6 +32,7 @@ Lift::Lift()
 	encErrorRight = 0;
 	canLift = false;
 	rungState = false;
+	climbState = false;
 }
 
 Lift::~Lift()
@@ -96,6 +97,13 @@ void Lift::liftRobot(float liftInput)
 			backLeftLift->Set(ControlMode::PercentOutput,  -liftInput*(-.3));
 		}
 		*/
+		else if(climbState)
+		{
+			frontRightLift->Set(ControlMode::PercentOutput, .15);
+			frontLeftLift->Set(ControlMode::PercentOutput, .15);
+			backRightLift->Set(ControlMode::PercentOutput, .15);
+			backLeftLift->Set(ControlMode::PercentOutput, .15);
+		}
 		else
 		{
 			frontRightLift->Set(ControlMode::PercentOutput, .05);
@@ -106,12 +114,74 @@ void Lift::liftRobot(float liftInput)
 	}
 	else
 	{
+		Wait(.2);
 		frontRightLift->Set(ControlMode::PercentOutput, .05);
 		frontLeftLift->Set(ControlMode::PercentOutput, .05);
 		backRightLift->Set(ControlMode::PercentOutput, .05);
 		backLeftLift->Set(ControlMode::PercentOutput, .05);
 	}
 	if(lowerLimit->Get()) resetLiftEncoder();
+}
+
+void doClimb(bool climbButton)
+{
+	if(climbButton && !climbState)
+	{
+		Wait(0.5);
+		climbState = true;
+	}
+	if(climbButton && climbState)
+	{
+		Wait(0.5);
+		climbState = false;
+	}
+}
+
+void autoClimb(bool autoClimbA, bool autoClimbB)
+{
+	while(autoClimbA && autoClimbB)
+	{
+		while(lowerLimit->Get() == false)
+		{
+			frontRightLift->Set(ControlMode::PercentOutput,  -.5);
+			frontLeftLift->Set(ControlMode::PercentOutput, -.5);
+			backRightLift->Set(ControlMode::PercentOutput, -.5);
+			backLeftLift->Set(ControlMode::PercentOutput, -.5);
+		}
+		frontRightLift->Set(ControlMode::PercentOutput, .05);
+		frontLeftLift->Set(ControlMode::PercentOutput, .05);
+		backRightLift->Set(ControlMode::PercentOutput, .05);
+		backLeftLift->Set(ControlMode::PercentOutput, .05);
+		liftPiston->Set(DoubleSolenoid::kReverse);
+		Wait(30);
+	}
+}
+
+
+void heightPosition(bool positionA, bool positionB)
+{
+	if(positionA)
+	{
+		frontRightLift->Set(ControlMode::PercentOutput,  .3);
+		frontLeftLift->Set(ControlMode::PercentOutput, .3);
+		backRightLift->Set(ControlMode::PercentOutput, .3);
+		backLeftLift->Set(ControlMode::PercentOutput, .3);
+		Wait(.2);
+		frontRightLift->Set(ControlMode::PercentOutput,  0);
+		frontLeftLift->Set(ControlMode::PercentOutput, 0);
+		backRightLift->Set(ControlMode::PercentOutput, 0);
+		backLeftLift->Set(ControlMode::PercentOutput, 0);
+	}
+	if(positionB && !upperLift->Get())
+	{
+		while(!upperLift->Get())
+		{
+			frontRightLift->Set(ControlMode::PercentOutput,  .35);
+			frontLeftLift->Set(ControlMode::PercentOutput, .35);
+			backRightLift->Set(ControlMode::PercentOutput, .35);
+			backLeftLift->Set(ControlMode::PercentOutput, .35);
+		}
+	}
 }
 
 float Lift::getLeftLiftEnc()
