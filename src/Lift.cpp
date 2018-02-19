@@ -123,7 +123,7 @@ void Lift::liftRobot(float liftInput)
 	if(lowerLimit->Get()) resetLiftEncoder();
 }
 
-void doClimb(bool climbButton)
+void Lift::doClimb(bool climbButton)
 {
 	if(climbButton && !climbState)
 	{
@@ -137,7 +137,7 @@ void doClimb(bool climbButton)
 	}
 }
 
-void autoClimb(bool autoClimbA, bool autoClimbB)
+void Lift::autoClimb(bool autoClimbA, bool autoClimbB)
 {
 	while(autoClimbA && autoClimbB)
 	{
@@ -158,7 +158,7 @@ void autoClimb(bool autoClimbA, bool autoClimbB)
 }
 
 
-void heightPosition(bool positionA, bool positionB)
+void Lift::heightPosition(bool positionA, bool positionB)
 {
 	if(positionA)
 	{
@@ -172,9 +172,9 @@ void heightPosition(bool positionA, bool positionB)
 		backRightLift->Set(ControlMode::PercentOutput, 0);
 		backLeftLift->Set(ControlMode::PercentOutput, 0);
 	}
-	if(positionB && !upperLift->Get())
+	if(positionB && !upperLimit->Get())
 	{
-		while(!upperLift->Get())
+		while(!upperLimit->Get())
 		{
 			frontRightLift->Set(ControlMode::PercentOutput,  .35);
 			frontLeftLift->Set(ControlMode::PercentOutput, .35);
