@@ -71,6 +71,8 @@ private:
 	float turnSpeed;
 	bool toggle;
 
+	float gyroTurnSpeed;
+
 	int gyroError;
 	int refAngle;
 
