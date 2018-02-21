@@ -49,7 +49,7 @@ public:
 		DoubleSolenoid *liftPiston;
 		//DoubleSolenoid *rightLiftPiston;
 
-		DoubleSolenoid *rungPiston;
+		Solenoid *rungPiston;
 
 private:
 		TalonSRX *frontRightLift;

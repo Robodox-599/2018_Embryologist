@@ -37,6 +37,7 @@ Drive::Drive()
 	gyroError = 0;
 	targetHeading = 0;
 	currentHeading = ypr[0];
+	gyroTurnSpeed = 0;
 	SmartDashboard::PutNumber("kF", 0);
 	SmartDashboard::PutNumber("kP", 0);
 	SmartDashboard::PutNumber("kI", 0);
@@ -81,25 +82,25 @@ void Drive::PIDset()
 	rearRightMotor->Config_kD(0, 0, 10);
 
 	//MOD
-	/*
-	rearLeftMotor->Config_kF(0, SmartDashboard::GetNumber("kF", 0), 10);
-	rearLeftMotor->Config_kP(0, SmartDashboard::GetNumber("kP", 0), 10);
-	rearLeftMotor->Config_kI(0, SmartDashboard::GetNumber("kI", 0), 10);
-	rearLeftMotor->Config_kD(0, SmartDashboard::GetNumber("kD", 0), 10);
-	rearRightMotor->Config_kF(0, SmartDashboard::GetNumber("kF", 0), 10);
-	rearRightMotor->Config_kP(0, SmartDashboard::GetNumber("kP", 0), 10);
-	rearRightMotor->Config_kI(0, SmartDashboard::GetNumber("kI", 0), 10);
-	rearRightMotor->Config_kD(0, SmartDashboard::GetNumber("kD", 0), 10);
-*/
+
+//	rearLeftMotor->Config_kF(0, SmartDashboard::GetNumber("kF", 0), 10);
+//	rearLeftMotor->Config_kP(0, SmartDashboard::GetNumber("kP", 0), 10);
+//	rearLeftMotor->Config_kI(0, SmartDashboard::GetNumber("kI", 0), 10);
+//	rearLeftMotor->Config_kD(0, SmartDashboard::GetNumber("kD", 0), 10);
+//	rearRightMotor->Config_kF(0, SmartDashboard::GetNumber("kF", 0), 10);
+//	rearRightMotor->Config_kP(0, SmartDashboard::GetNumber("kP", 0), 10);
+//	rearRightMotor->Config_kI(0, SmartDashboard::GetNumber("kI", 0), 10);
+//	rearRightMotor->Config_kD(0, SmartDashboard::GetNumber("kD", 0), 10);
+
 	rearLeftMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
-	rearLeftMotor->SetSensorPhase(false);
-	rearLeftMotor->SetInverted(true);
-	frontLeftMotor->SetInverted(true);
+	rearLeftMotor->SetSensorPhase(true);
+	rearLeftMotor->SetInverted(false);
+	frontLeftMotor->SetInverted(false);
 
 	rearRightMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
-	rearRightMotor->SetSensorPhase(true);
-	rearRightMotor->SetInverted(false);
-	frontRightMotor->SetInverted(false);
+	rearRightMotor->SetSensorPhase(false);
+	rearRightMotor->SetInverted(true);
+	frontRightMotor->SetInverted(true);
 }
 
 void Drive::testDrive()
@@ -122,10 +123,10 @@ void Drive::velocityDrive(float xAxis, float yAxis)
 	//updateDrive(xAxis);
 	joystickTurnSet(xAxis);
 
-	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn);
+	rearLeftMotor->Set(ControlMode::Velocity, -velocityFwd - velocityTurn /*+ gyroTurnSpeed*/);
 	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
 
-	rearRightMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn);
+	rearRightMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn /*- gyroTurnSpeed*/);
 	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
 
 	SmartDashboard::PutNumber("Encoder Right", rearLeftMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder));
@@ -168,11 +169,11 @@ void Drive::joystickTurnSet(float joystickX)
 {
 	if(joystickX > 0.2)
 	{
-		velocityTurn = (joystickX+0.2)*(1/.8)*254*12.82/3;//was 12.82/4
+		velocityTurn = (joystickX+0.2)*(1/.8)*254*12.82/4;
 	}
 	else if(joystickX < -0.2)
 	{
-		velocityTurn = (joystickX-0.2)*(1/.8)*254*12.82/3;//was 12.82/4
+		velocityTurn = (joystickX-0.2)*(1/.8)*254*12.82/4;
 	}
 	else
 	{
@@ -183,6 +184,14 @@ void Drive::joystickTurnSet(float joystickX)
 
 void Drive::setTargetHeading(float joystick)
 {
+//	if(joystick > 0.2)
+//	{
+//		targetHeading = (joystick+0.2)*(1/.8)*3.6;
+//	}
+//	else if(joystick < -0.2)
+//	{
+//		targetHeading = (joystick-0.2)*(1/.8)*3.6;
+//	}
 	targetHeading += joystick*3.6;
 }
 
@@ -240,10 +249,12 @@ void Drive::turnLeftandRight(int error)
 	if (motorFactor > 1) motorFactor = 1;
 	if (motorFactor < -1) motorFactor = -1;
 
-	rearRightMotor->Set(ControlMode::Velocity, Max_Motor_Velocity * motorFactor);
-	rearLeftMotor->Set(ControlMode::Velocity, -Max_Motor_Velocity * motorFactor);
-	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
-	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
+
+	gyroTurnSpeed = Max_Motor_Velocity * motorFactor;
+//	rearRightMotor->Set(ControlMode::Velocity, Max_Motor_Velocity * motorFactor);
+//	rearLeftMotor->Set(ControlMode::Velocity, -Max_Motor_Velocity * motorFactor);
+//	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
+//	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
 }
 
 void Drive::getYPR()
@@ -403,6 +414,3 @@ void Drive::resetEncoder()
 	frontLeftMotor->SetSelectedSensorPosition(0,0,0);
 	rearRightMotor->SetSelectedSensorPosition(0,0,0);
 }
-
-
-

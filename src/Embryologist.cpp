@@ -65,22 +65,24 @@ public:
 
 	void TeleopInit()
 	{
-		drive->PIDset();
+		//drive->PIDset();
 	}
 
 	void TeleopPeriodic()
 	{
+		//if(false){
 		//manipulator
 		manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(1));
 		//manip->diffIntake(atk3->GetRawButton(6),atk3->GetRawButton(7));
 		manip->intakePosition(atk3->GetRawButton(3));
-		SmartDashboard::GetBoolean("stopper: ", manip->stoppingCube());
+		//SmartDashboard::GetBoolean("stopper: ", manip->stoppingCube());
+		manip->jiggle(atk3->GetRawButton(5));
 
 		//lift
 		lift->liftRobot(atk3->GetRawAxis(1));
 		lift->PistonLift(atk3->GetRawButton(6),atk3->GetRawButton(7));
 		lift->rungDeploy(atk3->GetRawButton(8), atk3->GetRawButton(9));
-		lift->doClimb(atk3->GetRawButton(10));
+		//lift->doClimb(atk3->GetRawButton(10));
 		//lift->setHeightEnc(atk3->GetRawAxis(1));
 		//lift->doLift();
 		//lift->getLeftLiftEnc();
@@ -95,7 +97,8 @@ public:
 		SmartDashboard::PutBoolean("Button 7: ", atk3->GetRawButton(7));
 		SmartDashboard::PutBoolean("Current lock state: ", lift->canLift);
 		SmartDashboard::PutBoolean("Current rung state: ", lift->rungState);
-
+		//}
+	//	else{
 		//drive
 		/*double ypr[3];
 		PigeonIMU::GeneralStatus genStatus;
@@ -104,9 +107,14 @@ public:
 		SmartDashboard::PutNumber("Yaw", ypr[0]);
 		SmartDashboard::PutNumber("Temperature", genStatus.tempC);*/
 		//drive->velocityDrive(0, 0.4);
+		//drive->getYPR();
+		//drive->velocityDrive(-xbox->GetRawAxis(1), -xbox->GetRawAxis(4));
+		//drive->shift(xbox->GetRawButton(B_Xbox));
 		drive->getYPR();
 		drive->velocityDrive(xbox->GetRawAxis(4), xbox->GetRawAxis(1));
-		drive->shift(xbox->GetRawButton(B_Xbox));
+		//drive->shift(xbox->GetRawButton(2));
+		//drive->autoTurn(xbox->GetPOV(0));
+		//}
 	}
 
 	void TestPeriodic() {
