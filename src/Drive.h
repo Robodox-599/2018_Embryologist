@@ -30,8 +30,8 @@ public:
 	void turnLeftandRight(int error);
 
 	void setTargetHeading(float joystick);
-	void getTargetHeading();
-	void updateDrive(float joystick);
+	void setGyroTurn(float joystick);
+	void updateDrive(float xAxis, float yAxis);
 
 	void updateLeftMotors(float speed);
 	void updateRightMotors(float speed);
@@ -48,6 +48,7 @@ public:
 
 	void getGyroVal();
 
+	void smartDashboard();
 	//AHRS* navX;
 
 private:

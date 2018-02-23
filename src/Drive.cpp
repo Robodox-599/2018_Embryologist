@@ -120,44 +120,25 @@ void Drive::testDrive()
 void Drive::velocityDrive(float xAxis, float yAxis)
 {
 	joystickFwdSet(yAxis);
-	updateDrive(xAxis);
-	//joystickTurnSet(xAxis);
+	joystickTurnSet(xAxis);
 
-	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn + gyroTurnSpeed);
+	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn);
 	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
 
-	rearRightMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn - gyroTurnSpeed);
+	rearRightMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn);
 	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
-
-	SmartDashboard::PutNumber("Encoder Right", rearLeftMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder));
-	SmartDashboard::PutNumber("Encoder Velocity Right", rearLeftMotor->GetSelectedSensorVelocity(FeedbackDevice::QuadEncoder));
-	SmartDashboard::PutNumber("PID Error Left", rearLeftMotor->GetClosedLoopError(0));
-	SmartDashboard::PutNumber("Motor Output Percent Front Left", frontLeftMotor->GetMotorOutputPercent());
-	SmartDashboard::PutNumber("Motor Output Percent Rear Left", rearLeftMotor->GetMotorOutputPercent());
-
-	SmartDashboard::PutNumber("Velocity Forward", velocityFwd);
-	SmartDashboard::PutNumber("Velocity Turn", velocityTurn);
-
-	SmartDashboard::PutNumber("Reference Angle", refAngle);
-	SmartDashboard::PutNumber("Gyro Value", ypr[0]);
-	SmartDashboard::PutNumber("Gyro Error", gyroError);
-
-	SmartDashboard::PutNumber("Motor Output Percent Front Right", frontRightMotor->GetMotorOutputPercent());
-	SmartDashboard::PutNumber("Motor Output Percent Rear Right", rearRightMotor->GetMotorOutputPercent());
-	SmartDashboard::PutNumber("PID Error Right", rearRightMotor->GetClosedLoopError(0));
-	SmartDashboard::PutNumber("Encoder Velocity Left", rearRightMotor->GetSelectedSensorVelocity(FeedbackDevice::QuadEncoder));
-	SmartDashboard::PutNumber("Encoder Left", rearRightMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder));
 }
 
 void Drive::joystickFwdSet(float joystickY)
 {
 	if(joystickY > 0.2)
 	{
-		velocityFwd = (joystickY+0.2)*(1/.8)*254*12.82;
+		//This calculation gives max velocity @ joystick = 1
+		velocityFwd = (joystickY-0.2)*768;
 	}
 	else if(joystickY < -0.2)
 	{
-		velocityFwd = (joystickY-0.2)*(1/.8)*254*12.82;
+		velocityFwd = (joystickY+0.2)*768;
 	}
 	else
 	{
@@ -169,11 +150,11 @@ void Drive::joystickTurnSet(float joystickX)
 {
 	if(joystickX > 0.2)
 	{
-		velocityTurn = (joystickX+0.2)*(1/.8)*254*12.82/4;
+		velocityTurn = (joystickX-0.2)*768/4;
 	}
 	else if(joystickX < -0.2)
 	{
-		velocityTurn = (joystickX-0.2)*(1/.8)*254*12.82/4;
+		velocityTurn = (joystickX+0.2)*768/4;
 	}
 	else
 	{
@@ -182,25 +163,71 @@ void Drive::joystickTurnSet(float joystickX)
 
 }
 
+void Drive::smartDashboard()
+{
+	SmartDashboard::PutNumber("Encoder Right", rearLeftMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder));
+	SmartDashboard::PutNumber("Encoder Velocity Right", rearLeftMotor->GetSelectedSensorVelocity(FeedbackDevice::QuadEncoder));
+
+	SmartDashboard::PutNumber("Encoder Left", rearRightMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder));
+	SmartDashboard::PutNumber("Encoder Velocity Left", rearRightMotor->GetSelectedSensorVelocity(FeedbackDevice::QuadEncoder));
+
+	SmartDashboard::PutNumber("PID Error Right", rearRightMotor->GetClosedLoopError(0));
+	SmartDashboard::PutNumber("PID Error Left", rearLeftMotor->GetClosedLoopError(0));
+
+	SmartDashboard::PutNumber("Motor Output Percent Front Left", frontLeftMotor->GetMotorOutputPercent());
+	SmartDashboard::PutNumber("Motor Output Percent Rear Left", rearLeftMotor->GetMotorOutputPercent());
+
+	SmartDashboard::PutNumber("Velocity Forward", velocityFwd);
+	SmartDashboard::PutNumber("Velocity Turn", velocityTurn);
+
+	SmartDashboard::PutNumber("Motor Output Percent Front Right", frontRightMotor->GetMotorOutputPercent());
+	SmartDashboard::PutNumber("Motor Output Percent Rear Right", rearRightMotor->GetMotorOutputPercent());
+
+	SmartDashboard::PutNumber("Gyro Value", ypr[0]);
+	SmartDashboard::PutNumber("Gyro Error", gyroError);
+	SmartDashboard::PutNumber("Reference Angle", refAngle);
+	SmartDashboard::PutNumber("Target Heading", targetHeading);
+}
+
 void Drive::setTargetHeading(float joystick)
 {
-	targetHeading += joystick*3.6;
+	if(joystick > 0.2)
+	{
+		//at joystick = 1, bot turns at 180 degrees/s "4.75 = 3.6*(1/.8)"(3.6 gives 180/sec without the deadzone
+		targetHeading = (joystick-0.2)*4.75;
+	}
+	else if(joystick < -0.2)
+	{
+		targetHeading = (joystick+0.2)*4.75;
+	}
+	else
+	{
+		targetHeading = 0;
+	}
+	//targetHeading += joystick*3.6;
 }
 
-void Drive::getTargetHeading()
-{
-
-}
-
-void Drive::updateDrive(float joystick)
+void Drive::setGyroTurn(float joystick)
 {
 	pGyon->GetYawPitchRoll(ypr);
 	currentHeading = ypr[0];
-	setTargetHeading(-joystick);
+	setTargetHeading(joystick);
 	gyroError = currentHeading - targetHeading;
 	turnLeftandRight(gyroError);
-	SmartDashboard::PutNumber("Target Heading", targetHeading);
-	SmartDashboard::PutNumber("Gyro Value", ypr[0]);
+//	SmartDashboard::PutNumber("Target Heading", targetHeading);
+//	SmartDashboard::PutNumber("Gyro Value", ypr[0]);
+}
+
+void Drive::updateDrive(float xAxis, float yAxis)
+{
+	setGyroTurn(xAxis);
+	joystickFwdSet(yAxis);
+
+	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd + gyroTurnSpeed);
+	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
+
+	rearRightMotor->Set(ControlMode::Velocity, velocityFwd - gyroTurnSpeed);
+	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
 }
 
 /*void Drive::turnRight(int error)
