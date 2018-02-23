@@ -209,7 +209,7 @@ void Drive::setTargetHeading(float joystick)
 
 void Drive::setGyroTurn(float joystick)
 {
-	pGyon->GetYawPitchRoll(ypr);
+	getYPR();
 	currentHeading = ypr[0];
 	setTargetHeading(joystick);
 	gyroError = currentHeading - targetHeading;
@@ -265,6 +265,7 @@ void Drive::updateDrive(float xAxis, float yAxis)
 
 void Drive::turnLeftandRight(int error)
 {
+	//slows the motors down from 40 degree error to as it approaches 0 degree error
 	float motorFactor = (error/40.0);
 
 	if (motorFactor > 1) motorFactor = 1;
