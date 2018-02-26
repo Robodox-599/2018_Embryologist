@@ -19,6 +19,7 @@ public:
 	~Manipulator();
 
 	void intakeOuttakeCube(bool outtake, bool intake);
+	void liftIntake (bool Lift, bool noLift);
 	void diffIntake(bool left, bool right);
 	void intakePosition(bool posButton);
 	void jiggle(bool jiggButton);
@@ -35,6 +36,7 @@ private:
 
 	TalonSRX* leftIntakeMotor;
 	TalonSRX* rightIntakeMotor;
+	TalonSRX* liftIntakeMotor;
 	DoubleSolenoid* leftmanipPiston;
 	//DoubleSolenoid* rightmanipPiston;
 

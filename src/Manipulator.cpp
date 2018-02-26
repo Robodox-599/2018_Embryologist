@@ -11,10 +11,11 @@
 
 Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons in this case//
 {
-    leftIntakeMotor = new TalonSRX(5); //These are dummy values.//
-    rightIntakeMotor = new TalonSRX(8); //These are dummy values.//
-    leftmanipPiston = new DoubleSolenoid (2,3); //These are dummy values.//
-    //rightmanipPiston = new DoubleSolenoid (0,2); //These are dummy values.//
+    leftIntakeMotor = new TalonSRX(5);
+    rightIntakeMotor = new TalonSRX(8);
+    liftIntakeMotor = new TalonSRX(1); //These are dummy values.//
+    leftmanipPiston = new DoubleSolenoid (2,3);
+    //rightmanipPiston = new DoubleSolenoid (0,2);
     cubeStop = new DigitalInput(2); //These are dummy values.//
     toggle = 1;
 }
@@ -23,11 +24,13 @@ Manipulator::~Manipulator() //deletes all booleans, digital inputs, and CANTalon
 {
 	leftIntakeMotor = nullptr;
 	rightIntakeMotor = nullptr;
+	liftIntakeMotor = nullptr;
 	leftmanipPiston = nullptr;
 	//rightmanipPiston = nullptr;
 	cubeStop = nullptr;
 	delete leftIntakeMotor;
 	delete rightIntakeMotor;
+	delete liftIntakeMotor;
 	delete cubeStop;
 }
 
@@ -35,14 +38,14 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake) //intakes the act
 {
 	if (intake)// && cubeStop->Get() == false)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.8); //These are dummy values.//
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .6); //These are dummy values.//
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
 	}
 
 	else if (outtake)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, 1); //These are dummy values.//
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values.//
+		leftIntakeMotor->Set(ControlMode::PercentOutput, 1);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -1);
 	}
 	else if(cubeStop->Get())
 	{
@@ -62,13 +65,12 @@ void Manipulator::jiggle(bool jiggButton)
 {
 	if(jiggButton)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, .8); //These are dummy values.//
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, .8);
 		Wait(.2);
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.8); //These are dummy values.//
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
 		rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
 		Wait(.3);
-		leftIntakeMotor->Set(ControlMode::PercentOutput, 0); //These are dummy values.//
+		leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 		rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	}
 }
@@ -140,10 +142,27 @@ void Manipulator::AutoIntake() //Intake until limit switch//
 
 void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 {
-	leftIntakeMotor->Set(ControlMode::PercentOutput, -.8); //These are dummy values.//
-	rightIntakeMotor->Set(ControlMode::PercentOutput, .5); //These are dummy values.//
+	leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+	rightIntakeMotor->Set(ControlMode::PercentOutput, .5);
 	Wait(1);
 	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
+}
+
+void Manipulator:: liftIntake (bool Lift, bool noLift)
+{
+	if (Lift)
+	{
+		liftIntakeMotor->Set(ControlMode::PercentOutput,1); //These are dummy values.//
+    }
+	else if (noLift)
+	{
+		liftIntakeMotor->Set(ControlMode::PercentOutput,-1); //These are dummy values.//
+	}
+	else
+	{
+		liftIntakeMotor->Set(ControlMode::PercentOutput,0);
+	}
+	}
 }
 
