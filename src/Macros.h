@@ -11,10 +11,10 @@
 //#include "AHRS.h"
 
 //talon number for the motors
-#define Drive_Front_Left_Motor_Channel (4) //4 , 7(MOD)
-#define Drive_Rear_Left_Motor_Channel (3) //3  , 10(MOD)
-#define Drive_Front_Right_Motor_Channel (2) //2  , 6(MOD)
-#define Drive_Rear_Right_Motor_Channel (1) //1  , 8(MOD)
+#define Drive_Front_Left_Motor_Channel (4)
+#define Drive_Rear_Left_Motor_Channel (3)
+#define Drive_Front_Right_Motor_Channel (2)
+#define Drive_Rear_Right_Motor_Channel (1)
 
 //#define Shifter_Button (1) //shifts the gears on the drive for either torque or speed
 
@@ -24,6 +24,6 @@
 //#define Right_Shifter_Solenoid_Channel_B (3)
 
 #define DEADZONE (.2) //deadzone for the controllers to avoid accidental movement
-#define Max_Motor_Velocity (3256.28) //3256.28 768
+#define Max_Motor_Velocity (1000) //3256.28 768
 
 #endif /* SRC_MACROS_H_ */

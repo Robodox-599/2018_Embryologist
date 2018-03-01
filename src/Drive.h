@@ -21,6 +21,7 @@ public:
 	void joystickTurnSet(float joystickX);
 	void joystickGyroSet(float joystickX);
 
+	void testPID();
 	void testDrive();
 
 	void getYPR();

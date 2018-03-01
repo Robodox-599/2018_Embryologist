@@ -61,6 +61,10 @@ public:
 	void TeleopInit()
 	{
 		drive->PIDset();
+//		frontLeftMotor = new TalonSRX(Drive_Front_Left_Motor_Channel);
+//		rearLeftMotor = new TalonSRX(Drive_Rear_Left_Motor_Channel);
+//		frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
+//		rearRightMotor = new TalonSRX(Drive_Rear_Right_Motor_Channel);
 	}
 
 	void TeleopPeriodic()
@@ -72,14 +76,15 @@ public:
 		SmartDashboard::PutNumber("Yaw", ypr[0]);
 		SmartDashboard::PutNumber("Temperature", genStatus.tempC);*/
 		//drive->velocityDrive(0, 0.4);
-		if(false){
+//		if(false){
 		drive->getYPR();
+		drive->testPID();
+//		drive->updateDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
 		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
-		drive->shift(xbox->GetRawButton(2));}
-		else{
-			drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
-			drive->autoTurn(xbox->GetPOV(0));
-		}
+		drive->shift(xbox->GetRawButton(2));
+		drive->smartDashboard();
+		drive->autoTurn(xbox->GetPOV(0));
+//		}
 	}
 
 	void TestPeriodic()
@@ -96,6 +101,11 @@ private:
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
 	std::string autoSelected;*/
+//	TalonSRX* frontLeftMotor;
+//	TalonSRX* rearLeftMotor;
+//	TalonSRX* frontRightMotor;
+//	TalonSRX* rearRightMotor;
+
 };
 
 START_ROBOT_CLASS(Robot)
