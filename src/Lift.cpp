@@ -123,11 +123,8 @@ void Lift::liftRobot(float liftInput)
 	}
 	if(lowerLimit->Get()) resetLiftEncoder();
 }
-<<<<<<< HEAD
 
-=======
 /*
->>>>>>> e88a862aae38bc7736ce35d0b89a128da322a493
 void Lift::doClimb(bool climbButton)
 {
 	if(climbButton && !climbState)

@@ -40,13 +40,13 @@ private:
 	TalonSRX* rightIntakeMotor;
 	TalonSRX* liftIntakeMotor;
 	DoubleSolenoid* leftmanipPiston;
-<<<<<<< HEAD
-	DoubleSolenoid* rightmanipPiston;
+
+	//DoubleSolenoid* rightmanipPiston;
 	float potAngle;
-=======
+
 	//DoubleSolenoid* rightmanipPiston;
 
->>>>>>> e88a862aae38bc7736ce35d0b89a128da322a493
+
 	bool toggle;
 };
 

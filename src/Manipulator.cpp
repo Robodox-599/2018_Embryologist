@@ -150,12 +150,12 @@ void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
 }
 
-<<<<<<< HEAD
+
 void Manipulator::intakeAngle(float zAxis)
 {
 	potAngle = 0;
 }
-=======
+
 void Manipulator:: liftIntake (bool Lift, bool noLift)
 {
 	if (Lift)
@@ -170,7 +170,4 @@ void Manipulator:: liftIntake (bool Lift, bool noLift)
 	{
 		liftIntakeMotor->Set(ControlMode::PercentOutput,0);
 	}
-	}
 }
-
->>>>>>> e88a862aae38bc7736ce35d0b89a128da322a493
