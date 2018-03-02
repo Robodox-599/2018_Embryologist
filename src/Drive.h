@@ -72,6 +72,8 @@ private:
 	float turnSpeed;
 	bool toggle;
 
+	float gyroTurnSpeed;
+
 	int gyroError;
 	int refAngle;
 
@@ -83,8 +85,5 @@ private:
 
 	float const kp = 0.01;
 };
-
-
-
 
 #endif /* SRC_DRIVE_H_ */

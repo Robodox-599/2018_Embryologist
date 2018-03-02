@@ -22,8 +22,8 @@ Lift::Lift()
 	liftPiston = new DoubleSolenoid(0,1);
 	liftPiston->Set(DoubleSolenoid::kForward);
 
-	rungPiston = new DoubleSolenoid(6,7);
-	rungPiston->Set(DoubleSolenoid::kReverse);
+	rungPiston = new Solenoid(7);
+	rungPiston->Set(false);
 
 	targetEnc = 0;
 	currentLeftEnc = 0;
@@ -97,13 +97,14 @@ void Lift::liftRobot(float liftInput)
 			backLeftLift->Set(ControlMode::PercentOutput,  -liftInput*(-.3));
 		}
 		*/
+		/*
 		else if(climbState)
 		{
 			frontRightLift->Set(ControlMode::PercentOutput, .15);
 			frontLeftLift->Set(ControlMode::PercentOutput, .15);
 			backRightLift->Set(ControlMode::PercentOutput, .15);
 			backLeftLift->Set(ControlMode::PercentOutput, .15);
-		}
+		}*/
 		else
 		{
 			frontRightLift->Set(ControlMode::PercentOutput, .05);
@@ -114,7 +115,7 @@ void Lift::liftRobot(float liftInput)
 	}
 	else
 	{
-		Wait(.2);
+		Wait(.5);
 		frontRightLift->Set(ControlMode::PercentOutput, .05);
 		frontLeftLift->Set(ControlMode::PercentOutput, .05);
 		backRightLift->Set(ControlMode::PercentOutput, .05);
@@ -122,7 +123,11 @@ void Lift::liftRobot(float liftInput)
 	}
 	if(lowerLimit->Get()) resetLiftEncoder();
 }
+<<<<<<< HEAD
 
+=======
+/*
+>>>>>>> e88a862aae38bc7736ce35d0b89a128da322a493
 void Lift::doClimb(bool climbButton)
 {
 	if(climbButton && !climbState)
@@ -183,7 +188,7 @@ void Lift::heightPosition(bool positionA, bool positionB)
 		}
 	}
 }
-
+*/
 float Lift::getLeftLiftEnc()
 {
 	return -frontLeftLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
@@ -235,12 +240,12 @@ void Lift::rungDeploy(bool deployButton, bool otherButton)
 {
 	if(deployButton && canLift)
 	{
-		rungPiston->Set(DoubleSolenoid::kForward);
+		rungPiston->Set(true);
 		rungState = true;
 	}
 	else if(otherButton && canLift)
 	{
-		rungPiston->Set(DoubleSolenoid::kReverse);
+		rungPiston->Set(false);
 		rungState = false;
 	}
 }
