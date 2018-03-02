@@ -17,6 +17,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     rightmanipPiston = new DoubleSolenoid (0,2); //These are dummy values.//
     cubeStop = new DigitalInput(2); //These are dummy values.//
     toggle = 1;
+    potAngle = -1;
 }
 
 Manipulator::~Manipulator() //deletes all booleans, digital inputs, and CANTalons to "restart" them//
@@ -127,3 +128,7 @@ void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
 }
 
+void Manipulator::intakeAngle(float zAxis)
+{
+	potAngle = 0;
+}

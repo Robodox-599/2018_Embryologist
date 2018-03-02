@@ -32,4 +32,6 @@
 #define B_Xbox (2)
 
 
+#define Max_Intake_Angle ()
+
 #endif /* SRC_MACROS_H_ */

@@ -25,6 +25,8 @@ public:
 	void AutoOuttake();
 	void setPos(bool pos);
 
+	void intakeAngle(float zAxis);
+
 	DigitalInput* cubeStop;
 
 	bool stoppingCube();
@@ -36,7 +38,7 @@ private:
 	TalonSRX* rightIntakeMotor;
 	DoubleSolenoid* leftmanipPiston;
 	DoubleSolenoid* rightmanipPiston;
-
+	float potAngle;
 	bool toggle;
 };
 
