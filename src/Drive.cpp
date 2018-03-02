@@ -150,10 +150,10 @@ void Drive::velocityDrive(float xAxis, float yAxis)
 //	rearRightMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn);
 //	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
 
-	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn);
+	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn);
 	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
 
-	rearRightMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn);
+	rearRightMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn);
 	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
 }
 
