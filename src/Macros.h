@@ -24,6 +24,6 @@
 //#define Right_Shifter_Solenoid_Channel_B (3)
 
 #define DEADZONE (.2) //deadzone for the controllers to avoid accidental movement
-#define Max_Motor_Velocity (1000) //3256.28 768
+#define Max_Motor_Velocity (3000) //3256.28 768
 
 #endif /* SRC_MACROS_H_ */

@@ -71,25 +71,25 @@ Drive::~Drive()
 void Drive::PIDset()
 {
 //	//EMMA LOW GEAR
-//	rearLeftMotor->Config_kF(0, 0.314, 10);
-//	rearLeftMotor->Config_kP(0, 0, 10);
-//	rearLeftMotor->Config_kI(0, 0, 10);
-//	rearLeftMotor->Config_kD(0, 0, 10);
+	rearLeftMotor->Config_kF(0, 0.314, 10);
+	rearLeftMotor->Config_kP(0, 0, 10);
+	rearLeftMotor->Config_kI(0, 0, 10);
+	rearLeftMotor->Config_kD(0, 0, 10);
+
+	rearRightMotor->Config_kF(0, 0.314, 10);
+	rearRightMotor->Config_kP(0, 0, 10);
+	rearRightMotor->Config_kI(0, 0, 10);
+	rearRightMotor->Config_kD(0, 0, 10);
 //
-//	rearRightMotor->Config_kF(0, 0.314, 10);
-//	rearRightMotor->Config_kP(0, 0, 10);
-//	rearRightMotor->Config_kI(0, 0, 10);
-//	rearRightMotor->Config_kD(0, 0, 10);
-//
-//	rearLeftMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
-//	rearLeftMotor->SetSensorPhase(false);
-//	rearLeftMotor->SetInverted(true);
-//	frontLeftMotor->SetInverted(true);
-//
-//	rearRightMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
-//	rearRightMotor->SetSensorPhase(true);
-//	rearRightMotor->SetInverted(false);
-//	frontRightMotor->SetInverted(false);
+	rearLeftMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
+	rearLeftMotor->SetSensorPhase(false);
+	rearLeftMotor->SetInverted(true);
+	frontLeftMotor->SetInverted(true);
+
+	rearRightMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
+	rearRightMotor->SetSensorPhase(true);
+	rearRightMotor->SetInverted(false);
+	frontRightMotor->SetInverted(false);
 //
 
 	//MOD
@@ -102,15 +102,15 @@ void Drive::PIDset()
 //	rearRightMotor->Config_kI(0, SmartDashboard::GetNumber("kI", 0), 10);
 //	rearRightMotor->Config_kD(0, SmartDashboard::GetNumber("kD", 0), 10);
 
-	rearLeftMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
-	rearLeftMotor->SetSensorPhase(true);
-	rearLeftMotor->SetInverted(true);
-	frontLeftMotor->SetInverted(true);
-
-	rearRightMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
-	rearRightMotor->SetSensorPhase(false);
-	rearRightMotor->SetInverted(false);
-	frontRightMotor->SetInverted(false);
+//	rearLeftMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
+//	rearLeftMotor->SetSensorPhase(true);
+//	rearLeftMotor->SetInverted(true);
+//	frontLeftMotor->SetInverted(true);
+//
+//	rearRightMotor->ConfigSelectedFeedbackSensor(QuadEncoder, 0, 10);
+//	rearRightMotor->SetSensorPhase(false);
+//	rearRightMotor->SetInverted(false);
+//	frontRightMotor->SetInverted(false);
 }
 
 void Drive::testDrive()
@@ -143,16 +143,16 @@ void Drive::velocityDrive(float xAxis, float yAxis)
 {
 	joystickFwdSet(yAxis);
 	joystickTurnSet(xAxis);
-
-//	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn);
+//MOD
+//	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn);
 //	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
 //
-//	rearRightMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn);
+//	rearRightMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn);
 //	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
 
 	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd - velocityTurn);
 	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
-//
+
 	rearRightMotor->Set(ControlMode::Velocity, velocityFwd + velocityTurn);
 	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
 }
@@ -162,11 +162,11 @@ void Drive::joystickFwdSet(float joystickY)
 	if(joystickY > 0.2)
 	{
 		//This calculation gives max velocity @ joystick = 1
-		velocityFwd = (joystickY-0.2)*1/.8*1000;
+		velocityFwd = (joystickY-0.2)*1/.8*Max_Motor_Velocity;
 	}
 	else if(joystickY < -0.2)
 	{
-		velocityFwd = (joystickY+0.2)*1/.8*1000;
+		velocityFwd = (joystickY+0.2)*1/.8*Max_Motor_Velocity;
 	}
 	else
 	{
@@ -178,11 +178,11 @@ void Drive::joystickTurnSet(float joystickX)
 {
 	if(joystickX > 0.2)
 	{
-		velocityTurn = (joystickX-0.2)*1/.8*1000;
+		velocityTurn = (joystickX-0.2)*1/.8*Max_Motor_Velocity/4;
 	}
 	else if(joystickX < -0.2)
 	{
-		velocityTurn = (joystickX+0.2)*1/.8*1000;
+		velocityTurn = (joystickX+0.2)*1/.8*Max_Motor_Velocity/4;
 	}
 	else
 	{

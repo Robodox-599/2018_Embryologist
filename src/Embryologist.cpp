@@ -77,13 +77,29 @@ public:
 		SmartDashboard::PutNumber("Temperature", genStatus.tempC);*/
 		//drive->velocityDrive(0, 0.4);
 //		if(false){
-		drive->getYPR();
-		drive->testPID();
-//		drive->updateDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
+//		drive->getYPR();
+//		drive->testPID();
+////		drive->updateDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
 		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
-		drive->shift(xbox->GetRawButton(2));
+//		drive->shift(xbox->GetRawButton(2));
 		drive->smartDashboard();
-		drive->autoTurn(xbox->GetPOV(0));
+//		drive->autoTurn(xbox->GetPOV(0));
+
+
+
+
+//		frontRightMotor->Set(ControlMode::PercentOutput, .3);
+//		Wait(2);
+//		frontRightMotor->Set(ControlMode::PercentOutput, 0);
+//		rearRightMotor->Set(ControlMode::PercentOutput, .3);
+//		Wait(2);
+//		rearRightMotor->Set(ControlMode::PercentOutput, 0);
+//		frontLeftMotor->Set(ControlMode::PercentOutput, .3);
+//		Wait(2);
+//		frontLeftMotor->Set(ControlMode::PercentOutput, 0);
+//		rearLeftMotor->Set(ControlMode::PercentOutput, .3);
+//		Wait(2);
+//		rearLeftMotor->Set(ControlMode::PercentOutput, 0);
 //		}
 	}
 
@@ -101,10 +117,10 @@ private:
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
 	std::string autoSelected;*/
-//	TalonSRX* frontLeftMotor;
-//	TalonSRX* rearLeftMotor;
-//	TalonSRX* frontRightMotor;
-//	TalonSRX* rearRightMotor;
+	TalonSRX* frontLeftMotor;
+	TalonSRX* rearLeftMotor;
+	TalonSRX* frontRightMotor;
+	TalonSRX* rearRightMotor;
 
 };
 
