@@ -77,6 +77,7 @@ public:
 		manip->intakePosition(atk3->GetRawButton(3));
 		//SmartDashboard::GetBoolean("stopper: ", manip->stoppingCube());
 		manip->jiggle(atk3->GetRawButton(5));
+		SmartDashboard::PutNumber("Pot Val: ", manip->potVal());
 
 		//lift
 		lift->liftRobot(atk3->GetRawAxis(1));
@@ -109,7 +110,7 @@ public:
 		//drive->velocityDrive(0, 0.4);
 		//drive->getYPR();
 		//drive->velocityDrive(-xbox->GetRawAxis(1), -xbox->GetRawAxis(4));
-		//drive->shift(xbox->GetRawButton(B_Xbox));
+		drive->shift(xbox->GetRawButton(B_Xbox));
 		drive->getYPR();
 		drive->velocityDrive(xbox->GetRawAxis(4), xbox->GetRawAxis(1));
 		//drive->shift(xbox->GetRawButton(2));

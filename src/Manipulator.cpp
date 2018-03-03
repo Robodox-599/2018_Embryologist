@@ -19,6 +19,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     cubeStop = new DigitalInput(2); //These are dummy values.//
     toggle = 1;
     potAngle = -1;
+    pot = new AnalogPotentiometer(3, 360, 0);
 }
 
 Manipulator::~Manipulator() //deletes all booleans, digital inputs, and CANTalons to "restart" them//
@@ -76,6 +77,11 @@ void Manipulator::jiggle(bool jiggButton)
 	}
 }
 
+double Manipulator::potVal()
+{
+	return pot->Get();
+}
+
 void Manipulator::diffIntake(bool left, bool right)
 {
 	if(left) leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
@@ -88,7 +94,7 @@ bool Manipulator::stoppingCube() //limit switch stops intake//
 	return cubeStop->Get();
 }
 
-void Manipulator::intakePosition(bool posButton) //piston folds in/folds out intake/outtake arms//
+void Manipulator::intakePosition(bool posButton) //piston folds in/folds out intake/ outtake arms//
 {
 	if(posButton)
 	{

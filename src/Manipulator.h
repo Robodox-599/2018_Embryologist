@@ -32,6 +32,8 @@ public:
 	DigitalInput* cubeStop;
 
 	bool stoppingCube();
+	AnalogPotentiometer* pot;
+	double potVal();
 
 
 private:
