@@ -13,13 +13,13 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
 {
     leftIntakeMotor = new TalonSRX(5);
     rightIntakeMotor = new TalonSRX(8);
-    liftIntakeMotor = new TalonSRX(1); //These are dummy values.//
+    liftIntakeMotor = new TalonSRX(11); //These are dummy values.//
     leftmanipPiston = new DoubleSolenoid (2,3);
     //rightmanipPiston = new DoubleSolenoid (0,2);
     cubeStop = new DigitalInput(2); //These are dummy values.//
     toggle = 1;
     potAngle = -1;
-    pot = new AnalogPotentiometer(3, 360, 0);
+    pot = new AnalogPotentiometer(3, 200, 0);
 }
 
 Manipulator::~Manipulator() //deletes all booleans, digital inputs, and CANTalons to "restart" them//
@@ -36,29 +36,30 @@ Manipulator::~Manipulator() //deletes all booleans, digital inputs, and CANTalon
 	delete cubeStop;
 }
 
-void Manipulator::intakeOuttakeCube(bool intake, bool outtake) //intakes the actual cube with/without limit switch + outtake//
+void Manipulator::intakeOuttakeCube(bool intake, bool outtake, float mod) //intakes the actual cube with/without limit switch + outtake//
 {
 	if (intake)// && cubeStop->Get() == false)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.85);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .55);
 	}
 
 	else if (outtake)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, 1);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -1);
+		//speed modified by the z axis on the Atk3. Bound from .6 to 1
+		leftIntakeMotor->Set(ControlMode::PercentOutput, .2*(-mod+4));//75 or 6
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -.2*(-mod+4));//75 or 6
 	}
-	else if(cubeStop->Get())
-	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .08);
-	}
+//	else if(cubeStop->Get())
+//	{
+//		leftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
+//		rightIntakeMotor->Set(ControlMode::PercentOutput, .08);
+//	}
 
 	else
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.2);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .2);
 	}
 	SmartDashboard::PutBoolean("CubeStopper: ", cubeStop->Get());
 }
@@ -159,21 +160,64 @@ void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 
 void Manipulator::intakeAngle(float zAxis)
 {
-	potAngle = 0;
+	//potAngle = 0;
+	if(-zAxis == -1)
+	{
+		if(pot->Get() > 20) liftIntakeMotor->Set(ControlMode::PercentOutput, .5);
+		else liftIntakeMotor->Set(ControlMode::PercentOutput, 0);
+	}
+	else if(-zAxis == 1)
+	{
+		if(pot->Get() < 180) liftIntakeMotor->Set(ControlMode::PercentOutput, -.5);
+		else liftIntakeMotor->Set(ControlMode::PercentOutput, 0);
+	}
+	else if(-zAxis < 1 && -zAxis > -1)
+	{
+		if(pot->Get() < 80) liftIntakeMotor->Set(ControlMode::PercentOutput, -.5);
+		else if(pot->Get() > 120) liftIntakeMotor->Set(ControlMode::PercentOutput, .5);
+		else liftIntakeMotor->Set(ControlMode::PercentOutput, .02);
+	}
 }
 
-void Manipulator:: liftIntake (bool Lift, bool noLift)
+void Manipulator:: liftIntake (bool Lift, bool noLift, bool midLift, bool finalLift)
 {
 	if (Lift)
 	{
-		liftIntakeMotor->Set(ControlMode::PercentOutput,1); //These are dummy values.//
+		while(pot->Get() > 50) liftIntakeMotor->Set(ControlMode::PercentOutput, -.4);
+		liftIntakeMotor->Set(ControlMode::PercentOutput, .1);
+		SmartDashboard::PutString("Intake Mode: ", "Climb");
+		//liftIntakeMotor->Set(ControlMode::PercentOutput,-.4); //These are dummy values.//
     }
+	if (finalLift)
+	{
+		while(pot->Get() > 20) liftIntakeMotor->Set(ControlMode::PercentOutput, -.4);
+		liftIntakeMotor->Set(ControlMode::PercentOutput, .1);
+		SmartDashboard::PutString("Intake Mode: ", "Final");
+		//liftIntakeMotor->Set(ControlMode::PercentOutput,-.4); //These are dummy values.//
+	}
 	else if (noLift)
 	{
-		liftIntakeMotor->Set(ControlMode::PercentOutput,-1); //These are dummy values.//
+		while(pot->Get() < 80) liftIntakeMotor->Set(ControlMode::PercentOutput, .3);
+		liftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
+		SmartDashboard::PutString("Intake Mode: ", "Cube");
+		//liftIntakeMotor->Set(ControlMode::PercentOutput,.4); //These are dummy values.//
+	}
+	else if(midLift)
+	{
+		while(pot->Get() < 50 || pot->Get() > 60)
+		{
+			if(pot->Get() < 60) liftIntakeMotor->Set(ControlMode::PercentOutput, .4);
+			else if(pot->Get() > 50) liftIntakeMotor->Set(ControlMode::PercentOutput, -.4);
+		}
+		liftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
+		SmartDashboard::PutString("Intake Mode: ", "Shoot");
+	}
+	else if(pot->Get() < 40)
+	{
+		liftIntakeMotor->Set(ControlMode::PercentOutput,0);
 	}
 	else
 	{
-		liftIntakeMotor->Set(ControlMode::PercentOutput,0);
+		liftIntakeMotor->Set(ControlMode::PercentOutput,-.09);
 	}
 }

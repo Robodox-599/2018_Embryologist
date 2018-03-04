@@ -18,8 +18,8 @@ public:
 	Manipulator();
 	~Manipulator();
 
-	void intakeOuttakeCube(bool outtake, bool intake);
-	void liftIntake (bool Lift, bool noLift);
+	void intakeOuttakeCube(bool outtake, bool intake, float mod);
+	void liftIntake (bool Lift, bool noLift, bool midLift, bool finalLift);
 	void diffIntake(bool left, bool right);
 	void intakePosition(bool posButton);
 	void jiggle(bool jiggButton);
