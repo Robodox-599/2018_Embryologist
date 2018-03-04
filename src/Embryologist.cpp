@@ -83,7 +83,7 @@ public:
 		//lift
 		lift->liftRobot(atk3->GetRawAxis(1));
 		//lift->PistonLift(atk3->GetRawButton(6),atk3->GetRawButton(7));
-		lift->rungDeploy(xbox->GetRawButton(1), xbox->GetRawButton(3));
+		lift->rungDeploy(xbox->GetRawButton(A_Xbox), xbox->GetRawButton(X_Xbox));
 		//lift->doClimb(atk3->GetRawButton(10));
 		//lift->setHeightEnc(atk3->GetRawAxis(1));
 		//lift->doLift();
@@ -113,7 +113,7 @@ public:
 		//drive->velocityDrive(-xbox->GetRawAxis(1), -xbox->GetRawAxis(4));
 		drive->shift(xbox->GetRawButton(B_Xbox));
 		//drive->getYPR();
-		drive->velocityDrive(xbox->GetRawAxis(4), xbox->GetRawAxis(1));
+		drive->velocityDrive(xbox->GetRawAxis(RX_Axis_Xbox), xbox->GetRawAxis(LY_Axis_Xbox));//4,1
 		//drive->shift(xbox->GetRawButton(2));
 		//drive->autoTurn(xbox->GetPOV(0));
 		//}
