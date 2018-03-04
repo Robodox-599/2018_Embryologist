@@ -28,6 +28,8 @@ public:
 	void setPos(bool pos);
 
 	void intakeAngle(float zAxis);
+	void pivotIntake(bool down, bool shoot, bool up);
+	void fixPivotError(float error);
 
 	DigitalInput* cubeStop;
 
@@ -35,7 +37,9 @@ public:
 	AnalogPotentiometer* pot;
 	double potVal();
 
-
+	float currentPivot;
+	float targetPivot;
+	float errorPivot;
 private:
 
 	TalonSRX* leftIntakeMotor;
@@ -47,6 +51,7 @@ private:
 	float potAngle;
 
 	//DoubleSolenoid* rightmanipPiston;
+
 
 
 	bool toggle;

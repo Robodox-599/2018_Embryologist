@@ -72,13 +72,15 @@ public:
 	{
 		//if(false){
 		//manipulator
-		manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(1),atk3->GetRawAxis(3));
+		manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(1),atk3->GetRawAxis(2));
 		//manip->diffIntake(atk3->GetRawButton(6),atk3->GetRawButton(7));
 		//manip->intakePosition(atk3->GetRawButton(3));
 		//SmartDashboard::GetBoolean("stopper: ", manip->stoppingCube());
-		//manip->jiggle(atk3->GetRawButton(5));
-		manip->liftIntake(atk3->GetRawButton(11), atk3->GetRawButton(10), atk3->GetRawButton(2), atk3->GetRawButton(5));
-		SmartDashboard::PutNumber("Pot Val: ", manip->potVal());
+		manip->jiggle(atk3->GetRawButton(3));
+		//manip->liftIntake(atk3->GetRawButton(11), atk3->GetRawButton(10), atk3->GetRawButton(2), atk3->GetRawButton(5));
+		SmartDashboard::PutNumber("Z Axis:", atk3->GetRawAxis(2));
+		SmartDashboard::PutNumber("Pot Val:", manip->pot->Get());
+		manip->pivotIntake(atk3->GetRawButton(10), atk3->GetRawButton(2), atk3->GetRawButton(11));
 
 		//lift
 		lift->liftRobot(atk3->GetRawAxis(1));
@@ -88,7 +90,7 @@ public:
 		//lift->setHeightEnc(atk3->GetRawAxis(1));
 		//lift->doLift();
 		//lift->getLeftLiftEnc();
-		//lift->getRightLiftEnc();
+		//lift->getRightLiftEnc();0
 		//lift->getAvgLiftEnc();
 		//lift->CalibrateLift(atk3->GetRawButton(7), atk3->GetRawButton(10));
 		SmartDashboard::PutNumber("leftValue: ", lift->getLeftLiftEnc());
@@ -102,12 +104,12 @@ public:
 		//}
 	//	else{
 		//drive
-		/*double ypr[3];
-		PigeonIMU::GeneralStatus genStatus;
-		pGyon->GetGeneralStatus(genStatus);
+		/*double ypr[3];..
+		PigeonIMU::GeneralStatus genS...tatus;
+		pGyon->GetGeneralStatus(gen..Status);
 		pGyon->GetYawPitchRoll(ypr);
 		SmartDashboard::PutNumber("Yaw", ypr[0]);
-		SmartDashboard::PutNumber("Temperature", genStatus.tempC);*/
+		SmartDashboard::Pu.tNumber("Temperature", genStatus.tempC);*/
 		//drive->velocityDrive(0, 0.4);
 		//drive->getYPR();
 		//drive->velocityDrive(-xbox->GetRawAxis(1), -xbox->GetRawAxis(4));
@@ -132,3 +134,4 @@ private:
 };
 
 START_ROBOT_CLASS(Robot)
+

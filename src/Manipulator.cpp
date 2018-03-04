@@ -20,6 +20,10 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     toggle = 1;
     potAngle = -1;
     pot = new AnalogPotentiometer(3, 200, 0);
+
+    currentPivot = 0;
+	targetPivot = 25;
+	errorPivot = 0;
 }
 
 Manipulator::~Manipulator() //deletes all booleans, digital inputs, and CANTalons to "restart" them//
@@ -50,16 +54,16 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake, float mod) //inta
 		leftIntakeMotor->Set(ControlMode::PercentOutput, .2*(-mod+4));//75 or 6
 		rightIntakeMotor->Set(ControlMode::PercentOutput, -.2*(-mod+4));//75 or 6
 	}
-//	else if(cubeStop->Get())
-//	{
-//		leftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
-//		rightIntakeMotor->Set(ControlMode::PercentOutput, .08);
-//	}
+	else if(cubeStop->Get())
+	{
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .08);
+	}
 
 	else
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.2);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .2);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	}
 	SmartDashboard::PutBoolean("CubeStopper: ", cubeStop->Get());
 }
@@ -68,10 +72,11 @@ void Manipulator::jiggle(bool jiggButton)
 {
 	if(jiggButton)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, .8);
-		Wait(.2);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, .5);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -.5);
+		Wait(.1);
 		leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .5);
 		Wait(.3);
 		leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 		rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
@@ -197,17 +202,17 @@ void Manipulator:: liftIntake (bool Lift, bool noLift, bool midLift, bool finalL
 	}
 	else if (noLift)
 	{
-		while(pot->Get() < 80) liftIntakeMotor->Set(ControlMode::PercentOutput, .3);
+		while(pot->Get() < 100) liftIntakeMotor->Set(ControlMode::PercentOutput, .3);
 		liftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
 		SmartDashboard::PutString("Intake Mode: ", "Cube");
 		//liftIntakeMotor->Set(ControlMode::PercentOutput,.4); //These are dummy values.//
 	}
 	else if(midLift)
 	{
-		while(pot->Get() < 50 || pot->Get() > 60)
+		while(pot->Get() < 70 || pot->Get() > 80)
 		{
-			if(pot->Get() < 60) liftIntakeMotor->Set(ControlMode::PercentOutput, .4);
-			else if(pot->Get() > 50) liftIntakeMotor->Set(ControlMode::PercentOutput, -.4);
+			if(pot->Get() < 80) liftIntakeMotor->Set(ControlMode::PercentOutput, .4);
+			else if(pot->Get() > 70) liftIntakeMotor->Set(ControlMode::PercentOutput, -.4);
 		}
 		liftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
 		SmartDashboard::PutString("Intake Mode: ", "Shoot");
@@ -216,8 +221,39 @@ void Manipulator:: liftIntake (bool Lift, bool noLift, bool midLift, bool finalL
 	{
 		liftIntakeMotor->Set(ControlMode::PercentOutput,0);
 	}
+	else if(pot->Get() > 105)
+	{
+		liftIntakeMotor->Set(ControlMode::PercentOutput,0);
+	}
+//	else if(cubeStop->Get())
+//	{
+//		liftIntakeMotor->Set(ControlMode::PercentOutput,-.2);
+//	}
 	else
 	{
-		liftIntakeMotor->Set(ControlMode::PercentOutput,-.09);
+		liftIntakeMotor->Set(ControlMode::PercentOutput,-.15);
 	}
+}
+
+
+void Manipulator::pivotIntake(bool down, bool shoot, bool up)
+{
+	if(down) targetPivot = 105;
+	if(shoot) targetPivot = 45;
+	if(up) targetPivot = 32;
+
+	currentPivot = pot->Get();
+	errorPivot = targetPivot-currentPivot;
+	fixPivotError(errorPivot);
+}
+
+void Manipulator::fixPivotError(float error)
+{
+	float movePivot = (error/100);
+
+	if(movePivot > .9) movePivot = .9;
+	if(movePivot < -.9) movePivot = -.9;
+
+	liftIntakeMotor->Set(ControlMode::PercentOutput,movePivot);
+	SmartDashboard::PutNumber("Pivot Val:", movePivot);
 }
