@@ -21,7 +21,7 @@ public:
 	void intakeOuttakeCube(bool outtake, bool intake, float mod);
 	void liftIntake (bool Lift, bool noLift, bool midLift, bool finalLift);
 	void diffIntake(bool left, bool right);
-	void intakePosition(bool posButton);
+	void intakePosition(bool posButton, bool unPos);
 	void jiggle(bool jiggButton);
 	void AutoIntake();
 	void AutoOuttake();

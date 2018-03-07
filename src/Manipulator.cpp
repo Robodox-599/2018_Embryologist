@@ -22,7 +22,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     pot = new AnalogPotentiometer(3, 200, 0);
 
     currentPivot = 0;
-	targetPivot = 25;
+	targetPivot = 30;
 	errorPivot = 0;
 }
 
@@ -44,8 +44,8 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake, float mod) //inta
 {
 	if (intake)// && cubeStop->Get() == false)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.85);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .55);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.9);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .65);
 	}
 
 	else if (outtake)
@@ -56,8 +56,8 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake, float mod) //inta
 	}
 	else if(cubeStop->Get())
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .08);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
 	}
 
 	else
@@ -100,28 +100,33 @@ bool Manipulator::stoppingCube() //limit switch stops intake//
 	return cubeStop->Get();
 }
 
-void Manipulator::intakePosition(bool posButton) //piston folds in/folds out intake/ outtake arms//
+void Manipulator::intakePosition(bool posButton, bool unPos) //piston folds in/folds out intake/ outtake arms//
 {
 	if(posButton)
 	{
-		if(toggle == 1)
-		{
-			leftmanipPiston->Set(DoubleSolenoid::kForward);
-			//rightmanipPiston -> Set(DoubleSolenoid::kForward);
-			Wait(.5);
-			toggle = 0;
-		}
-		else
-		{
-			leftmanipPiston->Set(DoubleSolenoid::kReverse);
-			//rightmanipPiston -> Set(DoubleSolenoid::kReverse);
-			leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
-			rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
-			Wait(.5);
-			leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
-			rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
-			toggle = 1;
-		}
+//		if(toggle == 1)
+//		{
+//			leftmanipPiston->Set(DoubleSolenoid::kForward);
+//			//rightmanipPiston -> Set(DoubleSolenoid::kForward);
+//			Wait(.5);
+//			toggle = 0;
+//		}
+//		else
+//		{
+//			leftmanipPiston->Set(DoubleSolenoid::kReverse);
+//			//rightmanipPiston -> Set(DoubleSolenoid::kReverse);
+//			leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+//			rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
+//			Wait(.5);
+//			leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
+//			rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
+//			toggle = 1;
+//		}
+		leftmanipPiston->Set(DoubleSolenoid::kForward);
+	}
+	if(unPos)
+	{
+		leftmanipPiston->Set(DoubleSolenoid::kReverse);
 	}
 }
 
@@ -238,9 +243,9 @@ void Manipulator:: liftIntake (bool Lift, bool noLift, bool midLift, bool finalL
 
 void Manipulator::pivotIntake(bool down, bool shoot, bool up)
 {
-	if(down) targetPivot = 105;
-	if(shoot) targetPivot = 45;
-	if(up) targetPivot = 32;
+	if(down) targetPivot = 100;
+	if(shoot) targetPivot = 40;
+	if(up) targetPivot = 27;
 
 	currentPivot = pot->Get();
 	errorPivot = targetPivot-currentPivot;
@@ -251,8 +256,8 @@ void Manipulator::fixPivotError(float error)
 {
 	float movePivot = (error/100);
 
-	if(movePivot > .9) movePivot = .9;
-	if(movePivot < -.9) movePivot = -.9;
+	if(movePivot > .6) movePivot = .5;
+	if(movePivot < -.6) movePivot = -.6;
 
 	liftIntakeMotor->Set(ControlMode::PercentOutput,movePivot);
 	SmartDashboard::PutNumber("Pivot Val:", movePivot);
