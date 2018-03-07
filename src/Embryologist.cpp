@@ -8,8 +8,6 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <Drive.h>
 #include <Macros.h>
-#include <ctime>
-#include <DoxUtil_Log.h>
 
 class Robot: public frc::IterativeRobot {
 public:
@@ -23,12 +21,9 @@ public:
 		drive = new Drive();
 		drive->resetEncoder();
 		//comp599->SetClosedLoopControl(true);
-
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
-		//var = 2;
-
 	}
 
 	/*
@@ -70,16 +65,6 @@ public:
 //		rearLeftMotor = new TalonSRX(Drive_Rear_Left_Motor_Channel);
 //		frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
 //		rearRightMotor = new TalonSRX(Drive_Rear_Right_Motor_Channel);
-		theLog = new DoxLog();
-		theLog->LogIt("WhatDoYouWantToLog?");
-	}
-
-	void DisabledInit()
-	{
-		if(theLog != nullptr)
-		{
-			theLog->close();
-		}
 	}
 
 	void TeleopPeriodic()
@@ -127,16 +112,15 @@ private:
 	//PigeonIMU* pGyon;
 	Drive* drive;
 	Joystick* xbox;
-	DoxLog* theLog;
 	frc::LiveWindow* lw = LiveWindow::GetInstance();
 	/*frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
 	std::string autoSelected;*/
-	TalonSRX* frontLeftMotor;
-	TalonSRX* rearLeftMotor;
-	TalonSRX* frontRightMotor;
-	TalonSRX* rearRightMotor;
+//	TalonSRX* frontLeftMotor;
+//	TalonSRX* rearLeftMotor;
+//	TalonSRX* frontRightMotor;
+//	TalonSRX* rearRightMotor;
 
 };
 
