@@ -20,21 +20,37 @@ public:
 		~Lift();
 
 		void liftRobot(float liftInput);
-		void PistonLift(bool pistonButton);
+		void PistonLift(bool pistonButton, bool disengage);
 		float getLeftLiftEnc();
 		float getRightLiftEnc();
+		float getAvgLiftEnc();
 		void liftAuto(float speed, float autoLiftInput);
-		void PistonClimb(bool climbButton);
+		//void PistonClimb(bool climbButton);
+		void CalibrateLift(bool calibrateButton, bool safeCalibrate);
 		void resetLiftEncoder();
 		bool lowerLimitTester();
 		bool upperLimitTester();
+		void rungDeploy(bool deployButton, bool otherButton);
 
+		void setHeightEnc(float joystick);
+		void doLift();
+		void fixErrorLeft(float error);
+		void fixErrorRight(float error);
 
-		Solenoid *leftLiftPiston;
-		Solenoid *rightLiftPiston;
+		void autoClimb(bool autoClimbA, bool autoClimbB);
+		void heightPosition(bool positionA, bool positionB);
 
-		Solenoid *leftClimbPiston;
-		Solenoid *rightClimbPiston;
+		void doClimb(bool climbButton);
+		void stopLift();
+
+		bool canLift;
+		bool rungState;
+		bool climbState;
+
+		DoubleSolenoid *liftPiston;
+		//DoubleSolenoid *rightLiftPiston;
+
+		Solenoid *rungPiston;
 
 private:
 		TalonSRX *frontRightLift;
@@ -44,6 +60,12 @@ private:
 
 		DigitalInput *upperLimit;
 		DigitalInput *lowerLimit;
+
+		float targetEnc;
+		float encErrorRight;
+		float encErrorLeft;
+		float currentLeftEnc;
+		float currentRightEnc;
 
 };
 

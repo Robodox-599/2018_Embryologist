@@ -10,6 +10,7 @@ Auto::Auto()
 	dataTest = 0;
 	selector = new DigitalInput(1);
 	counter = 0;
+	doAuto = 1;
 
 }
 
@@ -22,9 +23,10 @@ Auto::~Auto()
 
 void Auto::driveStraight(float speed, int enc)
 {
+	//drive->resetEncoder();
 	if(-speed > 0)
 	{
-		while(drive->getLeftEnc() > -enc && drive->getRightEnc() > -enc)//Dummy values
+		while(drive->getLeftEnc() > -enc)// && drive->getRightEnc() > -enc)//Dummy values
 		{
 		drive->updateLeftMotors(-speed);
 		drive->updateRightMotors(-speed);
@@ -35,7 +37,7 @@ void Auto::driveStraight(float speed, int enc)
 	}
 	if(-speed < 0)
 	{
-		while(drive->getLeftEnc() < enc && drive->getRightEnc() < enc)//Dummy values
+		while(drive->getLeftEnc() < enc )//&& drive->getRightEnc() < enc)//Dummy values
 		{
 		drive->updateLeftMotors(-speed);
 		drive->updateRightMotors(-speed);
@@ -46,6 +48,14 @@ void Auto::driveStraight(float speed, int enc)
 	}
 }
 
+void Auto::turnRobot(float speed, int time)
+{
+	drive->updateLeftMotors(speed);
+	drive->updateRightMotors(-speed);
+	Wait(time);
+	drive->updateLeftMotors(0);
+	drive->updateRightMotors(0);
+}
 
 
 void Auto::preCheck()//To be run BEFORE a match in the pit in order to test each system
@@ -68,7 +78,7 @@ void Auto::nonPreLoad_auto1()//Left starting position, Objective: Switch
 		drive->autoTurn(270); //function not final
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
-		manip->AutoIntake();
+		//manip->AutoIntake();
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
 		driveStraight(-1,5000);
@@ -92,7 +102,7 @@ void Auto::nonPreLoad_auto1()//Left starting position, Objective: Switch
 		drive->autoTurn(270); //function not final
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
-		manip->AutoIntake();
+		//manip->AutoIntake();
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
 		drive->autoTurn(90); //function not final
@@ -115,7 +125,7 @@ void Auto::nonPreLoad_auto2()
 		driveStraight(1,30000);
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
-		manip->AutoIntake();
+		//manip->AutoIntake();
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
 		driveStraight(-1,2000);
@@ -132,7 +142,7 @@ void Auto::nonPreLoad_auto2()
 		driveStraight(1,30000);
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
-		manip->AutoIntake();
+		//manip->AutoIntake();
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
 		driveStraight(-1,2000);
@@ -154,7 +164,7 @@ void Auto::nonPreLoad_auto3()
 		drive->autoTurn(90); //function not final
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
-		manip->AutoIntake();
+		//manip->AutoIntake();
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
 		driveStraight(-1,5000);
@@ -172,7 +182,7 @@ void Auto::nonPreLoad_auto3()
 		drive->autoTurn(90); //function not final
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
-		manip->AutoIntake();
+		//manip->AutoIntake();
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
 		drive->autoTurn(270); //function not final
@@ -198,7 +208,13 @@ void Auto::auto0()//Drive straight to pass Auto Line.
 	drive->updateLeftMotors(0);
 	drive->updateRightMotors(0);*/
 	//drive->resetEncoder();
-	driveStraight(1, 10000);
+	//driveStraight(.3, 500);
+	drive->updateLeftMotors(-.4);
+	drive->updateRightMotors(-.4);
+	Wait(1);
+	drive->updateLeftMotors(0);
+	drive->updateRightMotors(0);
+	doAuto = 0;
 	//Wait(400);
 }
 //
@@ -210,12 +226,27 @@ void Auto::auto1()//Left starting position, Objective: Switch
 		//dataTest = 1;
 		//driveStraight(1, 1000);
 
-		manip->setPos(1);//releases intake
-		driveStraight(1,50000);
-		drive->autoTurn(270); //function not final
-		driveStraight(1,1000);
-		lift->liftAuto(1,5000);
-		manip->AutoOuttake();
+		//manip->setPos(1);//releases intake
+		//manip->pivotIntake(1,0,0);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .1);
+		Wait(1.5);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, 0);
+		//driveStraight(1,10000);
+		drive->updateLeftMotors(-.4);
+		drive->updateRightMotors(-.4);
+		Wait(1.4);
+		drive->updateLeftMotors(0);
+		drive->updateRightMotors(0);
+		//drive->autoTurn(270); //function not final
+		turnRobot(-.5, 1);
+		//driveStraight(1,1000);
+		drive->updateLeftMotors(-.2);
+		drive->updateRightMotors(-.2);
+		Wait(.6);
+		drive->updateLeftMotors(0);
+		drive->updateRightMotors(0);
+		//lift->liftAuto(1,5000);
+		//manip->AutoOuttake();
 
 
 	}

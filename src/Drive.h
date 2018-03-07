@@ -22,14 +22,17 @@ public:
 	void joystickTurnSet(float joystickX);
 	void joystickGyroSet(float joystickX);
 
+	void testDrive();
+
 	void getYPR();
 	void autoTurn(int angle);
 	void turnRight(int error);
 	void turnLeft(int error);
 	void turnLeftandRight(int error);
 
-	void setTargetHeading(int joystick);
+	void setTargetHeading(float joystick);
 	void getTargetHeading();
+	void updateDrive(float joystick);
 
 	void updateLeftMotors(float speed);
 	void updateRightMotors(float speed);
@@ -60,6 +63,7 @@ private:
 	//DoubleSolenoid* rightShifter;
 
 	double targetHeading;
+	double currentHeading;
 
 	double ypr[3];
 	PigeonIMU::GeneralStatus genStatus;
@@ -68,16 +72,18 @@ private:
 	float turnSpeed;
 	bool toggle;
 
+	float gyroTurnSpeed;
+
 	int gyroError;
 	int refAngle;
 
 	float velocityFwd;
 	float velocityTurn;
 
+
 	//float gyroValue;
 
 	float const kp = 0.01;
 };
-
 
 #endif /* SRC_DRIVE_H_ */

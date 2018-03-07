@@ -26,6 +26,8 @@ public:
 	void nonPreLoad_auto1();
 	void nonPreLoad_auto2();
 	void nonPreLoad_auto3();
+
+	void turnRobot(float speed, int time);
 	int dataVal();
 	DigitalInput* selector;
 
@@ -33,6 +35,7 @@ public:
 	void driveStraight(float speed, int enc);
 
 	int autoSelector();
+	bool doAuto;
 
 private:
 	std::string gameData;
