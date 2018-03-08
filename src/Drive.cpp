@@ -5,7 +5,6 @@
  *      Author: Admin
  */
 #include "Drive.h"
-
 //
 Drive::Drive()
 {

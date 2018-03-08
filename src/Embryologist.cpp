@@ -8,6 +8,8 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <Drive.h>
 #include <Macros.h>
+#include <Timer.h>
+#include <DoxUtil_Log.h>
 
 class Robot: public frc::IterativeRobot {
 public:
@@ -20,6 +22,9 @@ public:
 		xbox = new Joystick(0);
 		drive = new Drive();
 		drive->resetEncoder();
+		timer = new Timer();
+		timerTime = timer->Get();
+
 		//comp599->SetClosedLoopControl(true);
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
@@ -61,6 +66,9 @@ public:
 	void TeleopInit()
 	{
 		drive->PIDset();
+		theLog = new DoxLog();
+		timer->Reset();
+		timer->Start();
 //		frontLeftMotor = new TalonSRX(Drive_Front_Left_Motor_Channel);
 //		rearLeftMotor = new TalonSRX(Drive_Rear_Left_Motor_Channel);
 //		frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
@@ -69,6 +77,13 @@ public:
 
 	void TeleopPeriodic()
 	{
+		timerTime = timer->Get();
+		if(timerTime == 1)
+		{
+			theLog->LogIt("Left Encoder Value", drive->getLeftEnc(), -1);
+			timer->Reset();
+		}
+		SmartDashboard::PutNumber("Timer Time", timerTime);
 		/*double ypr[3];
 		PigeonIMU::GeneralStatus genStatus;
 		pGyon->GetGeneralStatus(genStatus);
@@ -80,7 +95,7 @@ public:
 //		drive->getYPR();
 //		drive->testPID();
 ////		drive->updateDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
-		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
+//		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
 //		drive->shift(xbox->GetRawButton(2));
 		drive->smartDashboard();
 //		drive->autoTurn(xbox->GetPOV(0));
@@ -103,15 +118,26 @@ public:
 //		}
 	}
 
+	void DisabledInit()
+	{
+		if(theLog != nullptr)
+		{
+			theLog->close();
+		}
+	}
+
 	void TestPeriodic()
 	{
 
 	}
 
 private:
+	int timerTime;
 	//PigeonIMU* pGyon;
 	Drive* drive;
 	Joystick* xbox;
+	DoxLog* theLog;
+	Timer* timer;
 	frc::LiveWindow* lw = LiveWindow::GetInstance();
 	/*frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
