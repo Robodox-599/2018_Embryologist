@@ -28,6 +28,8 @@ public:
 	void nonPreLoad_auto3();
 
 	void turnRobot(float speed, int time);
+	void liftTime(float speed, int time);
+	void displayData();
 	int dataVal();
 	DigitalInput* selector;
 

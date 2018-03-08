@@ -57,6 +57,19 @@ void Auto::turnRobot(float speed, int time)
 	drive->updateRightMotors(0);
 }
 
+void Auto::liftTime(float speed, int time)
+{
+	lift->frontLeftLift->Set(ControlMode::PercentOutput, speed);
+	lift->backLeftLift->Set(ControlMode::PercentOutput, speed);
+	lift->frontRightLift->Set(ControlMode::PercentOutput, -speed);
+	lift->backRightLift->Set(ControlMode::PercentOutput, -speed);
+	Wait(time);
+	lift->frontLeftLift->Set(ControlMode::PercentOutput, .05);
+	lift->backLeftLift->Set(ControlMode::PercentOutput, .05);
+	lift->frontRightLift->Set(ControlMode::PercentOutput, .05);
+	lift->backRightLift->Set(ControlMode::PercentOutput, .05);
+}
+
 
 void Auto::preCheck()//To be run BEFORE a match in the pit in order to test each system
 {
@@ -220,53 +233,74 @@ void Auto::auto0()//Drive straight to pass Auto Line.
 //
 void Auto::auto1()//Left starting position, Objective: Switch
 {
-	if(gameData[0] == 'L')
-	{
-		//Put left auto code here
-		//dataTest = 1;
-		//driveStraight(1, 1000);
-
-		//manip->setPos(1);//releases intake
-		//manip->pivotIntake(1,0,0);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .1);
-		Wait(1.5);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, 0);
-		//driveStraight(1,10000);
-		drive->updateLeftMotors(-.4);
-		drive->updateRightMotors(-.4);
-		Wait(1.4);
-		drive->updateLeftMotors(0);
-		drive->updateRightMotors(0);
-		//drive->autoTurn(270); //function not final
-		turnRobot(-.5, 1);
-		//driveStraight(1,1000);
-		drive->updateLeftMotors(-.2);
-		drive->updateRightMotors(-.2);
-		Wait(.6);
-		drive->updateLeftMotors(0);
-		drive->updateRightMotors(0);
-		//lift->liftAuto(1,5000);
-		//manip->AutoOuttake();
-
-
-	}
-	else
-	{
-		//Put right auto code here
-		//dataTest = 2;
-		//driveStraight(-1, 1000);
-
-		manip->setPos(1);//releases intake
-		driveStraight(1,50000);
-		drive->autoTurn(270); //function not final
-		driveStraight(1,50000);
-		drive->autoTurn(270); //function not final
-		driveStraight(1,5000);
-		drive->autoTurn(270); //function not final
-		driveStraight(1,2000);
-		lift->liftAuto(1,5000);
-		manip->AutoOuttake();
-	}
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .2);
+	Wait(1.5);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, 0);
+	//driveStraight(1,10000);
+	drive->updateLeftMotors(-.1);
+	drive->updateRightMotors(-.1);
+	Wait(1.4);
+	drive->updateLeftMotors(0);
+	drive->updateRightMotors(0);
+	//drive->autoTurn(270); //function not final
+	turnRobot(-.5, 1);
+	//driveStraight(1,1000);
+	drive->updateLeftMotors(-.2);
+	drive->updateRightMotors(-.2);
+	Wait(.6);
+	drive->updateLeftMotors(0);
+	drive->updateRightMotors(0);
+	//lift->liftAuto(1,5000);
+	liftTime(.4,1);
+	manip->AutoOuttake();
+//	if(gameData[0] == 'L')
+//	{
+//		//Put left auto code here
+//		//dataTest = 1;
+//		//driveStraight(1, 1000);
+//
+//		//manip->setPos(1);//releases intake
+//		//manip->pivotIntake(1,0,0);
+//		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .1);
+//		Wait(1.5);
+//		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, 0);
+//		//driveStraight(1,10000);
+//		drive->updateLeftMotors(-.1);
+//		drive->updateRightMotors(-.1);
+//		Wait(1.4);
+//		drive->updateLeftMotors(0);
+//		drive->updateRightMotors(0);
+//		//drive->autoTurn(270); //function not final
+//		turnRobot(-.5, 1);
+//		//driveStraight(1,1000);
+//		drive->updateLeftMotors(-.2);
+//		drive->updateRightMotors(-.2);
+//		Wait(.6);
+//		drive->updateLeftMotors(0);
+//		drive->updateRightMotors(0);
+//		doAuto = false;
+//		//lift->liftAuto(1,5000);
+//		//manip->AutoOuttake();
+//
+//
+//	}
+//	else
+//	{
+//		//Put right auto code here
+//		//dataTest = 2;
+//		//driveStraight(-1, 1000);
+//
+////		manip->setPos(1);//releases intake
+////		driveStraight(1,50000);
+////		drive->autoTurn(270); //function not final
+////		driveStraight(1,50000);
+////		drive->autoTurn(270); //function not final
+////		driveStraight(1,5000);
+////		drive->autoTurn(270); //function not final
+////		driveStraight(1,2000);
+////		lift->liftAuto(1,5000);
+////		manip->AutoOuttake();
+//	}
 }
 
 void Auto::auto2()
@@ -448,4 +482,16 @@ int Auto::autoSelector()
 	}
 
 	return counter;
+}
+
+void Auto::displayData()
+{
+	if(gameData[0] == 'L')
+	{
+		SmartDashboard::PutString("Data Position", "L");
+	}
+	else
+	{
+		SmartDashboard::PutString("Data Position", "R");
+	}
 }

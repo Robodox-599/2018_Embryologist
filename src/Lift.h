@@ -51,12 +51,12 @@ public:
 		//DoubleSolenoid *rightLiftPiston;
 
 		Solenoid *rungPiston;
+		TalonSRX *frontRightLift;
+				TalonSRX *frontLeftLift;
+				TalonSRX *backRightLift;
+				TalonSRX *backLeftLift;
 
 private:
-		TalonSRX *frontRightLift;
-		TalonSRX *frontLeftLift;
-		TalonSRX *backRightLift;
-		TalonSRX *backLeftLift;
 
 		DigitalInput *upperLimit;
 		DigitalInput *lowerLimit;

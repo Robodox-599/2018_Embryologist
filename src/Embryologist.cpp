@@ -39,14 +39,12 @@ public:
 		//Compressor *comp599 = new Compressor();
 	//Drive* drive;
 	//Auto* auton = new Auto;
-	std::string gameData;
 	void RobotInit() {
 
 		xbox = new Joystick(0);
 		auton = new Auto();
 		drive = new Drive();
 		drive->resetEncoder();
-		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 	//	comp599->SetClosedLoopControl(true);
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
@@ -85,7 +83,9 @@ public:
 
 	void AutonomousPeriodic()
 	{
-		SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
+		//SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
+		//SmartDashboard::PutNumber("Lift Left", lift->getLeftLiftEnc());
+		//auton->displayData();
 		//SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
 //		if(auton->doAuto)auton->auto1();
 //		else
@@ -95,14 +95,15 @@ public:
 //			manip->stopManip();
 //			lift->stopLift();
 //		}
-		if(gameData[0] == 'L')
-		{
-			SmartDashboard::PutString("Data Position", "L");
-		}
-		else
-		{
-			SmartDashboard::PutString("Data Position", "R");
-		}
+		auton->auto1();
+//		if(gameData[0] == 'L')
+//		{
+//			SmartDashboard::PutString("Data Position", "L");
+//		}
+//		else
+//		{
+//			SmartDashboard::PutString("Data Position", "R");
+//		}
 		//SmartDashboard::GetNumber("Auto Number:", autoNum);
 
 //		if(autoNum == auto0) auton->auto0();
@@ -149,6 +150,7 @@ public:
 
 	void TeleopPeriodic()
 	{
+		//SmartDashboard::PutNumber("Lift Left", lift->getLeftLiftEnc());
 		SmartDashboard::PutNumber("Auto Position: ",auton->dataVal());
 		drive->drive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
 		drive->shift(xbox->GetRawButton(2));//B Button
