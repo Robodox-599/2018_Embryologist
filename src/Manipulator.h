@@ -42,10 +42,10 @@ public:
 	float targetPivot;
 	float errorPivot;
 	TalonSRX* liftIntakeMotor;
-private:
-
 	TalonSRX* leftIntakeMotor;
 	TalonSRX* rightIntakeMotor;
+private:
+
 
 	DoubleSolenoid* leftmanipPiston;
 

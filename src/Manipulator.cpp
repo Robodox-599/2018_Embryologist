@@ -163,8 +163,8 @@ void Manipulator::AutoIntake() //Intake until limit switch//
 
 void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 {
-	leftIntakeMotor->Set(ControlMode::PercentOutput, -.6);
-	rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
+	leftIntakeMotor->Set(ControlMode::PercentOutput, -.3);
+	rightIntakeMotor->Set(ControlMode::PercentOutput, .3);
 	Wait(1);
 	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);

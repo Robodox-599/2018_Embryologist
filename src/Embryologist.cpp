@@ -21,6 +21,7 @@ public:
 		Manipulator* manip;
 		Lift* lift;
 		Joystick* xbox;
+		Joystick* atk3;
 //		std::string autoNum = SmartDashboard::GetString("Auto Number:", 0);
 //		std::string auto0;
 //		std::string auto1;
@@ -87,15 +88,17 @@ public:
 		//SmartDashboard::PutNumber("Lift Left", lift->getLeftLiftEnc());
 		//auton->displayData();
 		//SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
-//		if(auton->doAuto)auton->auto1();
-//		else
-//		{
-//			drive->updateLeftMotors(0);
-//			drive->updateRightMotors(0);
-//			manip->stopManip();
-//			lift->stopLift();
-//		}
-		auton->auto1();
+		if(auton->doAuto)auton->auto1();
+		else
+		{
+			drive->updateLeftMotors(0);
+			drive->updateRightMotors(0);
+			manip->stopManip();
+			lift->stopLift();
+		}
+//		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
+//		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
+		//auton->auto1();
 //		if(gameData[0] == 'L')
 //		{
 //			SmartDashboard::PutString("Data Position", "L");
@@ -158,6 +161,8 @@ public:
 		SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
 		SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
 		//SmartDashboard::PutNumber("Auto Selected: ", auton->autoSelector());
+
+		lift->liftRobot(atk3->GetRawAxis(1));
 
 
 	}

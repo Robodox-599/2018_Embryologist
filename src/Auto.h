@@ -35,6 +35,7 @@ public:
 
 	//parameters
 	void driveStraight(float speed, int enc);
+	void setMotors(float speedL, float speedR, int time);
 
 	int autoSelector();
 	bool doAuto;
