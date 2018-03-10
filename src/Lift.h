@@ -41,6 +41,7 @@ public:
 		void heightPosition(bool positionA, bool positionB);
 
 		void doClimb(bool climbButton);
+
 		void stopLift();
 
 		bool canLift;
@@ -55,8 +56,8 @@ public:
 				TalonSRX *frontLeftLift;
 				TalonSRX *backRightLift;
 				TalonSRX *backLeftLift;
-
 private:
+
 
 		DigitalInput *upperLimit;
 		DigitalInput *lowerLimit;

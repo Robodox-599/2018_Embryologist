@@ -155,18 +155,55 @@ public:
 	void TeleopPeriodic()
 	{
 
-		//SmartDashboard::PutNumber("Lift Left", lift->getLeftLiftEnc());
-		//SmartDashboard::PutNumber("Auto Position: ",auton->dataVal());
-		drive->drive(xbox->GetRawAxis(4), xbox->GetRawAxis(1));
-		drive->shift(xbox->GetRawButton(2));//B Button
-		//SmartDashboard::PutString("test", "test2");
-		//SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
-		manip->pivotIntake(atk3->GetRawButton(10),atk3->GetRawAxis(2),atk3->GetRawAxis(11));
-		//SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
-		//SmartDashboard::PutNumber("Auto Selected: ", auton->autoSelector());
+		//if(false){
+				//manipulator
+				manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(1),atk3->GetRawAxis(2));
+				//manip->diffIntake(atk3->GetRawButton(6),atk3->GetRawButton(7));
+				manip->intakePosition(atk3->GetRawButton(8), atk3->GetRawButton(9));
+				//SmartDashboard::GetBoolean("stopper: ", manip->stoppingCube());
+				manip->jiggle(atk3->GetRawButton(3));
+				//manip->liftIntake(atk3->GetRawButton(11), atk3->GetRawButton(10), atk3->GetRawButton(2), atk3->GetRawButton(5));
+				SmartDashboard::PutNumber("Z Axis:", atk3->GetRawAxis(2));
+				SmartDashboard::PutNumber("Pot Val:", manip->pot->Get());
+				manip->pivotIntake(atk3->GetRawButton(10), atk3->GetRawButton(2), atk3->GetRawButton(11));
 
-
-		//lift->liftRobot(atk3->GetRawAxis(1));
+				//lift
+				lift->liftRobot(atk3->GetRawAxis(1));
+				//lift->PistonLift(atk3->GetRawButton(6),atk3->GetRawButton(7));
+				lift->rungDeploy(xbox->GetRawButton(A_Xbox), xbox->GetRawButton(X_Xbox));
+				//lift->doClimb(atk3->GetRawButton(10));
+				//lift->setHeightEnc(atk3->GetRawAxis(1));
+				//lift->doLift();
+				//lift->getLeftLiftEnc();
+				//lift->getRightLiftEnc();0
+				//lift->getAvgLiftEnc();
+				//lift->CalibrateLift(atk3->GetRawButton(7), atk3->GetRawButton(10));
+				SmartDashboard::PutNumber("leftValue: ", lift->getLeftLiftEnc());
+				SmartDashboard::PutNumber("rightValue: ", lift->getRightLiftEnc());
+				SmartDashboard::PutBoolean("upperLimit ", lift->upperLimitTester());
+				SmartDashboard::PutBoolean("lowerLimit: ", lift->lowerLimitTester());
+				SmartDashboard::PutNumber("Avg value:", lift->getAvgLiftEnc());
+				//SmartDashboard::PutBoolean("Button 7: ", atk3->GetRawButton(7));
+				SmartDashboard::PutBoolean("Current lock state: ", lift->canLift);
+				SmartDashboard::PutBoolean("Current rung state: ", lift->rungState);
+				//}
+			//	else{
+				//drive
+				/*double ypr[3];..
+				PigeonIMU::GeneralStatus genS...tatus;
+				pGyon->GetGeneralStatus(gen..Status);
+				pGyon->GetYawPitchRoll(ypr);
+				SmartDashboard::PutNumber("Yaw", ypr[0]);
+				SmartDashboard::Pu.tNumber("Temperature", genStatus.tempC);*/
+				//drive->velocityDrive(0, 0.4);
+				//drive->getYPR();
+				//drive->velocityDrive(-xbox->GetRawAxis(1), -xbox->GetRawAxis(4));
+				drive->shift(xbox->GetRawButton(B_Xbox));
+				//drive->getYPR();
+				drive->velocityDrive(xbox->GetRawAxis(RX_Axis_Xbox), xbox->GetRawAxis(LY_Axis_Xbox));//4,1
+				//drive->shift(xbox->GetRawButton(2));
+				//drive->autoTurn(xbox->GetPOV(0));
+				//}
 
 
 	}

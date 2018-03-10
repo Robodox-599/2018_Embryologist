@@ -1,11 +1,3 @@
-/*
- * Intake.h
- *
- *  Created on: Jan 6, 2018
- *      Author: Admin
- */
-
-
 #ifndef SRC_MANIPULATOR_H_
 #define SRC_MANIPULATOR_H_
 #include "ctre/Phoenix.h"
@@ -25,7 +17,7 @@ public:
 	void jiggle(bool jiggButton);
 	void AutoIntake();
 	void AutoOuttake();
-	void setPos(int pos);
+	void setPos(bool pos);
 
 	void intakeAngle(float zAxis);
 	void pivotIntake(bool down, bool shoot, bool up);
@@ -41,10 +33,11 @@ public:
 	float currentPivot;
 	float targetPivot;
 	float errorPivot;
-	TalonSRX* liftIntakeMotor;
 	TalonSRX* leftIntakeMotor;
-	TalonSRX* rightIntakeMotor;
+		TalonSRX* rightIntakeMotor;
+		TalonSRX* liftIntakeMotor;
 private:
+
 
 
 	DoubleSolenoid* leftmanipPiston;

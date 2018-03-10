@@ -4,7 +4,6 @@
  *  Created on: Jan 6, 2018
  *      Author: Admin
  */
-
 #include "Manipulator.h"
 #include "ctre/Phoenix.h"
 #include "WPILib.h"
@@ -22,7 +21,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     pot = new AnalogPotentiometer(3, 200, 0);
 
     currentPivot = 0;
-	targetPivot = 30;
+	targetPivot = 90;
 	errorPivot = 0;
 }
 
@@ -90,8 +89,8 @@ double Manipulator::potVal()
 
 void Manipulator::diffIntake(bool left, bool right)
 {
-	if(left) leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
-	if(right) rightIntakeMotor->Set(ControlMode::PercentOutput, .8);
+	if(left) leftIntakeMotor->Set(ControlMode::PercentOutput, .8);
+	if(right) rightIntakeMotor->Set(ControlMode::PercentOutput, -.8);
 }
 
 
@@ -130,18 +129,14 @@ void Manipulator::intakePosition(bool posButton, bool unPos) //piston folds in/f
 	}
 }
 
-void Manipulator::setPos(int pos)
+void Manipulator::setPos(bool pos)
 {
-	if(pos == 0)
+	if(pos)
 	{
-		while(pot->Get() < 100)
-		{
-			liftIntakeMotor->Set(ControlMode::PercentOutput, .1);
-		}
-		liftIntakeMotor->Set(ControlMode::PercentOutput, 0);
+		leftmanipPiston->Set(DoubleSolenoid::kForward);
 		//rightmanipPiston->Set(DoubleSolenoid::kForward);
 	}
-	if(pos == 1)
+	else
 	{
 		leftmanipPiston->Set(DoubleSolenoid::kReverse);
 		//rightmanipPiston->Set(DoubleSolenoid::kReverse);
@@ -163,8 +158,8 @@ void Manipulator::AutoIntake() //Intake until limit switch//
 
 void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 {
-	leftIntakeMotor->Set(ControlMode::PercentOutput, -.25);
-	rightIntakeMotor->Set(ControlMode::PercentOutput, .25);
+	leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+	rightIntakeMotor->Set(ControlMode::PercentOutput, .5);
 	Wait(1);
 	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);

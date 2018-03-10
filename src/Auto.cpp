@@ -332,52 +332,118 @@ void Auto::auto1()//Left starting position, Objective: Switch
 
 void Auto::auto2()
 {
-	if(gameData[0] == 'L')
-	{
-		manip->setPos(1);
-		driveStraight(1,30000);
-		drive->autoTurn(90); //function not final
-		driveStraight(1,5000);
-		drive->autoTurn(270); //function not final
-		driveStraight(1,10000);
-		lift->liftAuto(1,5000);
-		manip->AutoOuttake();
-	}
-	else
-	{
-		manip->setPos(1);
-		driveStraight(1,30000);
-		drive->autoTurn(270); //function not final
-		driveStraight(1,5000);
-		drive->autoTurn(90); //function not final
-		driveStraight(1,10000);
-		lift->liftAuto(1,5000);
-		manip->AutoOuttake();
-	}
+	//left side of switch:
+	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
+	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .15);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
+	setMotors(.3,.3,1.5);//2.8
+	Wait(.3);
+	turnRobot(-.4, 1.1);//left turn
+	setMotors(.2,.2,.5);
+	turnRobot(.4, 1.1);//right turn
+	Wait(.2);
+	if(!lift->upperLimitTester())liftTime(.3,.8);
+	Wait(.1);
+	setMotors(.24,.24,1);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .25);
+	Wait(.3);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
+	manip->AutoOuttake();
+	setMotors(-.25,-.25,1);
+	if(!lift->lowerLimitTester())liftTime(-.1,1);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .05);
+	Wait(1);
+	doAuto = 0;
+
+
+	//right side of switch:
+	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
+	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .15);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
+	setMotors(.3,.3,1.5);//2.8
+	Wait(.3);
+	turnRobot(.4, 1.1);//right turn
+	setMotors(.2,.2,.5);
+	turnRobot(-.4, 1.1);//left turn
+	Wait(.2);
+	if(!lift->upperLimitTester())liftTime(.3,.8);
+	Wait(.1);
+	setMotors(.24,.24,1);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .25);
+	Wait(.3);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
+	manip->AutoOuttake();
+	setMotors(-.25,-.25,1);
+	if(!lift->lowerLimitTester())liftTime(-.1,1);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .05);
+	Wait(1);
+	doAuto = 0;
+
+//	if(gameData[0] == 'L')
+//	{
+//		manip->setPos(1);
+//		driveStraight(1,30000);
+//		drive->autoTurn(90); //function not final
+//		driveStraight(1,5000);
+//		drive->autoTurn(270); //function not final
+//		driveStraight(1,10000);
+//		lift->liftAuto(1,5000);
+//		manip->AutoOuttake();
+//	}
+//	else
+//	{
+//		manip->setPos(1);
+//		driveStraight(1,30000);
+//		drive->autoTurn(270); //function not final
+//		driveStraight(1,5000);
+//		drive->autoTurn(90); //function not final
+//		driveStraight(1,10000);
+//		lift->liftAuto(1,5000);
+//		manip->AutoOuttake();
+//	}
 }
 
 void Auto::auto3()
 {
-	if(gameData[0] == 'L')
-	{
-		manip->setPos(1);//releases intake
-		driveStraight(1,50000);
-		drive->autoTurn(90); //function not final
-		driveStraight(1,1000);
-		lift->liftAuto(1,5000);
-		manip->AutoOuttake();
-	}
-	else
-	{
-		manip->setPos(1);//releases intake
-		driveStraight(1,50000);
-		drive->autoTurn(90);
-		driveStraight(1,50000);
-		drive->autoTurn(90); //function not final
-		driveStraight(1,5000);
-		lift->liftAuto(1,5000);
-		manip->AutoOuttake();
-	}
+	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
+	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .15);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
+	setMotors(.3,.3,.3);//2.8
+	Wait(.3);
+	turnRobot(.4, 1.1);//right turn
+	Wait(.2);
+	if(!lift->upperLimitTester())liftTime(.3,.8);
+	Wait(.1);
+	setMotors(.24,.24,1);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .25);
+	Wait(.3);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
+	manip->AutoOuttake();
+	setMotors(-.25,-.25,1);
+	if(!lift->lowerLimitTester())liftTime(-.1,1);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .05);
+	Wait(1);
+	doAuto = 0;
+//	if(gameData[0] == 'L')
+//	{
+//		manip->setPos(1);//releases intake
+//		driveStraight(1,50000);
+//		drive->autoTurn(90); //function not final
+//		driveStraight(1,1000);
+//		lift->liftAuto(1,5000);
+//		manip->AutoOuttake();
+//	}
+//	else
+//	{
+//		manip->setPos(1);//releases intake
+//		driveStraight(1,50000);
+//		drive->autoTurn(90);
+//		driveStraight(1,50000);
+//		drive->autoTurn(90); //function not final
+//		driveStraight(1,5000);
+//		lift->liftAuto(1,5000);
+//		manip->AutoOuttake();
+//	}
 }
 
 void Auto::auto4()
