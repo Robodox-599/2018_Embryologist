@@ -43,6 +43,7 @@ public:
 	void RobotInit() {
 
 		xbox = new Joystick(0);
+		atk3 = new Joystick(1);
 		auton = new Auto();
 		drive = new Drive();
 		drive->resetEncoder();
@@ -148,8 +149,8 @@ public:
 
 	void TeleopInit()
 	{
-		//drive->resetEncoder();
-		manip->targetPivot = 90;
+		drive->resetEncoder();
+		//manip->targetPivot = 90;
 	}
 
 	void TeleopPeriodic()

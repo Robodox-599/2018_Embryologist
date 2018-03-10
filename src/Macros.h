@@ -1,5 +1,4 @@
-
- /*
+/*
  * Macros.h
  *
  *  Created on: Jan 6, 2018
