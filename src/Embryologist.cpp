@@ -88,14 +88,14 @@ public:
 		//SmartDashboard::PutNumber("Lift Left", lift->getLeftLiftEnc());
 		//auton->displayData();
 		//SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
-		if(auton->doAuto)auton->auto1();
-		else
-		{
-			drive->updateLeftMotors(0);
-			drive->updateRightMotors(0);
-			manip->stopManip();
-			lift->stopLift();
-		}
+//		if(auton->doAuto)auton->auto1();
+//		else
+//		{
+//			drive->updateLeftMotors(0);
+//			drive->updateRightMotors(0);
+//			manip->stopManip();
+//			lift->stopLift();
+//		}
 //		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
 //		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
 		//auton->auto1();
@@ -148,21 +148,25 @@ public:
 
 	void TeleopInit()
 	{
-		drive->resetEncoder();
+		//drive->resetEncoder();
+		manip->targetPivot = 90;
 	}
 
 	void TeleopPeriodic()
 	{
+
 		//SmartDashboard::PutNumber("Lift Left", lift->getLeftLiftEnc());
-		SmartDashboard::PutNumber("Auto Position: ",auton->dataVal());
-		drive->drive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
+		//SmartDashboard::PutNumber("Auto Position: ",auton->dataVal());
+		drive->drive(xbox->GetRawAxis(4), xbox->GetRawAxis(1));
 		drive->shift(xbox->GetRawButton(2));//B Button
-		SmartDashboard::PutString("test", "test2");
-		SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
-		SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
+		//SmartDashboard::PutString("test", "test2");
+		//SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
+		manip->pivotIntake(atk3->GetRawButton(10),atk3->GetRawAxis(2),atk3->GetRawAxis(11));
+		//SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
 		//SmartDashboard::PutNumber("Auto Selected: ", auton->autoSelector());
 
-		lift->liftRobot(atk3->GetRawAxis(1));
+
+		//lift->liftRobot(atk3->GetRawAxis(1));
 
 
 	}

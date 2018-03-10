@@ -48,7 +48,7 @@ void Auto::driveStraight(float speed, int enc)
 	}
 }
 
-void Auto::setMotors(float speedL, float speedR, int time)
+void Auto::setMotors(float speedL, float speedR, float time)
 {
 	drive->updateLeftMotors(-speedL);
 	drive->updateRightMotors(-speedR);
@@ -57,7 +57,7 @@ void Auto::setMotors(float speedL, float speedR, int time)
 	drive->updateRightMotors(0);
 }
 
-void Auto::turnRobot(float speed, int time)
+void Auto::turnRobot(float speed, float time)
 {
 	drive->updateLeftMotors(speed);
 	drive->updateRightMotors(-speed);
@@ -66,7 +66,7 @@ void Auto::turnRobot(float speed, int time)
 	drive->updateRightMotors(0);
 }
 
-void Auto::liftTime(float speed, int time)
+void Auto::liftTime(float speed, float time)
 {
 	lift->frontLeftLift->Set(ControlMode::PercentOutput, speed);
 	lift->backLeftLift->Set(ControlMode::PercentOutput, speed);
@@ -245,24 +245,28 @@ void Auto::auto1()//Left starting position, Objective: Switch
 	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
 	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .15);
 	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
+	//manip->pivotIntake(0,0,1);
 	//driveStraight(1,10000);
-	setMotors(.3,.3,3.2);//2.8
+	setMotors(.3,.3,3);//2.8
 //	drive->updateLeftMotors(-.3);
 //	drive->updateRightMotors(-.3);
 //	Wait(2.8);
 //	drive->updateLeftMotors(0);
 //	drive->updateRightMotors(0);
-	Wait(.5);
+	Wait(.3);
 	//drive->autoTurn(270); //function not final
-	turnRobot(.4, 1.9);//right turn
+	turnRobot(.4, 1.1);//right turn
 	Wait(.2);
-	if(!lift->upperLimitTester())liftTime(.2,2);
-	Wait(.5);
+	if(!lift->upperLimitTester())liftTime(.3,.8);
+	Wait(.1);
 	//driveStraight(1,1000);
-	setMotors(.25,.25,1);
+	setMotors(.24,.24,1);
 	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .25);
-	Wait(.5);
-	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
+	Wait(.3);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
+	//manip->targetPivot = 80;
+//	manip->pivotIntake(0,1,0);
+//	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
 //	drive->updateLeftMotors(-.2);
 //	drive->updateRightMotors(-.2);
 //	Wait(.6);
@@ -270,6 +274,11 @@ void Auto::auto1()//Left starting position, Objective: Switch
 //	drive->updateRightMotors(0);
 	//lift->liftAuto(1,5000);
 	manip->AutoOuttake();
+	//if(!lift->upperLimitTester())liftTime(.3,1);
+	setMotors(-.25,-.25,1);
+	if(!lift->lowerLimitTester())liftTime(-.1,1);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .05);
+	Wait(1);
 	doAuto = 0;
 //	if(gameData[0] == 'L')
 //	{

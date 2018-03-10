@@ -27,15 +27,15 @@ public:
 	void nonPreLoad_auto2();
 	void nonPreLoad_auto3();
 
-	void turnRobot(float speed, int time);
-	void liftTime(float speed, int time);
+	void turnRobot(float speed, float time);
+	void liftTime(float speed, float time);
 	void displayData();
 	int dataVal();
 	DigitalInput* selector;
 
 	//parameters
 	void driveStraight(float speed, int enc);
-	void setMotors(float speedL, float speedR, int time);
+	void setMotors(float speedL, float speedR, float time);
 
 	int autoSelector();
 	bool doAuto;

@@ -44,20 +44,20 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake, float mod) //inta
 {
 	if (intake)// && cubeStop->Get() == false)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.9);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .65);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, .9);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -.65);
 	}
 
 	else if (outtake)
 	{
 		//speed modified by the z axis on the Atk3. Bound from .6 to 1
-		leftIntakeMotor->Set(ControlMode::PercentOutput, .2*(-mod+4));//75 or 6
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -.2*(-mod+4));//75 or 6
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.2*(-mod+4));//75 or 6
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .2*(-mod+4));//75 or 6
 	}
 	else if(cubeStop->Get())
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, .1);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -.1);
 	}
 
 	else
@@ -72,11 +72,11 @@ void Manipulator::jiggle(bool jiggButton)
 {
 	if(jiggButton)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, .5);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -.5);
-		Wait(.1);
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.5);
 		rightIntakeMotor->Set(ControlMode::PercentOutput, .5);
+		Wait(.1);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, .8);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -.5);
 		Wait(.3);
 		leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 		rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
@@ -163,8 +163,8 @@ void Manipulator::AutoIntake() //Intake until limit switch//
 
 void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 {
-	leftIntakeMotor->Set(ControlMode::PercentOutput, -.3);
-	rightIntakeMotor->Set(ControlMode::PercentOutput, .3);
+	leftIntakeMotor->Set(ControlMode::PercentOutput, -.25);
+	rightIntakeMotor->Set(ControlMode::PercentOutput, .25);
 	Wait(1);
 	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
@@ -246,9 +246,9 @@ void Manipulator:: liftIntake (bool Lift, bool noLift, bool midLift, bool finalL
 
 void Manipulator::pivotIntake(bool down, bool shoot, bool up)
 {
-	if(down) targetPivot = 100;
-	if(shoot) targetPivot = 40;
-	if(up) targetPivot = 27;
+	if(up) targetPivot = 98;//100
+	if(shoot) targetPivot = 80;//40
+	if(down) targetPivot = 35;//
 
 	currentPivot = pot->Get();
 	errorPivot = targetPivot-currentPivot;
@@ -262,7 +262,7 @@ void Manipulator::fixPivotError(float error)
 	if(movePivot > .6) movePivot = .5;
 	if(movePivot < -.6) movePivot = -.6;
 
-	liftIntakeMotor->Set(ControlMode::PercentOutput,movePivot);
+	liftIntakeMotor->Set(ControlMode::PercentOutput,-movePivot);
 	SmartDashboard::PutNumber("Pivot Val:", movePivot);
 }
 
