@@ -242,8 +242,8 @@ void Auto::auto0()//Drive straight to pass Auto Line.
 //
 void Auto::auto1()//Left starting position, Objective: Switch
 {
-	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
-	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .15);
+	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .15);
+	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.15);
 	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
 	//manip->pivotIntake(0,0,1);
 	//driveStraight(1,10000);
@@ -262,8 +262,8 @@ void Auto::auto1()//Left starting position, Objective: Switch
 	//driveStraight(1,1000);
 	setMotors(.24,.24,1);
 	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .25);
-	Wait(.3);
-	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
+	Wait(.4);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
 	//manip->targetPivot = 80;
 //	manip->pivotIntake(0,1,0);
 //	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
@@ -280,6 +280,7 @@ void Auto::auto1()//Left starting position, Objective: Switch
 	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .05);
 	Wait(1);
 	doAuto = 0;
+
 //	if(gameData[0] == 'L')
 //	{
 //		//Put left auto code here

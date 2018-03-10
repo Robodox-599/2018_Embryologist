@@ -88,14 +88,14 @@ public:
 		//SmartDashboard::PutNumber("Lift Left", lift->getLeftLiftEnc());
 		//auton->displayData();
 		//SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
-//		if(auton->doAuto)auton->auto1();
-//		else
-//		{
-//			drive->updateLeftMotors(0);
-//			drive->updateRightMotors(0);
-//			manip->stopManip();
-//			lift->stopLift();
-//		}
+		if(auton->doAuto)auton->auto1();
+		else
+		{
+			drive->updateLeftMotors(0);
+			drive->updateRightMotors(0);
+			manip->stopManip();
+			lift->stopLift();
+		}
 //		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
 //		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
 		//auton->auto1();
