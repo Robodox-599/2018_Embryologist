@@ -18,7 +18,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     cubeStop = new DigitalInput(2); //These are dummy values.//
     toggle = 1;
     potAngle = -1;
-    pot = new AnalogPotentiometer(3, 200, 0);
+    pot = new AnalogPotentiometer(2, 200, 0);
 
     currentPivot = 0;
 	targetPivot = 90;
@@ -43,20 +43,20 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake, float mod) //inta
 {
 	if (intake)// && cubeStop->Get() == false)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.9);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .65);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, .9);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -.65);
 	}
 
 	else if (outtake)
 	{
 		//speed modified by the z axis on the Atk3. Bound from .6 to 1
-		leftIntakeMotor->Set(ControlMode::PercentOutput, .2*(-mod+4));//75 or 6
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -.2*(-mod+4));//75 or 6
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.2*(-mod+4));//75 or 6
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .2*(-mod+4));//75 or 6
 	}
 	else if(cubeStop->Get())
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, .1);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -.1);
 	}
 
 	else
@@ -71,11 +71,11 @@ void Manipulator::jiggle(bool jiggButton)
 {
 	if(jiggButton)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, .5);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -.5);
-		Wait(.1);
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.5);
 		rightIntakeMotor->Set(ControlMode::PercentOutput, .5);
+		Wait(.1);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, .8);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, -.5);
 		Wait(.3);
 		leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 		rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
@@ -158,8 +158,8 @@ void Manipulator::AutoIntake() //Intake until limit switch//
 
 void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 {
-	leftIntakeMotor->Set(ControlMode::PercentOutput, .6);
-	rightIntakeMotor->Set(ControlMode::PercentOutput, -.6);
+	leftIntakeMotor->Set(ControlMode::PercentOutput, -.3);
+	rightIntakeMotor->Set(ControlMode::PercentOutput, .3);
 	Wait(1);
 	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);

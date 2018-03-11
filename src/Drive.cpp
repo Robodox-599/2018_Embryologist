@@ -401,7 +401,7 @@ void Drive::shift(int shifter_Button)
 //gives encoder values
 float Drive::getLeftEnc()
 {
-	return frontLeftMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
+	return rearLeftMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);
 }
 
 float Drive::getRightEnc()
@@ -411,6 +411,6 @@ float Drive::getRightEnc()
 
 void Drive::resetEncoder()
 {
-	frontLeftMotor->SetSelectedSensorPosition(0,0,0);
+	rearLeftMotor->SetSelectedSensorPosition(0,0,0);
 	rearRightMotor->SetSelectedSensorPosition(0,0,0);
 }

@@ -46,6 +46,8 @@ public:
 		atk3 = new Joystick(1);
 		auton = new Auto();
 		drive = new Drive();
+		lift = new Lift();
+		manip = new Manipulator();
 		drive->resetEncoder();
 	//	comp599->SetClosedLoopControl(true);
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
@@ -89,7 +91,9 @@ public:
 		//SmartDashboard::PutNumber("Lift Left", lift->getLeftLiftEnc());
 		//auton->displayData();
 		//SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
-		if(auton->doAuto)auton->auto1();
+
+
+		if(auton->doAuto)auton->driveStraight(.4,10000);//auton->auto2();
 		else
 		{
 			drive->updateLeftMotors(0);
@@ -97,6 +101,8 @@ public:
 			manip->stopManip();
 			lift->stopLift();
 		}
+
+
 //		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
 //		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
 		//auton->auto1();
@@ -205,6 +211,8 @@ public:
 				//drive->shift(xbox->GetRawButton(2));
 				//drive->autoTurn(xbox->GetPOV(0));
 				//}
+				SmartDashboard::PutNumber("Left Drive", drive->getLeftEnc());
+				SmartDashboard::PutNumber("Right Drive", drive->getRightEnc());
 
 
 	}

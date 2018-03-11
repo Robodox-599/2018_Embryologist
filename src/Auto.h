@@ -35,6 +35,7 @@ public:
 
 	//parameters
 	void driveStraight(float speed, int enc);
+	void adjustDrive(float error, float speed);
 	void setMotors(float speedL, float speedR, float time);
 
 	int autoSelector();
@@ -49,6 +50,9 @@ private:
 
 	int dataTest;
 	int counter;
+	int driveTarget;
+	int driveCurrent;
+	int driveError;
 };
 
 
