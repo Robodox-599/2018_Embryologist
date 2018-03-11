@@ -246,10 +246,10 @@ void Drive::updateDrive(float xAxis, float yAxis)
 	setGyroTurn(xAxis);
 	joystickFwdSet(yAxis);
 
-	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd - gyroTurnSpeed);
+	rearLeftMotor->Set(ControlMode::Velocity, velocityFwd + gyroTurnSpeed);
 	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
 
-	rearRightMotor->Set(ControlMode::Velocity, velocityFwd + gyroTurnSpeed);
+	rearRightMotor->Set(ControlMode::Velocity, velocityFwd - gyroTurnSpeed);
 	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
 }
 
@@ -461,4 +461,10 @@ void Drive::resetEncoder()
 {
 	rearLeftMotor->SetSelectedSensorPosition(0,0,0);
 	rearRightMotor->SetSelectedSensorPosition(0,0,0);
+}
+
+void Drive::resetGyro()
+{
+	targetHeading = 0;
+	pGyon->SetYaw(0, 0);
 }

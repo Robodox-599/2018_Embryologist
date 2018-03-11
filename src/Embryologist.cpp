@@ -22,8 +22,8 @@ public:
 		xbox = new Joystick(0);
 		drive = new Drive();
 		drive->resetEncoder();
-		timer = new Timer();
-		timerTime = timer->Get();
+//		timer = new Timer();
+//		timerTime = timer->Get();
 		//comp599->SetClosedLoopControl(true);
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
@@ -65,19 +65,19 @@ public:
 	void TeleopInit()
 	{
 		drive->PIDset();
-		theLog = new DoxLog();
-		timer->Reset();
-		timer->Start();
-		drive->resetEncoder();
-		frontLeftMotor = new TalonSRX(Drive_Front_Left_Motor_Channel);
-		rearLeftMotor = new TalonSRX(Drive_Rear_Left_Motor_Channel);
-		frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
-		rearRightMotor = new TalonSRX(Drive_Rear_Right_Motor_Channel);
+//		theLog = new DoxLog();
+//		timer->Reset();
+//		timer->Start();
+//		drive->resetEncoder();
+//		frontLeftMotor = new TalonSRX(Drive_Front_Left_Motor_Channel);
+//		rearLeftMotor = new TalonSRX(Drive_Rear_Left_Motor_Channel);
+//		frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
+//		rearRightMotor = new TalonSRX(Drive_Rear_Right_Motor_Channel);
 	}
 
 	void TeleopPeriodic()
 	{
-		timerTime = timer->Get();
+//		timerTime = timer->Get();
 //		SmartDashboard::PutNumber("Timer Time", timerTime);
 		/*double ypr[3];
 		PigeonIMU::GeneralStatus genStatus;
@@ -87,13 +87,13 @@ public:
 		SmartDashboard::PutNumber("Temperature", genStatus.tempC);*/
 		//drive->velocityDrive(0, 0.4);
 //		if(false){
-//		drive->getYPR();
-//		drive->testPID();
-////		drive->updateDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
-//		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
-//		drive->shift(xbox->GetRawButton(2));
+		drive->getYPR();
+////		drive->testPID();
+		drive->updateDrive(xbox->GetRawAxis(4), xbox->GetRawAxis(1));
+////		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
+////		drive->shift(xbox->GetRawButton(2));
 		drive->smartDashboard();
-//		drive->autoTurn(xbox->GetPOV(0));
+		drive->autoTurn(xbox->GetPOV(0));
 
 //		frontRightMotor->Set(ControlMode::PercentOutput, .3);
 //		Wait(2);
@@ -109,31 +109,31 @@ public:
 //		rearLeftMotor->Set(ControlMode::PercentOutput, 0);
 //		}
 
-		theLog->LogIt("Left Encoder Value", drive->getLeftEnc(), -1);
-		theLog->LogIt("Right Encoder Value", drive->getRightEnc(), -1);
-		if(timerTime > 1 && timerTime < 2)
-		{
-			frontLeftMotor->Set(ControlMode::PercentOutput, 1);
-			rearRightMotor->Set(ControlMode::PercentOutput, 1);
-		}
-		if(timerTime > 2 && timerTime < 3)
-		{
-			frontLeftMotor->Set(ControlMode::PercentOutput, -1);
-			rearRightMotor->Set(ControlMode::PercentOutput, -1);
-		}
-		if(timerTime > 3 && timerTime < 4)
-		{
-			frontLeftMotor->Set(ControlMode::PercentOutput, 0);
-			rearRightMotor->Set(ControlMode::PercentOutput, 0);
-		}
+//		theLog->LogIt("Left Encoder Value", drive->getLeftEnc(), -1);
+//		theLog->LogIt("Right Encoder Value", drive->getRightEnc(), -1);
+//		if(timerTime > 1 && timerTime < 2)
+//		{
+//			frontLeftMotor->Set(ControlMode::PercentOutput, 1);
+//			rearRightMotor->Set(ControlMode::PercentOutput, 1);
+//		}
+//		if(timerTime > 2 && timerTime < 3)
+//		{
+//			frontLeftMotor->Set(ControlMode::PercentOutput, -1);
+//			rearRightMotor->Set(ControlMode::PercentOutput, -1);
+//		}
+//		if(timerTime > 3 && timerTime < 4)
+//		{
+//			frontLeftMotor->Set(ControlMode::PercentOutput, 0);
+//			rearRightMotor->Set(ControlMode::PercentOutput, 0);
+//		}
 	}
 
 	void DisabledInit()
 	{
-		if(theLog != nullptr)
-		{
-			theLog->close();
-		}
+//		if(theLog != nullptr)
+//		{
+//			theLog->close();
+//		}
 	}
 
 	void TestPeriodic()
@@ -142,21 +142,21 @@ public:
 	}
 
 private:
-	float timerTime;
+//	float timerTime;
 	//PigeonIMU* pGyon;
 	Drive* drive;
 	Joystick* xbox;
-	DoxLog* theLog;
-	Timer* timer;
+//	DoxLog* theLog;
+//	Timer* timer;
 	frc::LiveWindow* lw = LiveWindow::GetInstance();
 	/*frc::SendableChooser<std::string> chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
 	std::string autoSelected;*/
-	TalonSRX* frontLeftMotor;
-	TalonSRX* rearLeftMotor;
-	TalonSRX* frontRightMotor;
-	TalonSRX* rearRightMotor;
+//	TalonSRX* frontLeftMotor;
+//	TalonSRX* rearLeftMotor;
+//	TalonSRX* frontRightMotor;
+//	TalonSRX* rearRightMotor;
 
 };
 

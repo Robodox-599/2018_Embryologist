@@ -49,6 +49,7 @@ public:
 	float getRightEnc();
 
 	void getGyroVal();
+	void resetGyro();
 
 	void smartDashboard();
 	//AHRS* navX;
