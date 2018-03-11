@@ -18,7 +18,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     cubeStop = new DigitalInput(2); //These are dummy values.//
     toggle = 1;
     potAngle = -1;
-    pot = new AnalogPotentiometer(2, 200, 0);
+    pot = new AnalogPotentiometer(3, 200, 0);
 
     currentPivot = 0;
 	targetPivot = 90;

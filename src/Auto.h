@@ -37,6 +37,7 @@ public:
 	void driveStraight(float speed, int enc);
 	void adjustDrive(float error, float speed);
 	void setMotors(float speedL, float speedR, float time);
+	void gyroTurn(float speed, int angle);
 
 	int autoSelector();
 	bool doAuto;
@@ -53,6 +54,8 @@ private:
 	int driveTarget;
 	int driveCurrent;
 	int driveError;
+
+	double ypr[3];
 };
 
 

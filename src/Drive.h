@@ -7,9 +7,9 @@
 
 #ifndef SRC_DRIVE_H_
 #define SRC_DRIVE_H_
-#include "Macros.h"
-#include "ctre/Phoenix.h"
-#include "WPILib.h"
+#include <Macros.h>
+#include <ctre/Phoenix.h>
+#include <WPILib.h>
 class Drive
 {
 public:
@@ -22,6 +22,7 @@ public:
 	void joystickTurnSet(float joystickX);
 	void joystickGyroSet(float joystickX);
 
+	void testPID();
 	void testDrive();
 
 	void getYPR();
@@ -31,8 +32,8 @@ public:
 	void turnLeftandRight(int error);
 
 	void setTargetHeading(float joystick);
-	void getTargetHeading();
-	void updateDrive(float joystick);
+	void setGyroTurn(float joystick);
+	void updateDrive(float xAxis, float yAxis);
 
 	void updateLeftMotors(float speed);
 	void updateRightMotors(float speed);
@@ -48,8 +49,12 @@ public:
 	float getRightEnc();
 
 	void getGyroVal();
+	void resetGyro();
 
+	void smartDashboard();
 	//AHRS* navX;
+	double ypr[3];
+	PigeonIMU * pGyon;
 
 private:
 	TalonSRX* frontLeftMotor;
@@ -57,7 +62,7 @@ private:
 	TalonSRX* frontRightMotor;
 	TalonSRX* rearRightMotor;
 
-	PigeonIMU * pGyon;
+
 
 	DoubleSolenoid* shifter;
 	//DoubleSolenoid* rightShifter;
@@ -65,7 +70,7 @@ private:
 	double targetHeading;
 	double currentHeading;
 
-	double ypr[3];
+
 	PigeonIMU::GeneralStatus genStatus;
 
 	float fwdSpeed;

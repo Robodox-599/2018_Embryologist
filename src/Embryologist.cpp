@@ -87,13 +87,15 @@ public:
 
 	void AutonomousPeriodic()
 	{
-		//SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
+		SmartDashboard::PutNumber("Left Encoder Value", drive->getLeftEnc());
+		drive->getYPR();
+		drive->smartDashboard();
 		//SmartDashboard::PutNumber("Lift Left", lift->getLeftLiftEnc());
 		//auton->displayData();
 		//SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
 
 
-		if(auton->doAuto)auton->driveStraight(.4,10000);//auton->auto2();
+		if(auton->doAuto)auton->auto2();
 		else
 		{
 			drive->updateLeftMotors(0);
@@ -213,6 +215,8 @@ public:
 				//}
 				SmartDashboard::PutNumber("Left Drive", drive->getLeftEnc());
 				SmartDashboard::PutNumber("Right Drive", drive->getRightEnc());
+
+				drive->smartDashboard();
 
 
 	}
