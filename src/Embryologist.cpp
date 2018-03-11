@@ -24,7 +24,6 @@ public:
 		drive->resetEncoder();
 		timer = new Timer();
 		timerTime = timer->Get();
-
 		//comp599->SetClosedLoopControl(true);
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
@@ -69,21 +68,17 @@ public:
 		theLog = new DoxLog();
 		timer->Reset();
 		timer->Start();
-//		frontLeftMotor = new TalonSRX(Drive_Front_Left_Motor_Channel);
-//		rearLeftMotor = new TalonSRX(Drive_Rear_Left_Motor_Channel);
-//		frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
-//		rearRightMotor = new TalonSRX(Drive_Rear_Right_Motor_Channel);
+		drive->resetEncoder();
+		frontLeftMotor = new TalonSRX(Drive_Front_Left_Motor_Channel);
+		rearLeftMotor = new TalonSRX(Drive_Rear_Left_Motor_Channel);
+		frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
+		rearRightMotor = new TalonSRX(Drive_Rear_Right_Motor_Channel);
 	}
 
 	void TeleopPeriodic()
 	{
 		timerTime = timer->Get();
-		if(timerTime == 1)
-		{
-			theLog->LogIt("Left Encoder Value", drive->getLeftEnc(), -1);
-			timer->Reset();
-		}
-		SmartDashboard::PutNumber("Timer Time", timerTime);
+//		SmartDashboard::PutNumber("Timer Time", timerTime);
 		/*double ypr[3];
 		PigeonIMU::GeneralStatus genStatus;
 		pGyon->GetGeneralStatus(genStatus);
@@ -100,9 +95,6 @@ public:
 		drive->smartDashboard();
 //		drive->autoTurn(xbox->GetPOV(0));
 
-
-
-
 //		frontRightMotor->Set(ControlMode::PercentOutput, .3);
 //		Wait(2);
 //		frontRightMotor->Set(ControlMode::PercentOutput, 0);
@@ -116,6 +108,24 @@ public:
 //		Wait(2);
 //		rearLeftMotor->Set(ControlMode::PercentOutput, 0);
 //		}
+
+		theLog->LogIt("Left Encoder Value", drive->getLeftEnc(), -1);
+		theLog->LogIt("Right Encoder Value", drive->getRightEnc(), -1);
+		if(timerTime > 1 && timerTime < 2)
+		{
+			frontLeftMotor->Set(ControlMode::PercentOutput, 1);
+			rearRightMotor->Set(ControlMode::PercentOutput, 1);
+		}
+		if(timerTime > 2 && timerTime < 3)
+		{
+			frontLeftMotor->Set(ControlMode::PercentOutput, -1);
+			rearRightMotor->Set(ControlMode::PercentOutput, -1);
+		}
+		if(timerTime > 3 && timerTime < 4)
+		{
+			frontLeftMotor->Set(ControlMode::PercentOutput, 0);
+			rearRightMotor->Set(ControlMode::PercentOutput, 0);
+		}
 	}
 
 	void DisabledInit()
@@ -132,7 +142,7 @@ public:
 	}
 
 private:
-	int timerTime;
+	float timerTime;
 	//PigeonIMU* pGyon;
 	Drive* drive;
 	Joystick* xbox;
@@ -143,10 +153,10 @@ private:
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
 	std::string autoSelected;*/
-//	TalonSRX* frontLeftMotor;
-//	TalonSRX* rearLeftMotor;
-//	TalonSRX* frontRightMotor;
-//	TalonSRX* rearRightMotor;
+	TalonSRX* frontLeftMotor;
+	TalonSRX* rearLeftMotor;
+	TalonSRX* frontRightMotor;
+	TalonSRX* rearRightMotor;
 
 };
 

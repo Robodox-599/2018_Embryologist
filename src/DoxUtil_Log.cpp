@@ -45,9 +45,16 @@ DoxLog::~DoxLog()
 	this->close();
 }
 
-void DoxLog::LogIt(std::string message)
+void DoxLog::LogIt(int level)
 {
-	this->LogIt(message, 0, -1);
+	if(level == 1)
+	{
+		LogIt("message", 0, level);
+	}
+	if(level == 2)
+	{
+		LogIt("message", 0, level);
+	}
 }
 
 void DoxLog::LogIt(std::string message, float value, int level)
