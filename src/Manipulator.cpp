@@ -22,7 +22,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     pot = new AnalogPotentiometer(3, 200, 0);
 
     currentPivot = 0;
-	targetPivot = 30;
+	targetPivot = 90;
 	errorPivot = 0;
 }
 
@@ -90,8 +90,8 @@ double Manipulator::potVal()
 
 void Manipulator::diffIntake(bool left, bool right)
 {
-	if(left) leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
-	if(right) rightIntakeMotor->Set(ControlMode::PercentOutput, .8);
+	if(left) leftIntakeMotor->Set(ControlMode::PercentOutput, .8);
+	if(right) rightIntakeMotor->Set(ControlMode::PercentOutput, -.8);
 }
 
 
@@ -243,9 +243,15 @@ void Manipulator:: liftIntake (bool Lift, bool noLift, bool midLift, bool finalL
 
 void Manipulator::pivotIntake(bool down, bool shoot, bool up)
 {
+<<<<<<< HEAD
 	if(down) targetPivot = 35;
 	if(shoot) targetPivot = 90;
 	if(up) targetPivot = 110;
+=======
+	if(up) targetPivot = 98;//100
+	if(shoot) targetPivot = 80;//40
+	if(down) targetPivot = 35;//
+>>>>>>> fff9fcc02055d5554f14fa293afe2126b87e14a3
 
 	currentPivot = pot->Get();
 	errorPivot = targetPivot-currentPivot;
@@ -260,5 +266,9 @@ void Manipulator::fixPivotError(float error)
 	if(movePivot < -.6) movePivot = -.2;
 
 	liftIntakeMotor->Set(ControlMode::PercentOutput,-movePivot);
+<<<<<<< HEAD
 	SmartDashboard::PutNumber("Pivot Val:", -movePivot);
+=======
+	SmartDashboard::PutNumber("Pivot Val:", movePivot);
+>>>>>>> fff9fcc02055d5554f14fa293afe2126b87e14a3
 }
