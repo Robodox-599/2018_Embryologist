@@ -65,7 +65,7 @@ public:
 
 	void TeleopInit()
 	{
-		//drive->PIDset();
+		drive->PIDset();
 	}
 
 	void TeleopPeriodic()
@@ -111,13 +111,15 @@ public:
 		SmartDashboard::PutNumber("Yaw", ypr[0]);
 		SmartDashboard::Pu.tNumber("Temperature", genStatus.tempC);*/
 		//drive->velocityDrive(0, 0.4);
-		//drive->getYPR();
+		drive->smartDashboard();
+		drive->getYPR();
 		//drive->velocityDrive(-xbox->GetRawAxis(1), -xbox->GetRawAxis(4));
 		drive->shift(xbox->GetRawButton(B_Xbox));
+		drive->updateDrive(xbox->GetRawAxis(4), xbox->GetRawAxis(1));
 		//drive->getYPR();
-		drive->velocityDrive(xbox->GetRawAxis(RX_Axis_Xbox), xbox->GetRawAxis(LY_Axis_Xbox));//4,1
+		//drive->velocityDrive(xbox->GetRawAxis(RX_Axis_Xbox), xbox->GetRawAxis(LY_Axis_Xbox));//4,1
 		//drive->shift(xbox->GetRawButton(2));
-		//drive->autoTurn(xbox->GetPOV(0));
+		drive->autoTurn(xbox->GetPOV(0));
 		//}
 	}
 
