@@ -29,7 +29,7 @@ public:
 	void autoTurn(int angle);
 	void turnRight(int error);
 	void turnLeft(int error);
-	void turnLeftandRight(int error);
+	void turnLeftandRight(float error);
 
 	void setTargetHeading(float joystick);
 	void setGyroTurn(float joystick);
@@ -50,6 +50,8 @@ public:
 
 	void getGyroVal();
 	void resetGyro();
+
+	void turnByGyro(float heading);
 
 	void smartDashboard();
 	//AHRS* navX;

@@ -286,7 +286,7 @@ void Drive::updateDrive(float xAxis, float yAxis)
 		}
 }*/
 
-void Drive::turnLeftandRight(int error)
+void Drive::turnLeftandRight(float error)
 {
 	//slows the motors down from 40 degree error to as it approaches 0 degree error
 	float motorFactor = (error/40.0);
@@ -300,6 +300,15 @@ void Drive::turnLeftandRight(int error)
 //	rearLeftMotor->Set(ControlMode::Velocity, -Max_Motor_Velocity * motorFactor);
 //	frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
 //	frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
+}
+
+void Drive::turnByGyro(float heading)
+{
+	heading += heading;
+	getYPR();
+	currentHeading = ypr[0];
+	gyroError = currentHeading - heading;
+	turnLeftandRight(gyroError);
 }
 
 void Drive::getYPR()
