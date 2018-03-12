@@ -38,6 +38,8 @@ public:
 	void adjustDrive(float error, float speed);
 	void setMotors(float speedL, float speedR, float time);
 	void gyroTurn(float speed, int angle);
+	void encTurn(float speedL, float speedR, int enc);
+	void encLift(float speed, int enc);
 
 	int autoSelector();
 	bool doAuto;
