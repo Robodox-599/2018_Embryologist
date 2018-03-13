@@ -756,26 +756,72 @@ void Auto::auto3()
 
 void Auto::auto4()
 {
-	if(gameData[1] == 'L')
-	{
-		manip->setPos(1);
-		driveStraight(.7,100000);
-		drive->autoTurn(270);
-		driveStraight(1,2000);
-		lift->liftAuto(1,7000);
-		manip->AutoOuttake();
-	}
-	else
-	{
-		manip->setPos(1);
-		driveStraight(.7,80000);
-		drive->autoTurn(270);
-		driveStraight(1,60000);
-		drive->autoTurn(90);
-		driveStraight(1,6000);
-		lift->liftAuto(1,7000);
-		manip->AutoOuttake();
-	}
+	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .15);
+	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.15);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
+	drive->resetEncoder();
+	Wait(.1);
+	driveStraight(.5, 45000);
+	Wait(.3);
+	drive->resetEncoder();
+	Wait(.1);
+	encTurn(-.4,.4,12000);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .24);
+	Wait(.3);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
+	lift->resetLiftEncoder();
+	Wait(.1);
+	encLift(.3,25000);
+	drive->resetEncoder();
+	Wait(.1);
+	driveStraight(.2, 1000);
+	manip->AutoOuttake();
+	drive->resetEncoder();
+	Wait(.1);
+	driveStraight(-.2, 1000);
+	if(!lift->lowerLimitTester())liftTime(-.4,2);
+	drive->resetEncoder();
+	Wait(.1);
+	encTurn(.4,-.4,12000);
+	drive->resetEncoder();
+	Wait(.1);
+	driveStraight(-.4, 20000);
+	drive->resetEncoder();
+	Wait(.1);
+	encTurn(.4,-.4,8000);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .5);
+	Wait(.6);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.05);
+	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .8);
+	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.5);
+	drive->resetEncoder();
+	Wait(.1);
+	driveStraight(.3,8500);
+	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .9);
+	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.6);
+	Wait(.3);
+	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .15);
+	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.15);
+//	if(gameData[1] == 'L')
+//	{
+//		manip->setPos(1);
+//		driveStraight(.7,100000);
+//		drive->autoTurn(270);
+//		driveStraight(1,2000);
+//		lift->liftAuto(1,7000);
+//		manip->AutoOuttake();
+//	}
+//	else
+//	{
+//		manip->setPos(1);
+//		driveStraight(.7,80000);
+//		drive->autoTurn(270);
+//		driveStraight(1,60000);
+//		drive->autoTurn(90);
+//		driveStraight(1,6000);
+//		lift->liftAuto(1,7000);
+//		manip->AutoOuttake();
+//	}
 }
 
 void Auto::auto5()
