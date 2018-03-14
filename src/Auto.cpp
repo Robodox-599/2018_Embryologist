@@ -388,6 +388,8 @@ void Auto::auto0()//Drive straight to pass Auto Line.
 //
 void Auto::auto1()//Left starting position, Objective: Switch
 {
+	if(gameData[0] == 'L')
+	{
 	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .15);
 	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.15);
 	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
@@ -426,6 +428,8 @@ void Auto::auto1()//Left starting position, Objective: Switch
 	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .05);
 	Wait(1);
 	doAuto = 0;
+	}
+	else auto0();
 
 //	if(gameData[0] == 'L')
 //	{
@@ -505,6 +509,8 @@ void Auto::auto2()
 
 	//or//
 
+	if(gameData[0] == 'L')
+	{
 	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .15);
 	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.15);
 	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
@@ -589,8 +595,9 @@ void Auto::auto2()
 	if(!lift->lowerLimitTester())liftTime(-.1,1);
 	//
 	doAuto = 0;
-
-
+	}
+	else
+	{
 	//right side of switch:
 //	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .15);
 //	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.15);
@@ -616,7 +623,6 @@ void Auto::auto2()
 //	doAuto = 0;
 
 	//or//
-	/*
 	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .15);
 	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.15);
 	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
@@ -701,7 +707,7 @@ void Auto::auto2()
 	if(!lift->lowerLimitTester())liftTime(-.1,1);
 	//
 	doAuto = 0;
-	*/
+	}
 
 //	if(gameData[0] == 'L')
 //	{
@@ -729,6 +735,8 @@ void Auto::auto2()
 
 void Auto::auto3()
 {
+	if(gameData[0] == 'L')
+	{
 	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .15);
 	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.15);
 	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.08);
@@ -748,6 +756,8 @@ void Auto::auto3()
 	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .05);
 	Wait(1);
 	doAuto = 0;
+	}
+	else auto0();
 //	if(gameData[0] == 'L')
 //	{
 //		manip->setPos(1);//releases intake
@@ -818,6 +828,28 @@ void Auto::auto4()
 	Wait(.3);
 	manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .15);
 	manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.15);
+	drive->resetEncoder();
+	Wait(.1);
+	driveStraight(-.3,8500);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.6);
+	Wait(.4);
+	manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
+	drive->resetEncoder();
+	Wait(.1);
+	encTurn(-.4,.4,8000);
+	drive->resetEncoder();
+	Wait(.1);
+	driveStraight(.4, 20000);
+	drive->resetEncoder();
+	Wait(.1);
+	encTurn(.4,-.4,8000);
+	lift->resetLiftEncoder();
+	Wait(.1);
+	encLift(.3,25000);
+	drive->resetEncoder();
+	Wait(.1);
+	driveStraight(.2, 1000);
+	manip->AutoOuttake();
 //	if(gameData[1] == 'L')
 //	{
 //		manip->setPos(1);
