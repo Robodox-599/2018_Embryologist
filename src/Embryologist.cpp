@@ -77,6 +77,10 @@ public:
 
 	void TeleopPeriodic()
 	{
+		drive->getYPR();
+		drive->smartDashboard();
+		drive->turnByGyro(90);
+		Wait(10);
 //		timerTime = timer->Get();
 //		SmartDashboard::PutNumber("Timer Time", timerTime);
 		/*double ypr[3];
@@ -87,13 +91,13 @@ public:
 		SmartDashboard::PutNumber("Temperature", genStatus.tempC);*/
 		//drive->velocityDrive(0, 0.4);
 //		if(false){
-		drive->getYPR();
-////		drive->testPID();
-		drive->updateDrive(xbox->GetRawAxis(4), xbox->GetRawAxis(1));
-////		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
-////		drive->shift(xbox->GetRawButton(2));
-		drive->smartDashboard();
-		drive->autoTurn(xbox->GetPOV(0));
+//		drive->getYPR();
+//////		drive->testPID();
+//		drive->updateDrive(xbox->GetRawAxis(4), xbox->GetRawAxis(1));
+//////		drive->velocityDrive(xbox->GetRawAxis(0), xbox->GetRawAxis(1));
+//////		drive->shift(xbox->GetRawButton(2));
+//		drive->smartDashboard();
+//		drive->autoTurn(xbox->GetPOV(0));
 
 //		frontRightMotor->Set(ControlMode::PercentOutput, .3);
 //		Wait(2);

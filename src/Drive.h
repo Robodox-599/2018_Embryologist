@@ -29,7 +29,7 @@ public:
 	void autoTurn(int angle);
 	void turnRight(int error);
 	void turnLeft(int error);
-	void turnLeftandRight(float error);
+	void turnLeftandRight(int error);
 
 	void setTargetHeading(float joystick);
 	void setGyroTurn(float joystick);
@@ -65,6 +65,7 @@ private:
 	PigeonIMU * pGyon;
 
 	DoubleSolenoid* shifter;
+
 	//DoubleSolenoid* rightShifter;
 
 	double targetHeading;
@@ -84,6 +85,8 @@ private:
 
 	float velocityFwd;
 	float velocityTurn;
+
+	int timer;
 
 
 	//float gyroValue;
