@@ -212,9 +212,25 @@ void Auto::gyroTurn(float speed, int angle)
 
 void Auto::preCheck()//To be run BEFORE a match in the pit in order to test each system
 {
+	preCheck_Drive();
+	preCheck_Lift();
+	preCheck_Intake();
+}
+
+void Auto::preCheck_Drive()
+{
 
 }
 
+void Auto::preCheck_Lift()
+{
+
+}
+
+void Auto::preCheck_Intake()
+{
+
+}
 
 //
 void Auto::nonPreLoad_auto1()//Left starting position, Objective: Switch

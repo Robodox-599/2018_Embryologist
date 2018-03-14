@@ -49,6 +49,7 @@ public:
 		lift = new Lift();
 		manip = new Manipulator();
 		drive->resetEncoder();
+		drive->PIDset();
 	//	comp599->SetClosedLoopControl(true);
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);

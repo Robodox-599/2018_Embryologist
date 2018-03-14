@@ -7,6 +7,7 @@
 #include <Lift.h>
 #include <WPILib.h>
 #include <ctre/Phoenix.h>
+#include <DoxUtil_Log.h>
 
 class Auto
 {
@@ -15,6 +16,10 @@ public:
 	~Auto();
 
 	void preCheck();
+	void preCheck_Drive();
+	void preCheck_Lift();
+	void preCheck_Intake();
+
 	void auto0();
 	void auto1();
 	void auto2();
