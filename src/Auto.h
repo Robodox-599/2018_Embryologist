@@ -57,20 +57,6 @@ private:
 	Lift* lift;
 	DoxLog* doxLog;
 
-	TalonSRX* frontLeftMotor;
-	TalonSRX* rearLeftMotor;
-	TalonSRX* frontRightMotor;
-	TalonSRX* rearRightMotor;
-
-	TalonSRX *frontRightLift;
-	TalonSRX *frontLeftLift;
-	TalonSRX *backRightLift;
-	TalonSRX *backLeftLift;
-
-	DoubleSolenoid* shifter;
-	DoubleSolenoid *liftPiston;
-	Solenoid *rungPiston;
-
 	int timerTime;
 
 	int dataTest;
