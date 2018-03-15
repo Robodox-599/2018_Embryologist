@@ -65,6 +65,9 @@ private:
 	int driveCurrent;
 	int driveError;
 
+	bool upperLimitCheck;
+	bool lowerLimitCheck;
+
 	double ypr[3];
 };
 

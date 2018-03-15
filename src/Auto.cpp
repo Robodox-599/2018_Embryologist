@@ -18,6 +18,9 @@ Auto::Auto()
 	driveTarget = 0;
 	driveError = 0;
 	timerTime = 0;
+
+	upperLimitCheck = false;
+	lowerLimitCheck = false;
 }
 
 Auto::~Auto()
@@ -216,8 +219,10 @@ void Auto::gyroTurn(float speed, int angle)
 
 void Auto::preCheck()//To be run BEFORE a match in the pit in order to test each system
 {
+	if(lift->upperLimitTester() == true){upperLimitCheck = true;} // safety check before running preCheck on the lift
+	if(lift->lowerLimitTester() == true){lowerLimitCheck = true;}
 	preCheck_Drive();
-	preCheck_Lift();
+	if(upperLimitCheck == true && lowerLimitCheck == true){preCheck_Lift();} //will only run if two limit switches have been checked
 	preCheck_Intake();
 }
 
@@ -288,6 +293,7 @@ void Auto::preCheck_Lift()
 	{
 
 	}
+
 }
 
 void Auto::preCheck_Intake()
