@@ -51,9 +51,10 @@ public:
 	void getGyroVal();
 	void resetGyro();
 
+	void turnByGyro(float heading);
+
 	void smartDashboard();
 	//AHRS* navX;
-	double ypr[3];
 	PigeonIMU * pGyon;
 
 private:
@@ -65,12 +66,13 @@ private:
 
 
 	DoubleSolenoid* shifter;
+
 	//DoubleSolenoid* rightShifter;
 
 	double targetHeading;
 	double currentHeading;
 
-
+	double ypr[3];
 	PigeonIMU::GeneralStatus genStatus;
 
 	float fwdSpeed;
@@ -84,6 +86,8 @@ private:
 
 	float velocityFwd;
 	float velocityTurn;
+
+	int timer;
 
 
 	//float gyroValue;
