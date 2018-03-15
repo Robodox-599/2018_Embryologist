@@ -53,9 +53,9 @@ public:
 
 		Solenoid *rungPiston;
 		TalonSRX *frontRightLift;
-				TalonSRX *frontLeftLift;
-				TalonSRX *backRightLift;
-				TalonSRX *backLeftLift;
+		TalonSRX *frontLeftLift;
+		TalonSRX *backRightLift;
+		TalonSRX *backLeftLift;
 private:
 
 

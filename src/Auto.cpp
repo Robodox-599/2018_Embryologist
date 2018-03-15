@@ -7,6 +7,8 @@ Auto::Auto()
 	drive = new Drive;
 	manip = new Manipulator;
 	lift = new Lift;
+	doxLog = new DoxLog;
+	timer = new Timer;
 	dataTest = 0;
 	selector = new DigitalInput(1);
 	counter = 0;
@@ -15,6 +17,14 @@ Auto::Auto()
 	driveCurrent = drive->getLeftEnc();
 	driveTarget = 0;
 	driveError = 0;
+	timerTime = 0;
+
+	frontLeftMotor = new TalonSRX(Drive_Front_Left_Motor_Channel);
+	rearLeftMotor = new TalonSRX(Drive_Rear_Left_Motor_Channel);
+	frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
+	rearRightMotor = new TalonSRX(Drive_Rear_Right_Motor_Channel);
+
+	shifter = new DoubleSolenoid(Shifter_Solenoid_Channel_A, Shifter_Solenoid_Channel_B);
 }
 
 Auto::~Auto()
@@ -22,6 +32,18 @@ Auto::~Auto()
 	selector = nullptr;
 
 	delete selector;
+
+	delete shifter;
+	delete frontLeftMotor;
+	delete rearLeftMotor;
+	delete frontRightMotor;
+	delete rearRightMotor;
+
+	shifter = nullptr;
+	frontLeftMotor = nullptr;
+	rearLeftMotor = nullptr;
+	frontRightMotor = nullptr;
+	rearRightMotor = nullptr;
 }
 
 void Auto::driveStraight(float speed, int enc)
@@ -219,12 +241,71 @@ void Auto::preCheck()//To be run BEFORE a match in the pit in order to test each
 
 void Auto::preCheck_Drive()
 {
-
+	doxLog->LogIt("Left Encoder Value", drive->getLeftEnc(), 0);
+	doxLog->LogIt("Right Encoder Value", drive->getRightEnc(), 0);
+	doxLog->LogIt("Shifter", shifter->Get(), 0);
+//	doxLog->LogIt("Front Left Motor Power Output", frontLeftMotor->GetMotorOutputVoltage(), 0);
+//	doxLog->LogIt("Rear Left Motor Power Output", rearLeftMotor->GetMotorOutputVoltage(), 0);
+//	doxLog->LogIt("Front Right Motor Power Output", frontRightMotor->GetMotorOutputVoltage(), 0);
+//	doxLog->LogIt("Rear Right Motor Power Output", rearRightMotor->GetMotorOutputVoltage(), 0);
+	if(timerTime > 1 && timerTime < 2)
+	{
+		frontLeftMotor->Set(ControlMode::Velocity, 30);
+	}
+	if(timerTime > 2 && timerTime < 3)
+	{
+		frontRightMotor->Set(ControlMode::Velocity, 30);
+	}
+	if(timerTime > 3 && timerTime < 4)
+	{
+		rearRightMotor->Set(ControlMode::Velocity, 30);
+	}
+	if(timerTime > 4 && timerTime < 5)
+	{
+		rearLeftMotor->Set(ControlMode::Velocity, 30);
+	}
+	if(timerTime > 5 && timerTime < 6)
+	{
+		shifter->Set(DoubleSolenoid::kReverse);
+	}
+	if(timerTime > 6 && timerTime < 7)
+	{
+		shifter->Set(DoubleSolenoid::kForward);
+	}
 }
 
 void Auto::preCheck_Lift()
 {
+	doxLog->LogIt("Left Lift Encoder", lift->getLeftLiftEnc(), 0);
+	doxLog->LogIt("Right Lift Encoder", lift->getRightLiftEnc(), 0);
+	doxLog->LogIt("Upper Limit Switch", lift->upperLimitTester(), 0);
+	doxLog->LogIt("Lower Limit Switch", lift->lowerLimitTester(), 0);
+	doxLog->LogIt("Lift Piston", liftPiston->Get(), 0);
+	doxLog->LogIt("Rung Piston", rungPiston->Get(), 0);
+	if(timerTime > 1 && timerTime < 2)
+	{
 
+	}
+	if(timerTime > 2 && timerTime < 3)
+	{
+
+	}
+	if(timerTime > 3 && timerTime < 4)
+	{
+
+	}
+	if(timerTime > 4 && timerTime < 5)
+	{
+
+	}
+	if(timerTime > 5 && timerTime < 6)
+	{
+
+	}
+	if(timerTime > 6 && timerTime < 7)
+	{
+
+	}
 }
 
 void Auto::preCheck_Intake()

@@ -53,7 +53,7 @@ Drive::~Drive()
 
 	delete pGyon;
 
-	//delete shifter;
+	delete shifter;
 	//delete navX;
 
 	frontLeftMotor = nullptr;
@@ -63,7 +63,7 @@ Drive::~Drive()
 
 	pGyon = nullptr;
 
-	//shifter = nullptr;
+	shifter = nullptr;
 	//navX = nullptr;
 }
 
