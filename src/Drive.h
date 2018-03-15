@@ -57,15 +57,13 @@ public:
 	//AHRS* navX;
 	PigeonIMU * pGyon;
 
-private:
 	TalonSRX* frontLeftMotor;
 	TalonSRX* rearLeftMotor;
 	TalonSRX* frontRightMotor;
 	TalonSRX* rearRightMotor;
 
-
-
 	DoubleSolenoid* shifter;
+private:
 
 	//DoubleSolenoid* rightShifter;
 
