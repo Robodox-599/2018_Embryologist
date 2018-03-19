@@ -22,8 +22,8 @@ Lift::Lift()
 	liftPiston = new DoubleSolenoid(0,1);
 	liftPiston->Set(DoubleSolenoid::kForward);
 
-	rungPiston = new Solenoid(7);
-	rungPiston->Set(false);
+	rungPiston = new DoubleSolenoid(6, 7);
+	rungPiston->Set(DoubleSolenoid::kReverse);
 
 	targetEnc = 0;
 	currentLeftEnc = 0;
@@ -67,34 +67,34 @@ void Lift::liftRobot(float liftInput)
 {
 	if(canLift == false)
 	{
-		if(liftInput > LIFT_DEADZONE && (!upperLimit->Get() && getRightLiftEnc() < MAX_LIFT_VAL-3000))
+		if(liftInput > LIFT_DEADZONE && (/*!upperLimit->Get() && */getRightLiftEnc() < MAX_LIFT_VAL-3000))
 		{
-			frontRightLift->Set(ControlMode::PercentOutput, -liftInput*(.5));
-			frontLeftLift->Set(ControlMode::PercentOutput,  liftInput*(.5));
-			backRightLift->Set(ControlMode::PercentOutput,  -liftInput*(.5));
-			backLeftLift->Set(ControlMode::PercentOutput,  liftInput*(.5));
+			frontRightLift->Set(ControlMode::PercentOutput, liftInput*(.9));
+			frontLeftLift->Set(ControlMode::PercentOutput,  liftInput*(.9));
+			backRightLift->Set(ControlMode::PercentOutput,  liftInput*(.9));
+			backLeftLift->Set(ControlMode::PercentOutput,  liftInput*(.9));
 		}
-		else if(liftInput > LIFT_DEADZONE && (!upperLimit->Get() && (getRightLiftEnc() > MAX_LIFT_VAL-3000)))//buffer range
+		else if(liftInput > LIFT_DEADZONE && (/*!upperLimit->Get() && */(getRightLiftEnc() > MAX_LIFT_VAL-3000)))//buffer range
 		{
-			frontRightLift->Set(ControlMode::PercentOutput, -liftInput*(.2));
-			frontLeftLift->Set(ControlMode::PercentOutput,  liftInput*(.2));
-			backRightLift->Set(ControlMode::PercentOutput,  -liftInput*(.2));
-			backLeftLift->Set(ControlMode::PercentOutput,  liftInput*(.2));
+			frontRightLift->Set(ControlMode::PercentOutput, liftInput*(.3));
+			frontLeftLift->Set(ControlMode::PercentOutput,  liftInput*(.3));
+			backRightLift->Set(ControlMode::PercentOutput,  liftInput*(.3));
+			backLeftLift->Set(ControlMode::PercentOutput,  liftInput*(.3));
 		}
-		else if(liftInput < -LIFT_DEADZONE && /*getLeftLiftEnc() > 800)*/(!lowerLimit->Get() && getRightLiftEnc() > 3000))
+		else if((liftInput < -LIFT_DEADZONE) && getLeftLiftEnc() > 0 &&!lowerLimit->Get() )//&& getRightLiftEnc() > 3000))
 		{
-			frontRightLift->Set(ControlMode::PercentOutput,  liftInput*(-.5));
-			frontLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-.5));
-			backRightLift->Set(ControlMode::PercentOutput, liftInput*(-.5));
-			backLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-.5));
+			frontRightLift->Set(ControlMode::PercentOutput,  -liftInput*(-.65));
+			frontLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-.65));
+			backRightLift->Set(ControlMode::PercentOutput, -liftInput*(-.65));
+			backLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-.65));
 		}
-		else if (liftInput < -LIFT_DEADZONE && (!lowerLimit->Get() && getRightLiftEnc() < 3000))//buffer range
-		{
-			frontRightLift->Set(ControlMode::PercentOutput, liftInput*(-.2));
-			frontLeftLift->Set(ControlMode::PercentOutput,  -liftInput*(-.2));
-			backRightLift->Set(ControlMode::PercentOutput,  liftInput*(-.2));
-			backLeftLift->Set(ControlMode::PercentOutput,  -liftInput*(-.2));
-		}
+//		else if (liftInput < -LIFT_DEADZONE && (!lowerLimit->Get() && getRightLiftEnc() < 3000))//buffer range
+//		{
+//			frontRightLift->Set(ControlMode::PercentOutput, -liftInput*(-.3));
+//			frontLeftLift->Set(ControlMode::PercentOutput,  -liftInput*(-.3));
+//			backRightLift->Set(ControlMode::PercentOutput,  -liftInput*(-.3));
+//			backLeftLift->Set(ControlMode::PercentOutput,  -liftInput*(-.3));
+//		}
 		/*
 		else if(climbState)
 		{
@@ -105,9 +105,9 @@ void Lift::liftRobot(float liftInput)
 		}*/
 		else
 		{
-			frontRightLift->Set(ControlMode::PercentOutput, -.05);
+			frontRightLift->Set(ControlMode::PercentOutput, .05);
 			frontLeftLift->Set(ControlMode::PercentOutput, .05);
-			backRightLift->Set(ControlMode::PercentOutput, -.05);
+			backRightLift->Set(ControlMode::PercentOutput, .05);
 			backLeftLift->Set(ControlMode::PercentOutput, .05);
 //			frontRightLift->Set(ControlMode::PercentOutput, 0);
 //			frontLeftLift->Set(ControlMode::PercentOutput, 0);
@@ -123,7 +123,7 @@ void Lift::liftRobot(float liftInput)
 		backRightLift->Set(ControlMode::PercentOutput, .05);
 		backLeftLift->Set(ControlMode::PercentOutput, .05);
 	}
-	if(lowerLimit->Get()) resetLiftEncoder();
+	//if(lowerLimit->Get()) resetLiftEncoder();
 }
 
 /*
@@ -236,12 +236,12 @@ void Lift::rungDeploy(bool deployButton, bool otherButton)
 {
 	if(deployButton && canLift)
 	{
-		rungPiston->Set(true);
+		rungPiston->Set(DoubleSolenoid::kForward);
 		rungState = true;
 	}
 	else if(otherButton && canLift)
 	{
-		rungPiston->Set(false);
+		rungPiston->Set(DoubleSolenoid::kReverse);
 		rungState = false;
 	}
 }

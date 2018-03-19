@@ -5,6 +5,7 @@
  *      Author: Admin
  */
 #include "Manipulator.h"
+#include "Lift.h"
 #include "ctre/Phoenix.h"
 #include "WPILib.h"
 
@@ -14,6 +15,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     rightIntakeMotor = new TalonSRX(8);
     liftIntakeMotor = new TalonSRX(11); //These are dummy values.//
     leftmanipPiston = new DoubleSolenoid (2,3);
+    leftmanipPiston->Set(DoubleSolenoid::kReverse);
     //rightmanipPiston = new DoubleSolenoid (0,2);
     cubeStop = new DigitalInput(2); //These are dummy values.//
     toggle = 1;
@@ -21,7 +23,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     pot = new AnalogPotentiometer(3, 200, 0);
 
     currentPivot = 0;
-	targetPivot = 90;
+	targetPivot = 140;
 	errorPivot = 0;
 }
 
@@ -43,26 +45,26 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake, float mod) //inta
 {
 	if (intake)// && cubeStop->Get() == false)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, .9);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -.65);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.9);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .65);
 	}
 
 	else if (outtake)
 	{
 		//speed modified by the z axis on the Atk3. Bound from .6 to 1
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.2*(-mod+4));//75 or 6
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .2*(-mod+4));//75 or 6
+		leftIntakeMotor->Set(ControlMode::PercentOutput, (.2*(-mod+2))-.1);//75 or 6
+		rightIntakeMotor->Set(ControlMode::PercentOutput, (-.2*(-mod+2))-.1);//75 or 6
 	}
 	else if(cubeStop->Get())
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, .1);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -.1);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
 	}
 
 	else
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
 	}
 	SmartDashboard::PutBoolean("CubeStopper: ", cubeStop->Get());
 }
@@ -71,11 +73,11 @@ void Manipulator::jiggle(bool jiggButton)
 {
 	if(jiggButton)
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.5);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .5);
-		Wait(.1);
-		leftIntakeMotor->Set(ControlMode::PercentOutput, .8);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, .5);
 		rightIntakeMotor->Set(ControlMode::PercentOutput, -.5);
+		Wait(.1);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .5);
 		Wait(.3);
 		leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 		rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
@@ -158,8 +160,8 @@ void Manipulator::AutoIntake() //Intake until limit switch//
 
 void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 {
-	leftIntakeMotor->Set(ControlMode::PercentOutput, -.35);
-	rightIntakeMotor->Set(ControlMode::PercentOutput, .35);
+	leftIntakeMotor->Set(ControlMode::PercentOutput, .35);
+	rightIntakeMotor->Set(ControlMode::PercentOutput, -.35);
 	Wait(1);
 	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
@@ -241,9 +243,9 @@ void Manipulator:: liftIntake (bool Lift, bool noLift, bool midLift, bool finalL
 
 void Manipulator::pivotIntake(bool down, bool shoot, bool up)
 {
-	if(up) targetPivot = 98;//100
-	if(shoot) targetPivot = 80;//40
-	if(down) targetPivot = 35;//
+	if(up) targetPivot = 140;//100
+	if(shoot) targetPivot = 135;//40
+	if(down) targetPivot = 60;//
 
 	currentPivot = pot->Get();
 	errorPivot = targetPivot-currentPivot;
@@ -254,9 +256,13 @@ void Manipulator::fixPivotError(float error)
 {
 	float movePivot = (error/100);
 
-	if(movePivot > .6) movePivot = .5;
-	if(movePivot < -.6) movePivot = -.6;
+	if(movePivot > .6) movePivot = .6;
+	if(movePivot < -.6) movePivot = -.1;
 
+	if(pot->Get() <= 0)
+	{
+		movePivot = 0;
+	}
 	liftIntakeMotor->Set(ControlMode::PercentOutput,-movePivot);
 	SmartDashboard::PutNumber("Pivot Val:", movePivot);
 }

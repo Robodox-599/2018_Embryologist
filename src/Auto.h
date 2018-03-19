@@ -8,6 +8,7 @@
 #include <WPILib.h>
 #include <ctre/Phoenix.h>
 #include <DoxUtil_Log.h>
+#include <String>
 
 class Auto
 {
@@ -15,6 +16,7 @@ public:
 	Auto();
 	~Auto();
 
+	void setGameData(std::string data);
 	void preCheck();
 	void preCheck_Drive();
 	void preCheck_Lift();
@@ -36,7 +38,6 @@ public:
 	void liftTime(float speed, float time);
 	void displayData();
 	int dataVal();
-	DigitalInput* selector;
 
 	//parameters
 	void driveStraight(float speed, int enc);
@@ -48,13 +49,13 @@ public:
 
 	int autoSelector();
 	bool doAuto;
-
+	Drive* drive;
+		Manipulator* manip;
+		Lift* lift;
 private:
 	std::string gameData;
 	Timer* timer;
-	Drive* drive;
-	Manipulator* manip;
-	Lift* lift;
+
 	DoxLog* doxLog;
 
 	int timerTime;

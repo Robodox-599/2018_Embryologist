@@ -179,11 +179,11 @@ void Drive::joystickTurnSet(float joystickX)
 {
 	if(joystickX > 0.2)
 	{
-		velocityTurn = (joystickX-0.2)*1/.8*Max_Motor_Velocity/4;
+		velocityTurn = (joystickX-0.2)*1/.8*Max_Motor_Velocity/2;
 	}
 	else if(joystickX < -0.2)
 	{
-		velocityTurn = (joystickX+0.2)*1/.8*Max_Motor_Velocity/4;
+		velocityTurn = (joystickX+0.2)*1/.8*Max_Motor_Velocity/2;
 	}
 	else
 	{
