@@ -23,6 +23,7 @@ public:
 	void pivotIntake(bool down, bool shoot, bool up);
 	void fixPivotError(float error);
 	void stopManip();
+	void manipSmartDashboard();
 
 	DigitalInput* cubeStop;
 

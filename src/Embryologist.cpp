@@ -182,66 +182,36 @@ public:
 	void TeleopInit()
 	{
 		auton->drive->resetEncoder();
-		//manip->targetPivot = 90;
-		//printf("teleop test");
 	}
 
 	void TeleopPeriodic()
 	{
-
-		//if(false){
-				//manipulator
+		//manipulator
 		auton->manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(1),atk3->GetRawAxis(2));
-				//manip->diffIntake(atk3->GetRawButton(6),atk3->GetRawButton(7));
-		//auton->manip->intakePosition(atk3->GetRawButton(8), atk3->GetRawButton(9));
-				//SmartDashboard::GetBoolean("stopper: ", manip->stoppingCube());
 		auton->manip->jiggle(atk3->GetRawButton(3));
-				//manip->liftIntake(atk3->GetRawButton(11), atk3->GetRawButton(10), atk3->GetRawButton(2), atk3->GetRawButton(5));
-				SmartDashboard::PutNumber("Z Axis:", atk3->GetRawAxis(2));
-				SmartDashboard::PutNumber("Pot Val:", auton->manip->pot->Get());
-				auton->manip->pivotIntake(atk3->GetRawButton(10), atk3->GetRawButton(2), atk3->GetRawButton(11));
+		auton->manip->pivotIntake(atk3->GetRawButton(10), atk3->GetRawButton(2), atk3->GetRawButton(11));
 
-				//lift
-				auton->lift->liftRobot(atk3->GetRawAxis(1));
-				auton->lift->PistonLift(atk3->GetRawButton(6),atk3->GetRawButton(7));
-				auton->lift->rungDeploy(xbox->GetRawButton(A_Xbox), xbox->GetRawButton(X_Xbox));
-				//lift->doClimb(atk3->GetRawButton(10));
-				//lift->setHeightEnc(atk3->GetRawAxis(1));
-				//lift->doLift();
-				//lift->getLeftLiftEnc();
-				//lift->getRightLiftEnc();0
-				//lift->getAvgLiftEnc();
-				//lift->CalibrateLift(atk3->GetRawButton(7), atk3->GetRawButton(10));
-				SmartDashboard::PutNumber("leftValue: ", auton->lift->getLeftLiftEnc());
-				SmartDashboard::PutNumber("rightValue: ", auton->lift->getRightLiftEnc());
-				SmartDashboard::PutBoolean("upperLimit ", auton->lift->upperLimitTester());
-				SmartDashboard::PutBoolean("lowerLimit: ", auton->lift->lowerLimitTester());
-				SmartDashboard::PutNumber("Avg value:", auton->lift->getAvgLiftEnc());
-				//SmartDashboard::PutBoolean("Button 7: ", atk3->GetRawButton(7));
-				SmartDashboard::PutBoolean("Current lock state: ", auton->lift->canLift);
-				SmartDashboard::PutBoolean("Current rung state: ", auton->lift->rungState);
-				//}
-			//	else{
-				//drive
-				/*double ypr[3];..
-				PigeonIMU::GeneralStatus genS...tatus;
-				pGyon->GetGeneralStatus(gen..Status);
-				pGyon->GetYawPitchRoll(ypr);
-				SmartDashboard::PutNumber("Yaw", ypr[0]);
-				SmartDashboard::Pu.tNumber("Temperature", genStatus.tempC);*/
-				//drive->velocityDrive(0, 0.4);
-				//drive->getYPR();
-				//drive->velocityDrive(-xbox->GetRawAxis(1), -xbox->GetRawAxis(4));
-				auton->drive->shift(xbox->GetRawButton(B_Xbox));
-				//drive->getYPR();
-				auton->drive->velocityDrive(xbox->GetRawAxis(RX_Axis_Xbox), xbox->GetRawAxis(LY_Axis_Xbox));//4,1
-				//drive->shift(xbox->GetRawButton(2));
-				//drive->autoTurn(xbox->GetPOV(0));
-				//}
-				SmartDashboard::PutNumber("Left Drive", auton->drive->getLeftEnc());
-				SmartDashboard::PutNumber("Right Drive", auton->drive->getRightEnc());
+		auton->manip->manipSmartDashboard();
 
-				auton->drive->smartDashboard();
+
+		//lift
+		auton->lift->liftRobot(atk3->GetRawAxis(1));
+		auton->lift->PistonLift(atk3->GetRawButton(6),atk3->GetRawButton(7));
+		auton->lift->rungDeploy(xbox->GetRawButton(A_Xbox), xbox->GetRawButton(X_Xbox));
+		auton->lift->releaseRope(atk3->GetRawButton(8), atk3->GetRawButton(9));
+
+		auton->lift->liftSmartDashboard();
+
+
+		//drive
+		auton->drive->shift(xbox->GetRawButton(B_Xbox));
+		//drive->getYPR();
+		//auton->drive->updateDrive(xbox->GetRawAxis(RX_Axis_Xbox), xbox->GetRawAxis(LY_Axis_Xbox));
+		auton->drive->velocityDrive(xbox->GetRawAxis(RX_Axis_Xbox), xbox->GetRawAxis(LY_Axis_Xbox));//4,1
+		SmartDashboard::PutNumber("Left Drive", auton->drive->getLeftEnc());
+		SmartDashboard::PutNumber("Right Drive", auton->drive->getRightEnc());
+
+		auton->drive->driveSmartDashboard();
 
 
 	}

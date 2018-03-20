@@ -192,7 +192,7 @@ void Drive::joystickTurnSet(float joystickX)
 
 }
 
-void Drive::smartDashboard()
+void Drive::driveSmartDashboard()
 {
 	SmartDashboard::PutNumber("Encoder Left", rearLeftMotor->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder));
 	SmartDashboard::PutNumber("Encoder Velocity Left", rearLeftMotor->GetSelectedSensorVelocity(FeedbackDevice::QuadEncoder));

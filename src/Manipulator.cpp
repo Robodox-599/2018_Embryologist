@@ -217,3 +217,8 @@ void Manipulator::stopManip()
 	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
 }
+
+void Manipulator::manipSmartDashboard()
+{
+	SmartDashboard::PutNumber("Pot Val:", pot->Get());
+}

@@ -371,3 +371,13 @@ void Lift::stopLift()
 	frontLeftLift->Set(ControlMode::PercentOutput, 0);
 	backLeftLift->Set(ControlMode::PercentOutput, 0);
 }
+
+void Lift::liftSmartDashboard()
+{
+	SmartDashboard::PutNumber("leftValue: ", getLeftLiftEnc());
+	SmartDashboard::PutNumber("rightValue: ", getRightLiftEnc());
+	SmartDashboard::PutBoolean("upperLimit ", upperLimitTester());
+	SmartDashboard::PutBoolean("lowerLimit: ", lowerLimitTester());
+	SmartDashboard::PutBoolean("Current lock state: ", canLift);
+	SmartDashboard::PutBoolean("Current rung state: ", rungState);
+}
