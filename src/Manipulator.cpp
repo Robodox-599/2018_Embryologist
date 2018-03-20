@@ -32,7 +32,7 @@ Manipulator::~Manipulator() //deletes all booleans, digital inputs, and CANTalon
 	leftIntakeMotor = nullptr;
 	rightIntakeMotor = nullptr;
 	liftIntakeMotor = nullptr;
-	leftmanipPiston = nullptr;
+	//leftmanipPiston = nullptr;
 	//rightmanipPiston = nullptr;
 	cubeStop = nullptr;
 	delete leftIntakeMotor;
@@ -101,49 +101,49 @@ bool Manipulator::stoppingCube() //limit switch stops intake//
 	return cubeStop->Get();
 }
 
-void Manipulator::intakePosition(bool posButton, bool unPos) //piston folds in/folds out intake/ outtake arms//
-{
-	if(posButton)
-	{
-//		if(toggle == 1)
-//		{
-//			leftmanipPiston->Set(DoubleSolenoid::kForward);
-//			//rightmanipPiston -> Set(DoubleSolenoid::kForward);
-//			Wait(.5);
-//			toggle = 0;
-//		}
-//		else
-//		{
-//			leftmanipPiston->Set(DoubleSolenoid::kReverse);
-//			//rightmanipPiston -> Set(DoubleSolenoid::kReverse);
-//			leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
-//			rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
-//			Wait(.5);
-//			leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
-//			rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
-//			toggle = 1;
-//		}
-		leftmanipPiston->Set(DoubleSolenoid::kForward);
-	}
-	if(unPos)
-	{
-		leftmanipPiston->Set(DoubleSolenoid::kReverse);
-	}
-}
-
-void Manipulator::setPos(bool pos)
-{
-	if(pos)
-	{
-		leftmanipPiston->Set(DoubleSolenoid::kForward);
-		//rightmanipPiston->Set(DoubleSolenoid::kForward);
-	}
-	else
-	{
-		leftmanipPiston->Set(DoubleSolenoid::kReverse);
-		//rightmanipPiston->Set(DoubleSolenoid::kReverse);
-	}
-}
+//void Manipulator::intakePosition(bool posButton, bool unPos) //piston folds in/folds out intake/ outtake arms//
+//{
+//	if(posButton)
+//	{
+////		if(toggle == 1)
+////		{
+////			leftmanipPiston->Set(DoubleSolenoid::kForward);
+////			//rightmanipPiston -> Set(DoubleSolenoid::kForward);
+////			Wait(.5);
+////			toggle = 0;
+////		}
+////		else
+////		{
+////			leftmanipPiston->Set(DoubleSolenoid::kReverse);
+////			//rightmanipPiston -> Set(DoubleSolenoid::kReverse);
+////			leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+////			rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
+////			Wait(.5);
+////			leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
+////			rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
+////			toggle = 1;
+////		}
+//		leftmanipPiston->Set(DoubleSolenoid::kForward);
+//	}
+//	if(unPos)
+//	{
+//		leftmanipPiston->Set(DoubleSolenoid::kReverse);
+//	}
+//}
+//
+//void Manipulator::setPos(bool pos)
+//{
+//	if(pos)
+//	{
+//		leftmanipPiston->Set(DoubleSolenoid::kForward);
+//		//rightmanipPiston->Set(DoubleSolenoid::kForward);
+//	}
+//	else
+//	{
+//		leftmanipPiston->Set(DoubleSolenoid::kReverse);
+//		//rightmanipPiston->Set(DoubleSolenoid::kReverse);
+//	}
+//}
 
 /*
 void Manipulator::AutoIntake() //Intake until limit switch//
