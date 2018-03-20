@@ -92,15 +92,6 @@ public:
 
 	void AutonomousPeriodic()
 	{
-		//auton->auto2();
-//		SmartDashboard::PutNumber("Left Encoder Value",  drive->getLeftEnc());
-//		 drive->getYPR();
-		 //auton->drive->smartDashboard();
-//		//SmartDashboard::PutNumber("Lift Left", lift->getLeftLiftEnc());
-//		// displayData();
-//		//SmartDashboard::PutNumber("Right Encoder Value", drive->getRightEnc());
-//
-//
 //		if(auton->doAuto)auton->auto2();
 //		else
 //		{
@@ -109,8 +100,7 @@ public:
 //			 auton->manip->stopManip();
 //			 auton->lift->stopLift();
 //		}
-//		printf("start auto");
-//
+
 		if(autoo)
 		{
 			auton->drive->updateLeftMotors(.5);
@@ -118,6 +108,7 @@ public:
 			printf("start wait");
 			Wait(1.8);
 			printf("done wait");
+
 			auton->drive->updateLeftMotors(0);
 			auton->drive->updateRightMotors(0);
 			autoo = false;
