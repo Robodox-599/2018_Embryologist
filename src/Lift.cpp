@@ -227,7 +227,7 @@ float Lift::getAvgLiftEnc()
 	return ((-( frontLeftLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder))+( backRightLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder)))/2);
 }
 
-
+//unused
 void Lift::CalibrateLift(bool calibrateButton, bool safeCalibrate)
 {
 	if (calibrateButton==true && safeCalibrate == true)
@@ -323,6 +323,7 @@ void Lift::setHeightEnc(float joystick)
 	//}
 }
 
+//unused
 void Lift::doLift()
 {
 	currentLeftEnc = -getLeftLiftEnc();
@@ -337,6 +338,7 @@ void Lift::doLift()
 	SmartDashboard::PutNumber("Error Left: ",encErrorLeft);
 }
 
+//unused
 void Lift::fixErrorLeft(float error)
 {
 	float liftFactor = (error/1000.0);
@@ -349,6 +351,7 @@ void Lift::fixErrorLeft(float error)
 	SmartDashboard::PutNumber("Left Lift Factor: ",liftFactor);
 }
 
+//unused
 void Lift::fixErrorRight(float error)
 {
 	float liftFactor = (error/1000.0);

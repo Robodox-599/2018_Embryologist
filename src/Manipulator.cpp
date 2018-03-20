@@ -101,63 +101,6 @@ bool Manipulator::stoppingCube() //limit switch stops intake//
 	return cubeStop->Get();
 }
 
-//void Manipulator::intakePosition(bool posButton, bool unPos) //piston folds in/folds out intake/ outtake arms//
-//{
-//	if(posButton)
-//	{
-////		if(toggle == 1)
-////		{
-////			leftmanipPiston->Set(DoubleSolenoid::kForward);
-////			//rightmanipPiston -> Set(DoubleSolenoid::kForward);
-////			Wait(.5);
-////			toggle = 0;
-////		}
-////		else
-////		{
-////			leftmanipPiston->Set(DoubleSolenoid::kReverse);
-////			//rightmanipPiston -> Set(DoubleSolenoid::kReverse);
-////			leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
-////			rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
-////			Wait(.5);
-////			leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
-////			rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
-////			toggle = 1;
-////		}
-//		leftmanipPiston->Set(DoubleSolenoid::kForward);
-//	}
-//	if(unPos)
-//	{
-//		leftmanipPiston->Set(DoubleSolenoid::kReverse);
-//	}
-//}
-//
-//void Manipulator::setPos(bool pos)
-//{
-//	if(pos)
-//	{
-//		leftmanipPiston->Set(DoubleSolenoid::kForward);
-//		//rightmanipPiston->Set(DoubleSolenoid::kForward);
-//	}
-//	else
-//	{
-//		leftmanipPiston->Set(DoubleSolenoid::kReverse);
-//		//rightmanipPiston->Set(DoubleSolenoid::kReverse);
-//	}
-//}
-
-/*
-void Manipulator::AutoIntake() //Intake until limit switch//
-{
-	while (cubeStop->Get() == false)
-	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values.//
-		rightIntakeMotor->Set(ControlMode::PercentOutput, -1); //These are dummy values.//
-	}
-	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
-	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
-}
-*/
-
 void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 {
 	leftIntakeMotor->Set(ControlMode::PercentOutput, .35);
@@ -167,7 +110,7 @@ void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
 }
 
-
+//unused
 void Manipulator::intakeAngle(float zAxis)
 {
 	//potAngle = 0;
@@ -189,6 +132,7 @@ void Manipulator::intakeAngle(float zAxis)
 	}
 }
 
+//unused
 void Manipulator:: liftIntake (bool Lift, bool noLift, bool midLift, bool finalLift)
 {
 	if (Lift)
