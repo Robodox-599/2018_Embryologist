@@ -310,21 +310,7 @@ void Drive::turnLeftandRight(int error)
 
 void Drive::turnByGyro(float heading)
 {
-//	while(gyroError != 0 && timer == 10)
-//	{
-//		currentHeading = ypr[0];
-//		gyroError = currentHeading - heading;
-//		float motorFactor = (gyroError/40.0);
-//		if (motorFactor > 1) motorFactor = 1;
-//		if (motorFactor < -1) motorFactor = -1;
-//		float speed = Max_Motor_Velocity * motorFactor;
-//		getYPR();
-//		rearLeftMotor->Set(ControlMode::Velocity, -speed);
-//		frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
-//
-//		rearRightMotor->Set(ControlMode::Velocity, speed);
-//		frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
-//	}
+
 	while(timer < 10)
 	{
 		if(gyroError < 3 && gyroError > -3)
