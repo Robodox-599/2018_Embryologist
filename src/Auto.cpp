@@ -307,7 +307,7 @@ void Auto::nonPreLoad_auto1()//Left starting position, Objective: Switch
 		//dataTest = 1;
 		//driveStraight(1, 1000);
 
-		manip->setPos(1);//releases intake
+		//manip->setPos(1);//releases intake
 		driveStraight(1,50000);
 		drive->autoTurn(270); //function not final
 		drive->updateLeftMotors(1);
@@ -331,7 +331,7 @@ void Auto::nonPreLoad_auto1()//Left starting position, Objective: Switch
 		//dataTest = 2;
 		//driveStraight(-1, 1000);
 
-		manip->setPos(1);//releases intake
+		//manip->setPos(1);//releases intake
 		driveStraight(1,50000);
 		drive->autoTurn(270); //function not final
 		drive->updateLeftMotors(1);
@@ -355,7 +355,7 @@ void Auto::nonPreLoad_auto2()
 {
 	if(gameData[0] == 'L')
 	{
-		manip->setPos(1);
+		//manip->setPos(1);
 		driveStraight(1,30000);
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
@@ -372,7 +372,7 @@ void Auto::nonPreLoad_auto2()
 	}
 	else
 	{
-		manip->setPos(1);
+		//manip->setPos(1);
 		driveStraight(1,30000);
 		drive->updateLeftMotors(1);
 		drive->updateRightMotors(1);
@@ -393,7 +393,7 @@ void Auto::nonPreLoad_auto3()
 {
 	if(gameData[0] == 'L')
 	{
-		manip->setPos(1);//releases intake
+		//manip->setPos(1);//releases intake
 		driveStraight(1,50000);
 		drive->autoTurn(90); //function not final
 		drive->updateLeftMotors(1);
@@ -411,7 +411,7 @@ void Auto::nonPreLoad_auto3()
 	}
 	else
 	{
-		manip->setPos(1);//releases intake
+		//manip->setPos(1);//releases intake
 		driveStraight(1,50000);
 		drive->autoTurn(90); //function not final
 		drive->updateLeftMotors(1);
@@ -978,7 +978,7 @@ void Auto::auto5()
 	}
 	if(gameData[1] == 'L')
 	{
-		manip->setPos(1);
+		//manip->setPos(1);
 		driveStraight(1,15000);
 		drive->autoTurn(90);
 		driveStraight(1,25000);
@@ -991,7 +991,7 @@ void Auto::auto5()
 	}
 	else
 	{
-		manip->setPos(1);
+	//	manip->setPos(1);
 		driveStraight(1,15000);
 		drive->autoTurn(270);
 		driveStraight(1,25000);
@@ -1013,7 +1013,7 @@ void Auto::auto5_5()
 	if(gameData[1] == 'L')
 	{
 		Wait(1.5);
-		manip->setPos(1);
+	//	manip->setPos(1);
 		driveStraight(1,15000);
 		drive->autoTurn(90);
 		driveStraight(1,25000);
@@ -1027,7 +1027,7 @@ void Auto::auto5_5()
 	else
 	{
 		Wait(1.5);
-		manip->setPos(1);
+		//manip->setPos(1);
 		driveStraight(1,15000);
 		drive->autoTurn(270);
 		driveStraight(1,25000);
@@ -1048,7 +1048,7 @@ void Auto::auto6()
 	}
 	if(gameData[1] == 'L')
 	{
-		manip->setPos(1);
+		//manip->setPos(1);
 		driveStraight(.7,100000);
 		drive->autoTurn(90);
 		driveStraight(1,2000);
@@ -1057,7 +1057,7 @@ void Auto::auto6()
 	}
 	else
 	{
-		manip->setPos(1);
+		//manip->setPos(1);
 		driveStraight(.7,80000);
 		drive->autoTurn(90);
 		driveStraight(1,60000);

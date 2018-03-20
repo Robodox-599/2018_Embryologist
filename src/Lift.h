@@ -42,6 +42,7 @@ public:
 
 		void doClimb(bool climbButton);
 		void releaseRope(bool release, bool reset);
+		void setLiftMotors(float speed);
 
 		void stopLift();
 
