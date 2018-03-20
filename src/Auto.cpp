@@ -33,30 +33,6 @@ Auto::~Auto()
 
 void Auto::driveStraight(float speed, int enc)
 {
-	//drive->resetEncoder();
-//	if(-speed > 0)
-//	{
-//		while(drive->getLeftEnc() > -enc)// && drive->getRightEnc() > -enc)//Dummy values
-//		{
-//		drive->updateLeftMotors(-speed);
-//		drive->updateRightMotors(-speed);
-//		}
-//		drive->updateLeftMotors(0);
-//		drive->updateRightMotors(0);
-//		//drive->resetEncoder();
-//	}
-//	if(-speed < 0)
-//	{
-//		while(drive->getLeftEnc() < enc )//&& drive->getRightEnc() < enc)//Dummy values
-//		{
-//		drive->updateLeftMotors(-speed);
-//		drive->updateRightMotors(-speed);
-//		}
-//		drive->updateLeftMotors(0);
-//		drive->updateRightMotors(0);
-//				//drive->resetEncoder();
-//	}
-
 	if(speed > 0)
 	{
 		while(drive->getLeftEnc() > -enc)
@@ -95,13 +71,6 @@ void Auto::driveStraight(float speed, int enc)
 		drive->updateLeftMotors(0);
 		drive->updateRightMotors(0);
 	}
-
-//	driveTarget = -enc;
-//	driveCurrent = drive->getLeftEnc();
-//	driveError = driveTarget-driveCurrent;
-//	adjustDrive(driveError, speed);
-//	drive->updateLeftMotors(0);
-//	drive->updateRightMotors(0);
 }
 
 void Auto::encTurn(float speedL, float speedR, int enc)
@@ -134,29 +103,17 @@ void Auto::encLift(float speed, int enc)
 	{
 		while(!lift->upperLimitTester() && lift->getRightLiftEnc() < enc)
 		{
-			lift->frontLeftLift->Set(ControlMode::PercentOutput, speed);
-			lift->backLeftLift->Set(ControlMode::PercentOutput, speed);
-			lift->frontRightLift->Set(ControlMode::PercentOutput, speed);
-			lift->backRightLift->Set(ControlMode::PercentOutput, speed);
+			lift->setLiftMotors(speed);
 		}
-		lift->frontLeftLift->Set(ControlMode::PercentOutput, 0.05);
-		lift->backLeftLift->Set(ControlMode::PercentOutput, 0.05);
-		lift->frontRightLift->Set(ControlMode::PercentOutput, -0.05);
-		lift->backRightLift->Set(ControlMode::PercentOutput, -0.05);
+		lift->setLiftMotors(.05);
 	}
 	if(lift->getRightLiftEnc() > enc)
 	{
 		while(!lift->lowerLimitTester() && lift->getRightLiftEnc() < enc)
 		{
-			lift->frontLeftLift->Set(ControlMode::PercentOutput, -speed);
-			lift->backLeftLift->Set(ControlMode::PercentOutput, -speed);
-			lift->frontRightLift->Set(ControlMode::PercentOutput, -speed);
-			lift->backRightLift->Set(ControlMode::PercentOutput, -speed);
+			lift->setLiftMotors(-speed);
 		}
-		lift->frontLeftLift->Set(ControlMode::PercentOutput, 0.05);
-		lift->backLeftLift->Set(ControlMode::PercentOutput, 0.05);
-		lift->frontRightLift->Set(ControlMode::PercentOutput, -0.05);
-		lift->backRightLift->Set(ControlMode::PercentOutput, -0.05);
+		lift->setLiftMotors(.05);
 	}
 }
 
@@ -193,15 +150,9 @@ void Auto::turnRobot(float speed, float time)
 
 void Auto::liftTime(float speed, float time)
 {
-	lift->frontLeftLift->Set(ControlMode::PercentOutput, speed);
-	lift->backLeftLift->Set(ControlMode::PercentOutput, speed);
-	lift->frontRightLift->Set(ControlMode::PercentOutput, speed);
-	lift->backRightLift->Set(ControlMode::PercentOutput, speed);
+	lift->setLiftMotors(speed);
 	Wait(time);
-	lift->frontLeftLift->Set(ControlMode::PercentOutput, .05);
-	lift->backLeftLift->Set(ControlMode::PercentOutput, .05);
-	lift->frontRightLift->Set(ControlMode::PercentOutput, .05);
-	lift->backRightLift->Set(ControlMode::PercentOutput, .05);
+	lift->setLiftMotors(.05);
 }
 
 void Auto::gyroTurn(float speed, int angle)
