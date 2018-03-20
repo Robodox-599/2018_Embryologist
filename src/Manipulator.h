@@ -17,7 +17,7 @@ public:
 	void jiggle(bool jiggButton);
 	void AutoIntake();
 	void AutoOuttake();
-	void setPos(bool pos);
+	//void setPos(bool pos);
 
 	void intakeAngle(float zAxis);
 	void pivotIntake(bool down, bool shoot, bool up);
