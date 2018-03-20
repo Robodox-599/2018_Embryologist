@@ -193,7 +193,7 @@ public:
 				//manipulator
 		auton->manip->intakeOuttakeCube(atk3->GetRawButton(4),atk3->GetRawButton(1),atk3->GetRawAxis(2));
 				//manip->diffIntake(atk3->GetRawButton(6),atk3->GetRawButton(7));
-		auton->manip->intakePosition(atk3->GetRawButton(8), atk3->GetRawButton(9));
+		//auton->manip->intakePosition(atk3->GetRawButton(8), atk3->GetRawButton(9));
 				//SmartDashboard::GetBoolean("stopper: ", manip->stoppingCube());
 		auton->manip->jiggle(atk3->GetRawButton(3));
 				//manip->liftIntake(atk3->GetRawButton(11), atk3->GetRawButton(10), atk3->GetRawButton(2), atk3->GetRawButton(5));

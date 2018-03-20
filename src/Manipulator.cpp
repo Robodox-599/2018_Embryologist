@@ -14,8 +14,8 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     leftIntakeMotor = new TalonSRX(5);
     rightIntakeMotor = new TalonSRX(8);
     liftIntakeMotor = new TalonSRX(11); //These are dummy values.//
-    leftmanipPiston = new DoubleSolenoid (2,3);
-    leftmanipPiston->Set(DoubleSolenoid::kReverse);
+//    leftmanipPiston = new DoubleSolenoid (2,3);
+//    leftmanipPiston->Set(DoubleSolenoid::kReverse);
     //rightmanipPiston = new DoubleSolenoid (0,2);
     cubeStop = new DigitalInput(2); //These are dummy values.//
     toggle = 1;

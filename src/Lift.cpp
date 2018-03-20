@@ -22,6 +22,9 @@ Lift::Lift()
 	liftPiston = new DoubleSolenoid(0,1);
 	liftPiston->Set(DoubleSolenoid::kForward);
 
+	ropeRelease = new DoubleSolenoid(2,3);
+	ropeRelease->Set(DoubleSolenoid::kReverse);
+
 	rungPiston = new DoubleSolenoid(6, 7);
 	rungPiston->Set(DoubleSolenoid::kReverse);
 
@@ -31,6 +34,7 @@ Lift::Lift()
 	encErrorLeft = 0;
 	encErrorRight = 0;
 	canLift = false;
+	canClimb = false;
 	rungState = false;
 	climbState = false;
 }
@@ -87,6 +91,13 @@ void Lift::liftRobot(float liftInput)
 			frontLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-.65));
 			backRightLift->Set(ControlMode::PercentOutput, -liftInput*(-.65));
 			backLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-.65));
+		}
+		else if((liftInput < -LIFT_DEADZONE) && getLeftLiftEnc() > 0 &&!lowerLimit->Get() && canClimb)//&& getRightLiftEnc() > 3000))
+		{
+			frontRightLift->Set(ControlMode::PercentOutput,  -liftInput*(-1));
+			frontLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-1));
+			backRightLift->Set(ControlMode::PercentOutput, -liftInput*(-1));
+			backLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-1));
 		}
 //		else if (liftInput < -LIFT_DEADZONE && (!lowerLimit->Get() && getRightLiftEnc() < 3000))//buffer range
 //		{
@@ -185,6 +196,20 @@ void Lift::heightPosition(bool positionA, bool positionB)
 	}
 }
 */
+
+void Lift::releaseRope(bool release, bool reset)
+{
+	if(release)
+	{
+		ropeRelease->Set(DoubleSolenoid::kForward);
+		canClimb = true;
+	}
+	if(reset)
+	{
+		ropeRelease->Set(DoubleSolenoid::kReverse);
+		canClimb = false;
+	}
+}
 float Lift::getLeftLiftEnc()
 {
 	return -frontLeftLift->GetSelectedSensorPosition(FeedbackDevice::QuadEncoder);

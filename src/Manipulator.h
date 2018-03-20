@@ -40,7 +40,7 @@ private:
 
 
 
-	DoubleSolenoid* leftmanipPiston;
+	//DoubleSolenoid* leftmanipPiston;
 
 	//DoubleSolenoid* rightmanipPiston;
 	float potAngle;

@@ -41,10 +41,12 @@ public:
 		void heightPosition(bool positionA, bool positionB);
 
 		void doClimb(bool climbButton);
+		void releaseRope(bool release, bool reset);
 
 		void stopLift();
 
 		bool canLift;
+		bool canClimb;
 		bool rungState;
 		bool climbState;
 
@@ -52,6 +54,7 @@ public:
 		//DoubleSolenoid *rightLiftPiston;
 
 		DoubleSolenoid *rungPiston;
+		DoubleSolenoid *ropeRelease;
 		TalonSRX *frontRightLift;
 		TalonSRX *frontLeftLift;
 		TalonSRX *backRightLift;
