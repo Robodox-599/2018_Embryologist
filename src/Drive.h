@@ -54,6 +54,8 @@ public:
 	void turnByGyro(float heading);
 
 	void driveSmartDashboard();
+
+	void updateDriveMotors(float left, float right);
 	//AHRS* navX;
 	PigeonIMU * pGyon;
 
