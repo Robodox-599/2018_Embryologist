@@ -8,8 +8,6 @@
 
 Drive::Drive()
 {
-	//navX = new AHRS(SPI::Port::kMXP);
-
 	frontLeftMotor = new TalonSRX(Drive_Front_Left_Motor_Channel);
 	rearLeftMotor = new TalonSRX(Drive_Rear_Left_Motor_Channel);
 	frontRightMotor = new TalonSRX(Drive_Front_Right_Motor_Channel);
@@ -22,9 +20,7 @@ Drive::Drive()
 
 	shifter->Set(DoubleSolenoid::kReverse);
 	//rightShifter->Set(DoubleSolenoid::kReverse);
-	//navX->ZeroYaw();
 
-	//gyroValue = navX->GetYaw();
 	pGyon->SetYaw(0, 0);
 	pGyon->GetYawPitchRoll(ypr);
 	refAngle = 0;
@@ -55,7 +51,6 @@ Drive::~Drive()
 	delete pGyon;
 
 	//delete shifter;
-	//delete navX;
 
 	frontLeftMotor = nullptr;
 	rearLeftMotor = nullptr;
@@ -65,7 +60,6 @@ Drive::~Drive()
 	pGyon = nullptr;
 
 	//shifter = nullptr;
-	//navX = nullptr;
 }
 
 void Drive::PIDset()

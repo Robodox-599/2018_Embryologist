@@ -12,6 +12,9 @@
 #define outtake_button (5)  //This is the button for outtake//
 
 
+#define Auto_Timeout (10) //auto timeout
+
+
 //talon number for the motors//
 #define Drive_Front_Left_Motor_Channel (4) //4 , 7(MOD)
 #define Drive_Rear_Left_Motor_Channel (3) //3  , 10(MOD)

@@ -47,6 +47,12 @@ public:
 	void encTurn(float speedL, float speedR, int enc);
 	void encLift(float speed, int enc);
 
+
+	void distanceDrive(float distance);
+	float getEncCount(float diameter);
+	void turnByGyro(float heading);
+
+
 	int autoSelector();
 	bool doAuto;
 	Drive* drive;
@@ -67,6 +73,13 @@ private:
 	int driveError;
 
 	double ypr[3];
+
+	float encCount;
+	float encDistance;
+	float encErrorR;
+	float encErrorL;
+	int autoTimer;
+	float gyroError;
 };
 
 

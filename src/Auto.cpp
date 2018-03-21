@@ -16,6 +16,13 @@ Auto::Auto()
 	driveTarget = 0;
 	driveError = 0;
 	timerTime = 0;
+
+	encCount = 0;
+	encDistance = 0;
+	encErrorL = 0;
+	encErrorR = 0;
+	autoTimer = 0;
+	gyroError = 0;
 }
 
 void Auto::setGameData(std::string data)
@@ -1049,5 +1056,77 @@ void Auto::displayData()
 	else
 	{
 		SmartDashboard::PutString("Data Position", "R");
+	}
+}
+
+
+void Auto::distanceDrive(float distance)//unit determined by the unit of circumference
+{
+	encDistance = encCount * (distance);
+
+	while(autoTimer < Auto_Timeout)
+	{
+		if(encErrorR < 3 && encErrorL < 3 && encErrorR > -3 && encErrorL > -3)
+		{
+			autoTimer += 1;
+		}
+		if(encErrorR > 3 || encErrorR < -3)
+		{
+			autoTimer = 0;
+			float encRight = drive->getRightEnc();
+			encErrorR = encDistance - encRight;
+			float motorFactorR = (encErrorR/40.0);
+			if (motorFactorR > 1) motorFactorR = 1;
+			if (motorFactorR < -1) motorFactorR = -1;
+			float speedR = Max_Motor_Velocity * motorFactorR;
+			drive->rearRightMotor->Set(ControlMode::Velocity, speedR);
+			drive->frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
+		}
+		if(encErrorL > 3 || encErrorL < -3)
+		{
+			autoTimer = 0;
+			float encLeft = drive->getLeftEnc();
+			encErrorL = encDistance - encLeft;
+			float motorFactorL = (encErrorR/40.0);
+			if (motorFactorL > 1) motorFactorL = 1;
+			if (motorFactorL < -1) motorFactorL = -1;
+			float speedL = Max_Motor_Velocity * motorFactorL;
+			drive->rearLeftMotor->Set(ControlMode::Velocity, speedL);
+			drive->frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
+		}
+	}
+
+}
+
+float Auto::getEncCount(float diameter)
+{
+	return encCount = /*(3.1415*2*4.24)->*/26.64*diameter/390756;
+}
+
+void Auto::turnByGyro(float heading)
+{
+	while(autoTimer < Auto_Timeout)
+	{
+		if(gyroError < 3 && gyroError > -3)
+		{
+			autoTimer += 1;
+		}
+		if(gyroError > 3 || gyroError < -3)
+		{
+			drive->getYPR();
+			autoTimer = 0;
+			double currentHeading = drive->ypr[0];
+			gyroError = currentHeading - heading;
+			float motorFactor = (gyroError/40.0);
+			if (motorFactor > 1) motorFactor = 1;
+			if (motorFactor < -1) motorFactor = -1;
+			float speed = Max_Motor_Velocity * motorFactor;
+			drive->rearLeftMotor->Set(ControlMode::Velocity, -speed);
+			drive->frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
+
+			drive->rearRightMotor->Set(ControlMode::Velocity, speed);
+			drive->frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
+		}
+		Wait(.01);
 	}
 }

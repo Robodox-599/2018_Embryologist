@@ -54,7 +54,6 @@ public:
 	void turnByGyro(float heading);
 
 	void driveSmartDashboard();
-	//AHRS* navX;
 	PigeonIMU * pGyon;
 
 	TalonSRX* frontLeftMotor;
@@ -63,6 +62,8 @@ public:
 	TalonSRX* rearRightMotor;
 
 	DoubleSolenoid* shifter;
+
+	double ypr[3];
 private:
 
 	//DoubleSolenoid* rightShifter;
@@ -70,7 +71,6 @@ private:
 	double targetHeading;
 	double currentHeading;
 
-	double ypr[3];
 	PigeonIMU::GeneralStatus genStatus;
 
 	float fwdSpeed;
