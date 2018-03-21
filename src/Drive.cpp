@@ -493,3 +493,9 @@ void Drive::resetGyro()
 	targetHeading = 0;
 	pGyon->SetYaw(0, 0);
 }
+
+void Drive::updateDriveMotors(float left, float right)
+{
+	updateLeftMotors(left);
+	updateRightMotors(-right);
+}
