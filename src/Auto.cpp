@@ -48,10 +48,12 @@ void Auto::driveStraight(float speed, int enc)
 			if(driveSpeed<speed)
 			{
 				drive->updateDriveMotors(speed, speed);
+				Wait(.01);
 			}
 			else
 			{
 				drive->updateDriveMotors(driveSpeed, driveSpeed);
+				Wait(.01);
 			}
 		}
 		drive->updateDriveMotors(0,0);
@@ -64,10 +66,12 @@ void Auto::driveStraight(float speed, int enc)
 			if(driveSpeed<speed)
 			{
 				drive->updateDriveMotors(driveSpeed, driveSpeed);
+				Wait(.01);
 			}
 			else
 			{
 				drive->updateDriveMotors(speed, speed);
+				Wait(.01);
 			}
 		}
 		drive->updateDriveMotors(0,0);
@@ -81,6 +85,7 @@ void Auto::encTurn(float speedL, float speedR, int enc)
 		while(drive->getLeftEnc() > -(enc-1000) && drive->getRightEnc() < (enc-1000))
 		{
 			drive->updateDriveMotors(speedL, speedR);
+			Wait(.01);
 		}
 		drive->updateDriveMotors(0,0);
 	}
@@ -89,6 +94,7 @@ void Auto::encTurn(float speedL, float speedR, int enc)
 		while(drive->getLeftEnc() < (enc-1000) && drive->getRightEnc() > -(enc-1000))
 		{
 			drive->updateDriveMotors(speedL, speedR);
+			Wait(.01);
 		}
 		drive->updateDriveMotors(0,0);
 	}
@@ -101,6 +107,7 @@ void Auto::encLift(float speed, int enc)
 		while(!lift->upperLimitTester() && lift->getRightLiftEnc() < enc)
 		{
 			lift->setLiftMotors(speed);
+			Wait(.01);
 		}
 		lift->setLiftMotors(.05);
 	}
@@ -109,6 +116,7 @@ void Auto::encLift(float speed, int enc)
 		while(!lift->lowerLimitTester() && lift->getRightLiftEnc() < enc)
 		{
 			lift->setLiftMotors(-speed);
+			Wait(.01);
 		}
 		lift->setLiftMotors(.05);
 	}
