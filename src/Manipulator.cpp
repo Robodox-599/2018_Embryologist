@@ -57,14 +57,14 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake, float mod) //inta
 	}
 	else if(cubeStop->Get())
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.25);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .25);
 	}
 
 	else
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.25);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .25);
 	}
 	SmartDashboard::PutBoolean("CubeStopper: ", cubeStop->Get());
 }

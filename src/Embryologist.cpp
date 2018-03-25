@@ -76,7 +76,7 @@ public:
 	 */
 	void AutonomousInit() override {
 		auton->drive->resetEncoder();
-	//	auton->setGameData(frc::DriverStation::GetInstance().GetGameSpecificMessage());
+		auton->setGameData(frc::DriverStation::GetInstance().GetGameSpecificMessage());
 		/*autoSelected = chooser.GetSelected();
 		// std::string autoSelected = SmartDashboard::GetString("Auto Selector", autoNameDefault);
 		std::cout << "Auto selected: " << autoSelected << std::endl;
@@ -92,33 +92,34 @@ public:
 
 	void AutonomousPeriodic()
 	{
-//		if(auton->doAuto)auton->auto2();
-//		else
-//		{
-//			 auton->drive->updateLeftMotors(0);
-//			 auton->drive->updateRightMotors(0);
-//			 auton->manip->stopManip();
-//			 auton->lift->stopLift();
-//		}
-
-		if(autoo)
-		{
-			auton->drive->updateLeftMotors(.5);
-			auton->drive->updateRightMotors(-.5);
-			printf("start wait");
-			Wait(1.8);
-			printf("done wait");
-
-			auton->drive->updateLeftMotors(0);
-			auton->drive->updateRightMotors(0);
-			autoo = false;
-		}
+		auton->drive->driveSmartDashboard();
+		if(auton->doAuto)auton->auto2();
 		else
 		{
-			auton->drive->updateLeftMotors(0);
-			auton->drive->updateRightMotors(0);
-			//Wait(20);
+			 auton->drive->updateLeftMotors(0);
+			 auton->drive->updateRightMotors(0);
+			 auton->manip->stopManip();
+			 auton->lift->stopLift();
 		}
+
+//		if(autoo)
+//		{
+//			auton->drive->updateLeftMotors(.5);
+//			auton->drive->updateRightMotors(-.5);
+//			printf("start wait");
+//			Wait(1.8);
+//			printf("done wait");
+//
+//			auton->drive->updateLeftMotors(0);
+//			auton->drive->updateRightMotors(0);
+//			autoo = false;
+//		}
+//		else
+//		{
+//			auton->drive->updateLeftMotors(0);
+//			auton->drive->updateRightMotors(0);
+//			//Wait(20);
+//		}
 
 //		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
 //		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
@@ -172,7 +173,7 @@ public:
 
 	void TeleopInit()
 	{
-		auton->drive->resetEncoder();
+		//auton->drive->resetEncoder();
 	}
 
 	void TeleopPeriodic()
