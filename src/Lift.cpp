@@ -111,6 +111,10 @@ void Lift::liftRobot(float liftInput)
 //			backLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-1));
 			setLiftMotors(-liftInput*(-1));
 		}
+		else if(canClimb && lowerLimit->Get())
+		{
+			setLiftMotors(.3);
+		}
 //		else if (liftInput < -LIFT_DEADZONE && (!lowerLimit->Get() && getRightLiftEnc() < 3000))//buffer range
 //		{
 //			frontRightLift->Set(ControlMode::PercentOutput, -liftInput*(-.3));
