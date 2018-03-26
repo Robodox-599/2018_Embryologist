@@ -201,7 +201,7 @@ void Manipulator::fixPivotError(float error)
 	float movePivot = (error/100);
 
 	if(movePivot > .6) movePivot = .6;
-	if(movePivot < -.6) movePivot = -.1;
+	if(movePivot < -.1) movePivot = -.1;
 
 	if(pot->Get() <= 0)
 	{
