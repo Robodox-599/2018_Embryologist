@@ -23,7 +23,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     pot = new AnalogPotentiometer(3, 200, 0);
 
     currentPivot = 0;
-	targetPivot = 140;
+	targetPivot = 80;
 	errorPivot = 0;
 }
 
@@ -57,14 +57,14 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake, float mod) //inta
 	}
 	else if(cubeStop->Get())
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.25);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .25);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
 	}
 
 	else
 	{
-		leftIntakeMotor->Set(ControlMode::PercentOutput, -.25);
-		rightIntakeMotor->Set(ControlMode::PercentOutput, .25);
+		leftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
+		rightIntakeMotor->Set(ControlMode::PercentOutput, .1);
 	}
 	SmartDashboard::PutBoolean("CubeStopper: ", cubeStop->Get());
 }
@@ -103,8 +103,8 @@ bool Manipulator::stoppingCube() //limit switch stops intake//
 
 void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 {
-	leftIntakeMotor->Set(ControlMode::PercentOutput, .35);
-	rightIntakeMotor->Set(ControlMode::PercentOutput, -.35);
+	leftIntakeMotor->Set(ControlMode::PercentOutput, .3);
+	rightIntakeMotor->Set(ControlMode::PercentOutput, -.3);
 	Wait(1);
 	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
@@ -187,9 +187,9 @@ void Manipulator:: liftIntake (bool Lift, bool noLift, bool midLift, bool finalL
 
 void Manipulator::pivotIntake(bool down, bool shoot, bool up)
 {
-	if(up) targetPivot = 140;//100
-	if(shoot) targetPivot = 135;//40
-	if(down) targetPivot = 60;//
+	if(up) targetPivot = 95;//140
+	if(shoot) targetPivot = 80;//135
+	if(down) targetPivot = 25;//60
 
 	currentPivot = pot->Get();
 	errorPivot = targetPivot-currentPivot;
@@ -201,7 +201,7 @@ void Manipulator::fixPivotError(float error)
 	float movePivot = (error/100);
 
 	if(movePivot > .6) movePivot = .6;
-	if(movePivot < -.1) movePivot = -.1;
+	if(movePivot < -.2) movePivot = -.2;
 
 	if(pot->Get() <= 0)
 	{

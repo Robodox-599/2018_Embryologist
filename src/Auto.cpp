@@ -644,18 +644,18 @@ void Auto::auto2()
 		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
 		drive->resetEncoder();
 		Wait(.1);
-		driveStraight(.3, 2000);
+		driveStraight(.4, 1800);
 		Wait(.3);
 		drive->resetEncoder();
 		Wait(.1);
-		encTurn(-.32,.32,3500);
+		encTurn(-.4,.4,3800);
 		drive->resetEncoder();
 		Wait(.1);
 		driveStraight(.35,20000);
 		Wait(.5);
 		drive->resetEncoder();
 		Wait(.1);
-		encTurn(.23,-.23,1000);//13500
+		encTurn(.3,-.3,1500);//13500
 		Wait(.2);
 		lift->resetLiftEncoder();
 		Wait(.1);
@@ -668,18 +668,18 @@ void Auto::auto2()
 		Wait(.3);
 		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
 		manip->AutoOuttake();
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.38);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.4);
 		if(!lift->lowerLimitTester())liftTime(-.2,1);
 		//
 		//Second cube
 		//
 		drive->resetEncoder();
 		Wait(.1);
-		driveStraight(-.3,3400);
+		driveStraight(-.3,3500);
 		Wait(.1);
 		drive->resetEncoder();
 		Wait(.1);
-		encTurn(.32,-.32,5000);
+		encTurn(.32,-.32,4700);
 		drive->resetEncoder();
 		Wait(.1);
 		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .5);
@@ -689,7 +689,7 @@ void Auto::auto2()
 		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.5);
 		drive->resetEncoder();
 		Wait(.1);
-		driveStraight(.3,7500);
+		driveStraight(.45,9000);
 		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .9);
 		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.6);
 		Wait(.3);
@@ -707,7 +707,7 @@ void Auto::auto2()
 		encTurn(-.4,.4,1500);
 		lift->resetLiftEncoder();
 		Wait(.1);
-		encLift(.3,5000);
+		encLift(.3,8000);
 		drive->resetEncoder();
 		Wait(.1);
 		driveStraight(.3,3500);
@@ -770,10 +770,9 @@ void Auto::auto2()
 //		drive->resetEncoder();
 //		Wait(.1);
 //		driveStraight(.3, 2000);
+//		drive->pGyon->SetYaw(0, 0);
 //		Wait(.3);
-//		drive->resetEncoder();
-//		Wait(.1);
-//		encTurn(-.32,.32,3500);
+//		drive->turnByGyro(90);
 //		drive->resetEncoder();
 //		Wait(.1);
 //		driveStraight(.35,20000);
@@ -957,11 +956,11 @@ void Auto::auto2()
 		Wait(.1);
 		drive->resetEncoder();
 		Wait(.1);
-		driveStraight(.35,8700);
+		driveStraight(.3,8500);
 		Wait(.5);
 		drive->resetEncoder();
 		Wait(.2);
-		encTurn(-.3,.3,3700);//13500
+		encTurn(-.25,.25,3900);//13500
 		Wait(.2);
 		lift->resetLiftEncoder();
 		Wait(.1);
@@ -981,7 +980,7 @@ void Auto::auto2()
 		//
 		drive->resetEncoder();
 		Wait(.1);
-		driveStraight(-.3,3000);
+		driveStraight(-.3,2800);
 		Wait(.1);
 		drive->resetEncoder();
 		Wait(.1);
@@ -1024,9 +1023,9 @@ void Auto::auto2()
 		drive->resetEncoder();
 		Wait(.1);
 		//encTurn(0,.4,10000);
-		while((drive->getRightEnc()) < (13000))
+		while((drive->getRightEnc()) < (12000))
 		{
-			drive->updateDriveMotors(0, -.5);
+			drive->updateDriveMotors(0, -.4);
 			Wait(.01);
 		}
 		drive->updateDriveMotors(0,0);
