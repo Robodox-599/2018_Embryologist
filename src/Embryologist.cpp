@@ -77,6 +77,7 @@ public:
 	void AutonomousInit() override {
 		auton->drive->resetEncoder();
 		auton->setGameData(frc::DriverStation::GetInstance().GetGameSpecificMessage());
+		auton->drive->pGyon->SetYaw(0, 0);
 		/*autoSelected = chooser.GetSelected();
 		// std::string autoSelected = SmartDashboard::GetString("Auto Selector", autoNameDefault);
 		std::cout << "Auto selected: " << autoSelected << std::endl;
@@ -197,7 +198,7 @@ public:
 
 		//drive
 		auton->drive->shift(xbox->GetRawButton(B_Xbox));
-		//drive->getYPR();
+		auton->drive->getYPR();
 		//auton->drive->updateDrive(xbox->GetRawAxis(RX_Axis_Xbox), xbox->GetRawAxis(LY_Axis_Xbox));
 		auton->drive->velocityDrive(xbox->GetRawAxis(RX_Axis_Xbox), xbox->GetRawAxis(LY_Axis_Xbox));//4,1
 		SmartDashboard::PutNumber("Left Drive", auton->drive->getLeftEnc());

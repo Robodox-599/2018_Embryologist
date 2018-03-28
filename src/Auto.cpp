@@ -636,131 +636,6 @@ void Auto::auto2()
 
 	//----Encoder:
 
-	if(gameData[0] == 'L')
-	{
-		printf("starting auto 2");
-		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
-		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .15);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
-		drive->resetEncoder();
-		Wait(.1);
-		driveStraight(.4, 1800);
-		Wait(.3);
-		drive->resetEncoder();
-		Wait(.1);
-		encTurn(-.4,.4,3800);
-		drive->resetEncoder();
-		Wait(.1);
-		driveStraight(.35,20000);
-		Wait(.5);
-		drive->resetEncoder();
-		Wait(.1);
-		encTurn(.3,-.3,1500);//13500
-		Wait(.2);
-		lift->resetLiftEncoder();
-		Wait(.1);
-		encLift(.3,5000);
-		Wait(.1);
-		drive->resetEncoder();
-		Wait(.1);
-		driveStraight(.3,2800);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .24);
-		Wait(.3);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
-		manip->AutoOuttake();
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.4);
-		if(!lift->lowerLimitTester())liftTime(-.2,1);
-		//
-		//Second cube
-		//
-		drive->resetEncoder();
-		Wait(.1);
-		driveStraight(-.3,3500);
-		Wait(.1);
-		drive->resetEncoder();
-		Wait(.1);
-		encTurn(.32,-.32,4700);
-		drive->resetEncoder();
-		Wait(.1);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .5);
-		Wait(.6);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.05);
-		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .8);
-		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.5);
-		drive->resetEncoder();
-		Wait(.1);
-		driveStraight(.45,9000);
-		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .9);
-		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.6);
-		Wait(.3);
-		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .15);
-		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.15);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.6);
-		Wait(.4);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
-		drive->resetEncoder();
-		Wait(.1);
-		driveStraight(-.3,5000);
-		Wait(.5);
-		drive->resetEncoder();
-		Wait(.1);
-		encTurn(-.4,.4,1500);
-		lift->resetLiftEncoder();
-		Wait(.1);
-		encLift(.3,8000);
-		drive->resetEncoder();
-		Wait(.1);
-		driveStraight(.3,3500);
-		manip->AutoOuttake();
-		drive->resetEncoder();
-		Wait(.1);
-		encTurn(.4,0,12000);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.38);
-		if(!lift->lowerLimitTester())liftTime(-.2,1);
-		//
-		//Third
-		//
-		drive->resetEncoder();
-		Wait(.1);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .5);
-		Wait(.6);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.05);
-		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .8);
-		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.5);
-		drive->resetEncoder();
-		Wait(.1);
-		driveStraight(.4,12000);
-		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .9);
-		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.6);
-		Wait(.3);
-		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .15);
-		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.15);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.6);
-		Wait(.4);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
-		drive->resetEncoder();
-		Wait(.1);
-		driveStraight(-.35,6000);
-		Wait(.5);
-		drive->resetEncoder();
-		Wait(.1);
-		encTurn(-.4,.4,3000);
-		lift->resetLiftEncoder();
-		Wait(.1);
-		encLift(.3,5000);
-		drive->resetEncoder();
-		Wait(.1);
-		driveStraight(.3,4500);
-		manip->AutoOuttake();
-		driveStraight(-.3,2000);
-		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.38);
-		if(!lift->lowerLimitTester())liftTime(-.1,1);
-		//
-		doAuto = 0;
-	}
-
-	//----Gyro:
-
 //	if(gameData[0] == 'L')
 //	{
 //		printf("starting auto 2");
@@ -769,17 +644,18 @@ void Auto::auto2()
 //		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
 //		drive->resetEncoder();
 //		Wait(.1);
-//		driveStraight(.3, 2000);
-//		drive->pGyon->SetYaw(0, 0);
+//		driveStraight(.4, 1800);
 //		Wait(.3);
-//		drive->turnByGyro(90);
+//		drive->resetEncoder();
+//		Wait(.1);
+//		encTurn(-.4,.4,3800);
 //		drive->resetEncoder();
 //		Wait(.1);
 //		driveStraight(.35,20000);
 //		Wait(.5);
 //		drive->resetEncoder();
 //		Wait(.1);
-//		encTurn(.23,-.23,1000);//13500
+//		encTurn(.3,-.3,1500);//13500
 //		Wait(.2);
 //		lift->resetLiftEncoder();
 //		Wait(.1);
@@ -792,18 +668,18 @@ void Auto::auto2()
 //		Wait(.3);
 //		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
 //		manip->AutoOuttake();
-//		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.38);
+//		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.4);
 //		if(!lift->lowerLimitTester())liftTime(-.2,1);
 //		//
 //		//Second cube
 //		//
 //		drive->resetEncoder();
 //		Wait(.1);
-//		driveStraight(-.3,3400);
+//		driveStraight(-.3,3500);
 //		Wait(.1);
 //		drive->resetEncoder();
 //		Wait(.1);
-//		encTurn(.32,-.32,5000);
+//		encTurn(.32,-.32,4700);
 //		drive->resetEncoder();
 //		Wait(.1);
 //		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .5);
@@ -813,7 +689,7 @@ void Auto::auto2()
 //		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.5);
 //		drive->resetEncoder();
 //		Wait(.1);
-//		driveStraight(.3,7500);
+//		driveStraight(.45,9000);
 //		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, .9);
 //		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, -.6);
 //		Wait(.3);
@@ -831,7 +707,7 @@ void Auto::auto2()
 //		encTurn(-.4,.4,1500);
 //		lift->resetLiftEncoder();
 //		Wait(.1);
-//		encLift(.3,5000);
+//		encLift(.3,8000);
 //		drive->resetEncoder();
 //		Wait(.1);
 //		driveStraight(.3,3500);
@@ -882,6 +758,129 @@ void Auto::auto2()
 //		//
 //		doAuto = 0;
 //	}
+
+	//----Gyro:
+
+	if(gameData[0] == 'L')
+	{
+		printf("starting auto 2");
+		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
+		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .15);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
+		drive->resetEncoder();
+		Wait(.1);
+		driveStraight(.38, 2100);
+		drive->pGyon->GetYawPitchRoll(ypr);
+		Wait(.3);
+		sGyroTurn(38,.38);
+		drive->resetEncoder();
+		Wait(.1);
+		driveStraight(.5,14000);
+		Wait(.5);
+		sGyroTurn(-38,.38);
+		Wait(.2);
+		lift->resetLiftEncoder();
+		Wait(.1);
+		encLift(.5,5000);
+		Wait(.1);
+		drive->resetEncoder();
+		Wait(.1);
+		driveStraight(.5,2000);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .24);
+		Wait(.3);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.1);
+		manip->AutoOuttake();
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.45);
+		if(!lift->lowerLimitTester())liftTime(-.2,1);
+		//
+		//Second cube
+		//
+		drive->resetEncoder();
+		Wait(.1);
+		driveStraight(-.3,2800);
+		Wait(.1);
+		sGyroTurn(-50,.35);
+		drive->resetEncoder();
+		Wait(.1);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .5);
+		Wait(.6);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.05);
+		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
+		drive->resetEncoder();
+		Wait(.1);
+		driveStraight(.3,9500);
+		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -1);
+		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .8);
+		Wait(.5);
+		driveStraight(.23,3800);
+		Wait(.2);
+		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
+		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .15);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+		Wait(.32);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.23);
+		drive->resetEncoder();
+		Wait(.1);
+		driveStraight(-.3,7200);
+		lift->setLiftMotors(.3);
+		Wait(.1);
+		sGyroTurn(45,.4);
+		lift->resetLiftEncoder();
+		Wait(.1);
+		//encLift(.3,5500);
+		lift->setLiftMotors(.06);
+		drive->resetEncoder();
+		Wait(.1);
+		driveStraight(.3,3300);
+		manip->AutoOuttake();
+		drive->resetEncoder();
+		Wait(.1);
+		driveStraight(-.3,1000);
+		drive->resetEncoder();
+		Wait(.1);
+		encTurn(.5,0,15000);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.38);
+		if(!lift->lowerLimitTester())liftTime(-.2,1);
+		//
+		//Third
+		//
+		drive->resetEncoder();
+		Wait(.1);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, .5);
+		Wait(.6);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.05);
+		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.8);
+		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .5);
+		drive->resetEncoder();
+		Wait(.1);
+		driveStraight(.5,18000);
+		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.9);
+		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .6);
+		Wait(.3);
+		manip->leftIntakeMotor->Set(ControlMode::PercentOutput, -.15);
+		manip->rightIntakeMotor->Set(ControlMode::PercentOutput, .15);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.6);
+		Wait(.4);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.09);
+		drive->resetEncoder();
+		Wait(.1);
+		driveStraight(-.35,6000);
+		Wait(.5);
+		sGyroTurn(70,.35);
+		lift->resetLiftEncoder();
+		Wait(.1);
+		encLift(.3,5000);
+		drive->resetEncoder();
+		Wait(.1);
+		driveStraight(.3,4500);
+		manip->AutoOuttake();
+		driveStraight(-.3,2000);
+		manip->liftIntakeMotor->Set(ControlMode::PercentOutput, -.38);
+		if(!lift->lowerLimitTester())liftTime(-.1,1);
+		//
+		doAuto = 0;
+	}
 
 	else
 	//right side of switch:
@@ -1381,30 +1380,77 @@ float Auto::getEncCount(float diameter)
 	return encCount = /*(3.1415*2*4.24)->*/26.64*diameter/390756;
 }
 
-//void Auto::turnByGyro(float heading)
-//{
-//	while(autoTimer < Auto_Timeout)
-//	{
-//		if(gyroError < 3 && gyroError > -3)
-//		{
-//			autoTimer += 1;
-//		}
-//		if(gyroError > 3 || gyroError < -3)
-//		{
-//			drive->getYPR();
-//			autoTimer = 0;
-//			double currentHeading = drive->ypr[0];
-//			gyroError = currentHeading - heading;
-//			float motorFactor = (gyroError/40.0);
-//			if (motorFactor > 1) motorFactor = 1;
-//			if (motorFactor < -1) motorFactor = -1;
-//			float speed = Max_Motor_Velocity * motorFactor;
-//			drive->rearLeftMotor->Set(ControlMode::Velocity, -speed);
-//			drive->frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
-//
-//			drive->rearRightMotor->Set(ControlMode::Velocity, speed);
-//			drive->frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
-//		}
-//		Wait(.01);
-//	}
-//}
+void Auto::sGyroTurn(float heading, float speed)
+{
+	if(heading > 0)
+	{
+		while(ypr[0] < heading+2)
+		{
+			SmartDashboard::PutNumber("Gyro Value", ypr[0]);
+			drive->pGyon->GetYawPitchRoll(ypr);
+			if(ypr[0] < heading-5)
+			{
+				drive->updateDriveMotors(speed,-speed);
+			}
+			if(ypr[0] > heading-5 && ypr[0] < heading)
+			{
+				drive->updateDriveMotors(.25,-.25);
+			}
+		}
+		drive->updateDriveMotors(0,0);
+	}
+	if(heading < 0)
+	{
+		while(ypr[0] > heading-2)
+		{
+			SmartDashboard::PutNumber("Gyro Value", ypr[0]);
+			drive->pGyon->GetYawPitchRoll(ypr);
+			if(ypr[0] > heading+5)
+			{
+				drive->updateDriveMotors(-speed,speed);
+			}
+			if(ypr[0] < heading+5 && ypr[0] > heading)
+			{
+				drive->updateDriveMotors(-.25,.25);
+			}
+		}
+		drive->updateDriveMotors(0,0);
+	}
+	drive->pGyon->SetYaw(0, 0);
+	Wait(.1);
+}
+
+void Auto::turnByGyro(float heading)
+{
+	while(autoTimer < Auto_Timeout)
+	{
+
+		drive->getYPR();
+		double currentHeading = drive->ypr[0];
+		gyroError = currentHeading - heading;
+		SmartDashboard::PutNumber("Gyro Value", ypr[0]);
+		SmartDashboard::PutNumber("Auto Timer", autoTimer);
+		if(gyroError < 3 && gyroError > -3)
+		{
+			autoTimer += 1;
+		}
+		if(gyroError > 3 || gyroError < -3)
+		{
+			drive->getYPR();
+			autoTimer = SmartDashboard::GetNumber("timer Value", 0);
+
+			float motorFactor = (gyroError/40.0);
+			if (motorFactor > 1) motorFactor = 1;
+			if (motorFactor < -1) motorFactor = -1;
+			float speed = Max_Motor_Velocity * motorFactor;
+			SmartDashboard::PutNumber("Gyro Value", ypr[0]);
+			drive->rearLeftMotor->Set(ControlMode::Velocity, -speed);
+			drive->frontLeftMotor->Set(ControlMode::Follower, Drive_Rear_Left_Motor_Channel);
+
+			drive->rearRightMotor->Set(ControlMode::Velocity, speed);
+			drive->frontRightMotor->Set(ControlMode::Follower, Drive_Rear_Right_Motor_Channel);
+			drive->getYPR();
+		}
+		Wait(.01);
+	}
+}

@@ -51,6 +51,7 @@ public:
 	void distanceDrive(float distance);
 	float getEncCount(float diameter);
 	void turnByGyro(float heading);
+	void sGyroTurn(float heading, float speed);
 
 
 	int autoSelector();

@@ -105,7 +105,7 @@ void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 {
 	leftIntakeMotor->Set(ControlMode::PercentOutput, .3);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, -.3);
-	Wait(1);
+	Wait(.5);
 	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
 }
