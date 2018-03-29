@@ -94,7 +94,7 @@ public:
 	void AutonomousPeriodic()
 	{
 		auton->drive->driveSmartDashboard();
-		if(auton->doAuto)auton->auto2();
+		if(auton->doAuto){auton->auto4(); if(atk3->GetRawButton(5)) auton->doAuto = 0;}
 		else
 		{
 			 auton->drive->updateLeftMotors(0);
