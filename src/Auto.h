@@ -52,17 +52,21 @@ public:
 	float getEncCount(float diameter);
 	void turnByGyro(float heading);
 	void sGyroTurn(float heading, float speed);
+	void testAuto();
 
 
 	int autoSelector();
 	bool doAuto;
+	bool startAuto;
+	double time;
 	Drive* drive;
 		Manipulator* manip;
 		Lift* lift;
+
 private:
 	std::string gameData;
-	Timer* timer;
 
+	Timer* timer;
 	DoxLog* doxLog;
 
 	int timerTime;

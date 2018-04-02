@@ -38,6 +38,7 @@ public:
 		//Compressor* comp599;
 
 		Compressor *comp599 = new Compressor();
+		Timer *timer = new Timer();
 		bool autoo;
 	//Drive* drive;
 	//Auto* auton = new Auto;
@@ -46,6 +47,7 @@ public:
 		xbox = new Joystick(0);
 		atk3 = new Joystick(1);
 		auton = new Auto();
+		timer->Timer::GetMatchTime();
 //		drive = new Drive();
 //		lift = new Lift();
 //		manip = new Manipulator();
@@ -89,20 +91,35 @@ public:
 		}*/
 
 		//autoo = true;
+		timer->Reset();
 	}
 
 	void AutonomousPeriodic()
 	{
 		auton->drive->driveSmartDashboard();
-		if(auton->doAuto){auton->auto4(); if(atk3->GetRawButton(5)) auton->doAuto = 0;}
-		else
-		{
-			 auton->drive->updateLeftMotors(0);
-			 auton->drive->updateRightMotors(0);
-			 auton->manip->stopManip();
-			 auton->lift->stopLift();
-		}
+		SmartDashboard::PutBoolean("doAuto", auton->doAuto);
+		SmartDashboard::PutBoolean("startAuto", auton->startAuto);
+		SmartDashboard::PutNumber("time", timer->Get());
 
+		timer->Start();
+		while(timer->Get() <15)
+		{
+			SmartDashboard::PutNumber("time", timer->Get());
+			if(auton->doAuto){auton->auto4(); if(atk3->GetRawButton(5)) auton->doAuto = 0;}
+			else
+			{
+				 auton->drive->updateLeftMotors(0);
+				 auton->drive->updateRightMotors(0);
+				 auton->manip->stopManip();
+				 auton->lift->stopLift();
+				 return;
+			}
+		}
+		auton->drive->updateLeftMotors(0);
+		 auton->drive->updateRightMotors(0);
+		 auton->manip->stopManip();
+		 auton->lift->stopLift();
+		return;
 //		if(autoo)
 //		{
 //			auton->drive->updateLeftMotors(.5);
@@ -172,9 +189,15 @@ public:
 		}*/
 	}
 
+	void DisabledPeriodic()
+	{
+		if(auton->startAuto)auton->doAuto = 0;
+	}
+
 	void TeleopInit()
 	{
 		//auton->drive->resetEncoder();
+		auton->doAuto = 0;
 	}
 
 	void TeleopPeriodic()
@@ -206,7 +229,8 @@ public:
 
 		auton->drive->driveSmartDashboard();
 
-
+		SmartDashboard::PutBoolean("doAuto", auton->doAuto);
+		SmartDashboard::PutBoolean("startAuto", auton->startAuto);
 	}
 
 	void TestPeriodic() {
