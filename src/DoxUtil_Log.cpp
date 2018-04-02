@@ -37,24 +37,18 @@ DoxLog::DoxLog(std::string path)
 
 	logFile.open(path + fileName + ".txt");
 
+	if(logFile.fail())
+	{
+		printf("fail");
+		m_isOpen = false;
+		this->close();
+	}
 	m_isOpen = true;
 }
 
 DoxLog::~DoxLog()
 {
 	this->close();
-}
-
-void DoxLog::LogIt(int level)
-{
-	if(level == 1)
-	{
-		LogIt("message", 0, level);
-	}
-	if(level == 2)
-	{
-		LogIt("message", 0, level);
-	}
 }
 
 void DoxLog::LogIt(std::string message, float value, int level)

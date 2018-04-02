@@ -23,8 +23,6 @@ public:
 
 	virtual ~DoxLog();
 
-	void LogIt(int level);
-
 	void LogIt(std::string message, float value, int level);
 
 	bool getIsOpen();
