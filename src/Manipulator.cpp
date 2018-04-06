@@ -23,7 +23,7 @@ Manipulator::Manipulator() //renews all booleans, digital inputs, and CANTalons 
     pot = new AnalogPotentiometer(3, 200, 0);
 
     currentPivot = 0;
-	targetPivot = 80;
+	targetPivot = 90;
 	errorPivot = 0;
 }
 
@@ -187,9 +187,9 @@ void Manipulator:: liftIntake (bool Lift, bool noLift, bool midLift, bool finalL
 
 void Manipulator::pivotIntake(bool down, bool shoot, bool up)
 {
-	if(up) targetPivot = 95;//140
-	if(shoot) targetPivot = 80;//135
-	if(down) targetPivot = 25;//60
+	if(up) targetPivot = 95;//140//95
+	if(shoot) targetPivot = 85;//135//80
+	if(down) targetPivot = 15;//60//25
 
 	currentPivot = pot->Get();
 	errorPivot = targetPivot-currentPivot;
@@ -198,9 +198,9 @@ void Manipulator::pivotIntake(bool down, bool shoot, bool up)
 
 void Manipulator::fixPivotError(float error)
 {
-	float movePivot = (error/100);
+	float movePivot = ((error/100)*1.8);
 
-	if(movePivot > .6) movePivot = .6;
+	if(movePivot > 1) movePivot = 1;
 	if(movePivot < -.2) movePivot = -.2;
 
 	if(pot->Get() <= 0)

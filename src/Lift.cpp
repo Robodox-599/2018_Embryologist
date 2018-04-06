@@ -23,7 +23,7 @@ Lift::Lift()
 	liftPiston->Set(DoubleSolenoid::kForward);
 
 	ropeRelease = new DoubleSolenoid(2,3);
-	ropeRelease->Set(DoubleSolenoid::kReverse);
+	ropeRelease->Set(DoubleSolenoid::kForward);
 
 	rungPiston = new DoubleSolenoid(6, 7);
 	rungPiston->Set(DoubleSolenoid::kReverse);
@@ -117,7 +117,7 @@ void Lift::liftRobot(float liftInput)
 		}
 		else if(canClimb && lowerLimit->Get())
 		{
-			setLiftMotors(.3);
+			setLiftMotors(.6);
 		}
 		else
 		{

@@ -56,6 +56,7 @@ public:
 		auton->drive->PIDset();
 		comp599->SetClosedLoopControl(true);
 		autoo = true;
+		CameraServer::GetInstance()->StartAutomaticCapture();
 		/*chooser.AddDefault(autoNameDefault, autoNameDefault);
 		chooser.AddObject(autoNameCustom, autoNameCustom);
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);*/
@@ -102,8 +103,6 @@ public:
 		SmartDashboard::PutNumber("time", timer->Get());
 
 		timer->Start();
-		while(timer->Get() <15)
-		{
 			SmartDashboard::PutNumber("time", timer->Get());
 			if(auton->doAuto){auton->auto4(); if(atk3->GetRawButton(5)) auton->doAuto = 0;}
 			else
@@ -114,7 +113,6 @@ public:
 				 auton->lift->stopLift();
 				 return;
 			}
-		}
 		auton->drive->updateLeftMotors(0);
 		 auton->drive->updateRightMotors(0);
 		 auton->manip->stopManip();
