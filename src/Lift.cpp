@@ -103,10 +103,10 @@ void Lift::liftRobot(float liftInput)
 //			backLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-.65));
 			setLiftMotors(-liftInput*(-.65));
 		}
-		else if (liftInput < -LIFT_DEADZONE && (!lowerLimit->Get() && getRightLiftEnc() < 3000))//buffer range
-		{
-			setLiftMotors(-liftInput*(-.3));
-		}
+//		else if (liftInput < -LIFT_DEADZONE && (!lowerLimit->Get() && getRightLiftEnc() < 3000))//buffer range
+//		{
+//			setLiftMotors(-liftInput*(-.3));
+//		}
 		else if((liftInput < -LIFT_DEADZONE) && getLeftLiftEnc() > 0 &&!lowerLimit->Get() && canClimb)//&& getRightLiftEnc() > 3000))
 		{
 //			frontRightLift->Set(ControlMode::PercentOutput,  -liftInput*(-1));
@@ -115,10 +115,10 @@ void Lift::liftRobot(float liftInput)
 //			backLeftLift->Set(ControlMode::PercentOutput, -liftInput*(-1));
 			setLiftMotors(-liftInput*(-1));
 		}
-		else if(canClimb && lowerLimit->Get())
-		{
-			setLiftMotors(.6);
-		}
+//		else if(canClimb && lowerLimit->Get())
+//		{
+//			setLiftMotors(.6);
+//		}
 		else
 		{
 //			frontRightLift->Set(ControlMode::PercentOutput, .05);
@@ -205,12 +205,12 @@ void Lift::releaseRope(bool release, bool reset)
 	if(release)
 	{
 		ropeRelease->Set(DoubleSolenoid::kForward);
-		canClimb = true;
+		canClimb = false;
 	}
 	if(reset)
 	{
 		ropeRelease->Set(DoubleSolenoid::kReverse);
-		canClimb = false;
+		canClimb = true;
 	}
 }
 float Lift::getLeftLiftEnc()

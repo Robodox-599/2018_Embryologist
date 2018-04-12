@@ -52,8 +52,8 @@ void Manipulator::intakeOuttakeCube(bool intake, bool outtake, float mod) //inta
 	else if (outtake)
 	{
 		//speed modified by the z axis on the Atk3. Bound from .6 to 1
-		leftIntakeMotor->Set(ControlMode::PercentOutput, (.2*(-mod+2))-.1);//75 or 6
-		rightIntakeMotor->Set(ControlMode::PercentOutput, (-.2*(-mod+2))-.1);//75 or 6
+		leftIntakeMotor->Set(ControlMode::PercentOutput, (.2*(-mod+2)));//75 or 6
+		rightIntakeMotor->Set(ControlMode::PercentOutput, (-.2*(-mod+2)));//75 or 6
 	}
 	else if(cubeStop->Get())
 	{
@@ -103,8 +103,8 @@ bool Manipulator::stoppingCube() //limit switch stops intake//
 
 void Manipulator:: AutoOuttake() //Outtake for (Dummy Value) seconds//
 {
-	leftIntakeMotor->Set(ControlMode::PercentOutput, .3);
-	rightIntakeMotor->Set(ControlMode::PercentOutput, -.3);
+	leftIntakeMotor->Set(ControlMode::PercentOutput, .35);
+	rightIntakeMotor->Set(ControlMode::PercentOutput, -.35);
 	Wait(.5);
 	leftIntakeMotor->Set(ControlMode::PercentOutput, 0);
 	rightIntakeMotor->Set(ControlMode::PercentOutput, 0);
@@ -187,7 +187,7 @@ void Manipulator:: liftIntake (bool Lift, bool noLift, bool midLift, bool finalL
 
 void Manipulator::pivotIntake(bool down, bool shoot, bool up)
 {
-	if(up) targetPivot = 95;//140//95
+	if(up) targetPivot = 100;//140//95
 	if(shoot) targetPivot = 85;//135//80
 	if(down) targetPivot = 15;//60//25
 
@@ -198,7 +198,7 @@ void Manipulator::pivotIntake(bool down, bool shoot, bool up)
 
 void Manipulator::fixPivotError(float error)
 {
-	float movePivot = ((error/100)*1.8);
+	float movePivot = (((error/100)*1.3)+.15);
 
 	if(movePivot > 1) movePivot = 1;
 	if(movePivot < -.2) movePivot = -.2;

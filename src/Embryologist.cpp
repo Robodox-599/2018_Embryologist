@@ -79,6 +79,11 @@ public:
 	 */
 	void AutonomousInit() override {
 		auton->drive->resetEncoder();
+		Timer t;
+		t.Reset();
+		t.Start();
+		// || timer.Get() < 1.0
+		while (frc::DriverStation::GetInstance().GetGameSpecificMessage().length() == 0 || t.Get() < 1.0) {}
 		auton->setGameData(frc::DriverStation::GetInstance().GetGameSpecificMessage());
 		auton->drive->pGyon->SetYaw(0, 0);
 		/*autoSelected = chooser.GetSelected();
@@ -104,7 +109,7 @@ public:
 
 		timer->Start();
 			SmartDashboard::PutNumber("time", timer->Get());
-			if(auton->doAuto){auton->auto4(); if(atk3->GetRawButton(5)) auton->doAuto = 0;}
+			if(auton->doAuto){auton->auto6(); if(atk3->GetRawButton(5)) auton->doAuto = 0;}
 			else
 			{
 				 auton->drive->updateLeftMotors(0);
